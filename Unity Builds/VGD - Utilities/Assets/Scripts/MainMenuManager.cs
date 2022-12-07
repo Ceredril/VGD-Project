@@ -16,6 +16,7 @@ public class MainMenuManager : MonoBehaviour
         if (GameDifficulty > 0)
         {
             PlayerPrefs.SetInt("SaveExists", 0);
+            PlayerPrefs.Save();
             SceneManager.LoadScene("GameView", LoadSceneMode.Single);
             Debug.Log("Started a new Game with difficulty: " + GameDifficulty);
         }

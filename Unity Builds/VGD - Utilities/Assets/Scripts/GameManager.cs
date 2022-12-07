@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
 
 private void MoveToMainMenu()
 {
-    //SceneManager.LoadScene("MainMenu"); GameStart();
     SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
 }
     private void ShowCursor(){Cursor.visible = true; Cursor.lockState = CursorLockMode.None;}

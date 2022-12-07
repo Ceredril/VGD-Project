@@ -32,6 +32,6 @@ public class DisplayPlayerStats : MonoBehaviour
             displayString += powerupCooldown.Key.ToString() + ": " + powerupCooldown.Value.ToString() + "\n";
         }
         PowerupCooldowns.text = displayString;
-        OtherInfos.text = "Last checkpoint:\n" + spawnManager.LastCheckpoint.ToString();
+        OtherInfos.text = "Last checkpoint:\n" + spawnManager.Instance.lastCheckpoint.ToString();
     }
 }

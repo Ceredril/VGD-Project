@@ -7,33 +7,44 @@ using UnityEngine;
 
 public class spawnManager : MonoBehaviour
 {
-    private Transform _spawnPoint;
-    public static Transform LastCheckpoint;
+    public Transform spawnPoint;
+    public Transform lastCheckpoint;
+    
+    public static spawnManager Instance;
 
+    private void Awake() => Instance = this;
     private void Start()
     {
-        _spawnPoint = GameObject.Find("checkPoint_0").transform;
-        LastCheckpoint = _spawnPoint;
         GameManager.OnGameStart += Spawn;
-        GameManager.OnPlayerSpawn += Spawn; //Temporary. This is just to use T to respawn
+        GameManager.OnPlayerSpawn += Respawn; //Temporary. This is just to use T to respawn
         GameManager.OnCheckpointReached += SetSpawnPoint;
     }
 
     private void OnDestroy()
     {
-        GameManager.OnPlayerSpawn -= Spawn;
+        GameManager.OnGameStart -= Spawn;
+        GameManager.OnPlayerSpawn -= Respawn;
         GameManager.OnCheckpointReached -= SetSpawnPoint;
     }
 
     private void SetSpawnPoint(Transform checkpoint)
     {
-        LastCheckpoint = checkpoint;
+        lastCheckpoint = checkpoint;   
         Debug.Log("Spawn point set");
     }
+
     private void Spawn()
     {
-        BodyMovement.instance.transform.position = LastCheckpoint.position;
+        BodyMovement.instance.transform.position = Instance.spawnPoint.position;
+        BodyMovement.instance.transform.rotation = Instance.spawnPoint.rotation;
         Physics.SyncTransforms();
         Debug.Log("Player spawned");
+    }
+    private void Respawn()
+    {
+        BodyMovement.instance.transform.position = lastCheckpoint.position;
+        BodyMovement.instance.transform.rotation = lastCheckpoint.rotation;
+        Physics.SyncTransforms();
+        Debug.Log("Player respawned");
     }
 }

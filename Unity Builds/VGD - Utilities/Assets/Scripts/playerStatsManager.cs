@@ -12,7 +12,8 @@ public class playerStatsManager : MonoBehaviour
     private static readonly int DefaultHealth = 80;
     private static readonly int DefaultMana = 80;
     private static readonly int DefaultStamina = 100;
-    
+
+    private Transform _lastPosition;
     private void Start()
     {
         GameManager.OnGameStart += SetStats;
@@ -31,24 +32,21 @@ public class playerStatsManager : MonoBehaviour
 
     private void SetStats()
     {
-        if(PlayerPrefs.GetInt("ExistingSave")==1)LoadProgress();
-        else if(PlayerPrefs.GetInt("ExistingSave")==0)LoadDefaultStats();
+        if(PlayerPrefs.GetInt("SaveExists")==1)LoadProgress();
+        else if(PlayerPrefs.GetInt("SaveExists")==0)LoadDefaultStats();
         else Debug.Log("Error while setting the stats");
     }
     
     private void SaveProgress()
     {
-        PlayerPrefs.SetInt("ExistingSave", 1);
+        PlayerPrefs.SetInt("SaveExists", 1);
         PlayerPrefs.SetInt("Lives", PlayerStats.CurrentLives);
         PlayerPrefs.SetInt("Health", PlayerStats.CurrentHealth);
         PlayerPrefs.SetInt("Mana", PlayerStats.CurrentMana);
         PlayerPrefs.SetInt("Stamina", PlayerStats.CurrentStamina);
-        //last position
-        PlayerPrefs.SetFloat("LastPosX", BodyMovement.instance.transform.position.x);
-        PlayerPrefs.SetFloat("LastPosY", BodyMovement.instance.transform.position.y);
-        PlayerPrefs.SetFloat("LastPosZ", BodyMovement.instance.transform.position.z);
         //last reached checkpoint
-        PlayerPrefs.SetString("LastCheckpoint", spawnManager.LastCheckpoint.name);
+        PlayerPrefs.SetString("LastCheckpoint", spawnManager.Instance.lastCheckpoint.name);
+        PlayerPrefs.Save();
         Debug.Log("Progress saved");
     }
 
@@ -58,20 +56,19 @@ public class playerStatsManager : MonoBehaviour
         PlayerStats.CurrentHealth = PlayerPrefs.GetInt("Health");
         PlayerStats.CurrentMana = PlayerPrefs.GetInt("Mana");
         PlayerStats.CurrentStamina = PlayerPrefs.GetInt("Stamina");
-        //last position
-        BodyMovement.instance.transform.position = new Vector3(PlayerPrefs.GetFloat("LastPosX"), PlayerPrefs.GetFloat("LastPosY"), PlayerPrefs.GetFloat("LastPosZ"));
-        //last reached checkpoint
-        spawnManager.LastCheckpoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
+        spawnManager.Instance.spawnPoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
+        spawnManager.Instance.lastCheckpoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
         Debug.Log("Progress loaded");
     }
 
     private void LoadDefaultStats()
     {
-        PlayerPrefs.SetString("ExistingSave", "FALSE");
         PlayerStats.CurrentLives = DefaultLives;
         PlayerStats.CurrentHealth = DefaultHealth;
         PlayerStats.CurrentMana = DefaultMana;
         PlayerStats.CurrentStamina = DefaultStamina;
+        spawnManager.Instance.spawnPoint = GameObject.Find("checkPoint_0").transform;
+        spawnManager.Instance.lastCheckpoint = GameObject.Find("checkPoint_0").transform;
         Debug.Log("Default stats set.");
     }
     
@@ -82,6 +79,7 @@ public class playerStatsManager : MonoBehaviour
             PlayerStats.CurrentLives = 0;
             GameManager.GameOver();
         }else PlayerStats.CurrentLives = amount;
+        Debug.Log("Lives set");
     }
     
     private static void SetCurrentHealth(int amount)
@@ -91,7 +89,7 @@ public class playerStatsManager : MonoBehaviour
             PlayerStats.CurrentHealth = 0;
             GameManager.PlayerDeath();
         }else PlayerStats.CurrentHealth = amount;
-        Debug.Log("Health: " + PlayerStats.CurrentHealth);
+        Debug.Log("Health set");
     }
     
     private static void SetCurrentMana(int amount)
@@ -99,7 +97,7 @@ public class playerStatsManager : MonoBehaviour
         if (amount > MaxMana) PlayerStats.CurrentMana = MaxMana;
         else if (amount < 0) PlayerStats.CurrentMana = 0;
         else PlayerStats.CurrentMana = amount;
-        Debug.Log("Mana: " + PlayerStats.CurrentMana);
+        Debug.Log("Mana set");
     }
     
     public static void SetCurrentStamina(int amount)
@@ -107,6 +105,7 @@ public class playerStatsManager : MonoBehaviour
         if (amount > MaxStamina) PlayerStats.CurrentStamina = MaxStamina;
         else if (amount < 0) PlayerStats.CurrentStamina = 0;
         else PlayerStats.CurrentStamina = amount;
+        Debug.Log("Stamina set");
     }
 
 

@@ -17,6 +17,7 @@ public class spawnManager : MonoBehaviour
     {
         GameManager.OnGameStart += Spawn;
         GameManager.OnPlayerSpawn += Respawn; //Temporary. This is just to use T to respawn
+        GameManager.OnPlayerDeath += Respawn;
         GameManager.OnCheckpointReached += SetSpawnPoint;
     }
 
@@ -24,6 +25,7 @@ public class spawnManager : MonoBehaviour
     {
         GameManager.OnGameStart -= Spawn;
         GameManager.OnPlayerSpawn -= Respawn;
+        GameManager.OnPlayerDeath -= Respawn;
         GameManager.OnCheckpointReached -= SetSpawnPoint;
     }
 
@@ -38,13 +40,12 @@ public class spawnManager : MonoBehaviour
         BodyMovement.instance.transform.position = Instance.spawnPoint.position;
         BodyMovement.instance.transform.rotation = Instance.spawnPoint.rotation;
         Physics.SyncTransforms();
-        Debug.Log("Player spawned");
     }
     private void Respawn()
     {
+        if (GameManager.GameIsOver) return;
         BodyMovement.instance.transform.position = lastCheckpoint.position;
         BodyMovement.instance.transform.rotation = lastCheckpoint.rotation;
         Physics.SyncTransforms();
-        Debug.Log("Player respawned");
     }
 }

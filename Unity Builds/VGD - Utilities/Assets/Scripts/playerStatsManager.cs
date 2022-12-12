@@ -20,6 +20,8 @@ public class playerStatsManager : MonoBehaviour
         GameManager.OnGameSave += SaveProgress;
         GameManager.OnManaCollected += AddMana;
         GameManager.OnHealthCollected += AddHealth;
+        GameManager.OnPlayerDeath += ReduceLives;
+        GameManager.OnPlayerAttackedMelee += AddHealth;
     }
 
     private void OnDestroy()
@@ -28,6 +30,8 @@ public class playerStatsManager : MonoBehaviour
         GameManager.OnGameSave -= SaveProgress;
         GameManager.OnManaCollected -= AddMana;
         GameManager.OnHealthCollected -= AddHealth;
+        GameManager.OnPlayerDeath -= ReduceLives;
+        GameManager.OnPlayerAttackedMelee -= AddHealth;
     }
 
     private void SetStats()
@@ -44,7 +48,6 @@ public class playerStatsManager : MonoBehaviour
         PlayerPrefs.SetInt("Health", PlayerStats.CurrentHealth);
         PlayerPrefs.SetInt("Mana", PlayerStats.CurrentMana);
         PlayerPrefs.SetInt("Stamina", PlayerStats.CurrentStamina);
-        //last reached checkpoint
         PlayerPrefs.SetString("LastCheckpoint", spawnManager.Instance.lastCheckpoint.name);
         PlayerPrefs.Save();
         Debug.Log("Progress saved");
@@ -79,17 +82,17 @@ public class playerStatsManager : MonoBehaviour
             PlayerStats.CurrentLives = 0;
             GameManager.GameOver();
         }else PlayerStats.CurrentLives = amount;
-        Debug.Log("Lives set");
+        Debug.Log("Lives set to " + PlayerStats.CurrentLives);
     }
     
     private static void SetCurrentHealth(int amount)
     {
         if (amount > MaxHealth) PlayerStats.CurrentHealth = MaxHealth;
-        else if (amount < 0) {
-            PlayerStats.CurrentHealth = 0;
+        else if (amount < 1) {
+            PlayerStats.CurrentHealth = DefaultHealth;
             GameManager.PlayerDeath();
         }else PlayerStats.CurrentHealth = amount;
-        Debug.Log("Health set");
+        Debug.Log("Health set to " + PlayerStats.CurrentHealth);
     }
     
     private static void SetCurrentMana(int amount)
@@ -97,7 +100,7 @@ public class playerStatsManager : MonoBehaviour
         if (amount > MaxMana) PlayerStats.CurrentMana = MaxMana;
         else if (amount < 0) PlayerStats.CurrentMana = 0;
         else PlayerStats.CurrentMana = amount;
-        Debug.Log("Mana set");
+        Debug.Log("Mana set to " + PlayerStats.CurrentMana);
     }
     
     public static void SetCurrentStamina(int amount)

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,17 +18,17 @@ public class PlayerStats : MonoBehaviour
     public static int CurrentHealth;
     public static int CurrentMana;
     public static int CurrentStamina;
+    public static bool GameIsOver=true;
     public static Dictionary<KeyCode, int> CurrentPowerupCooldown = new Dictionary<KeyCode, int>();
 
     public static string StartParams = playerStatsManager.MaxLives + " mL\n" + playerStatsManager.MaxHealth + " mH\n" + playerStatsManager.MaxMana + " mM\n" + playerStatsManager.MaxStamina + " mS";
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         foreach (KeyValuePair<KeyCode, int> powerupCooldown in PlayerStats._maxPowerupCooldown) // initializes all cooldowns as 0
         {
             CurrentPowerupCooldown[powerupCooldown.Key] = 0;
         }
-
     }
 }

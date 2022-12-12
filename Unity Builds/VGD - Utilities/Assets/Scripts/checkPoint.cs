@@ -6,8 +6,6 @@ using UnityEngine;
  */
 public class checkPoint : MonoBehaviour
 {
-    private void Awake() => enabled = true;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -16,6 +14,8 @@ public class checkPoint : MonoBehaviour
             GameManager.CheckpointReached(transform);
             //This disables the checkPoint after it's been reached.
             GetComponent<Collider>().enabled = false;
+            gameObject.GetComponent<Collider>().enabled = false;
+            gameObject.GetComponent<Collider>().isTrigger = false;
             Debug.Log("Checkpoint reached! " + name);
         }
     }

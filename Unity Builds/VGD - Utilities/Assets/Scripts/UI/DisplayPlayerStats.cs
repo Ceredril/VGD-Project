@@ -21,6 +21,7 @@ public class DisplayPlayerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.GameIsOver)gameObject.SetActive(false);
         Lives.text = "Lives:\n" + PlayerStats.CurrentLives.ToString();
         Health.text = "Health:\n" + PlayerStats.CurrentHealth.ToString();
         Mana.text = "Mana:\n" + PlayerStats.CurrentMana.ToString();

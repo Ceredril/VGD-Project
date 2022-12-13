@@ -35,11 +35,13 @@ public class BodyMovement : MonoBehaviour
     private void Update()
     {
         instance.Move();
+        if(GameManager.GameIsOver)this.gameObject.SetActive(false);
     }
 
 
     public void Move()
-    { 
+    {
+        if (GameManager.GameIsOver) return;
         //Get keyboard inputs
         float keyboardInputHorizontal = Input.GetAxis("Horizontal");
         float keyboardInputVertical = Input.GetAxis("Vertical"); 

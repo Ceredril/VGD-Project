@@ -9,14 +9,14 @@ public class spawnManager : MonoBehaviour
 {
     public Transform spawnPoint;
     public Transform lastCheckpoint;
-    
+
     public static spawnManager Instance;
 
     private void Awake() => Instance = this;
     private void Start()
     {
         GameManager.OnGameStart += Spawn;
-        GameManager.OnPlayerSpawn += Respawn; //Temporary. This is just to use T to respawn
+        GameManager.OnPlayerSpawn += Respawn; // Temporary. This is just to use T to respawn
         GameManager.OnCheckpointReached += SetSpawnPoint;
     }
 
@@ -29,7 +29,7 @@ public class spawnManager : MonoBehaviour
 
     private void SetSpawnPoint(Transform checkpoint)
     {
-        lastCheckpoint = checkpoint;   
+        lastCheckpoint = checkpoint;
         Debug.Log("Spawn point set");
     }
 

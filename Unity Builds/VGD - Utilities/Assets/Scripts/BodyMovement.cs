@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 
 public class BodyMovement : MonoBehaviour
@@ -6,7 +7,7 @@ public class BodyMovement : MonoBehaviour
     //Object references
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform characterCamera;
-    
+
     //Movement variables
     [SerializeField] private float walkingSpeed = 2f;
     [SerializeField] private float sprintSpeed = 4f;

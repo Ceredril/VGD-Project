@@ -2,16 +2,18 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyNpc : MonoBehaviour
+public class RangedEnemy : MonoBehaviour
 {
     private NavMeshAgent _agent;
     private Transform _player;
+    [SerializeField] private Rigidbody _bullet;
 
-    private readonly float _sightRange = 10f;
-    private readonly float _walkPointRange = 5f;
-    private readonly float _attackRange = 2f;
+    private readonly float _sightRange = 18f;
+    private readonly float _walkPointRange = 6f;
+    private readonly float _attackRange = 12f;
     private bool _canAttack=true;
-    private readonly float _attackCooldown = 4f;
+    private readonly float _attackCooldown = 1f;
+    private readonly float _bulletSpeed = 2000f;
 
     private LayerMask _groundLayer, _playerLayer;
 
@@ -30,9 +32,11 @@ public class EnemyNpc : MonoBehaviour
 
     void Update()
     {
-        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack)AttackPlayer();
-        else if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer)) ChasePlayer();
+        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack) AttackPlayer();
+        
+        if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer)) ChasePlayer();
         else Patrolling();
+        
 
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
         if (distanceToWalkPoint.magnitude < 1f) _walkPointSet = false;
@@ -59,7 +63,10 @@ public class EnemyNpc : MonoBehaviour
 
     private void AttackPlayer()
     {
-        GameManager.PlayerAttackedMelee(Random.Range(-15, -30));
+        Transform thisTransform = transform;
+        Rigidbody bulletClone = Instantiate(_bullet, thisTransform.position, thisTransform.rotation);
+        Vector3 bulletDirection = _player.position - transform.position;
+        bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
         StartCoroutine(AttackCooldown());
     }
 

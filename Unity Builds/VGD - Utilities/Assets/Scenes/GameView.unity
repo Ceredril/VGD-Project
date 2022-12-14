@@ -3445,7 +3445,7 @@ GameObject:
   - component: {fileID: 889668589}
   - component: {fileID: 889668592}
   m_Layer: 0
-  m_Name: Test Cube
+  m_Name: Talking Test Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3551,8 +3551,9 @@ MonoBehaviour:
 
       ...'
     - This text is accessable in the Unity Inspector Window, on the Script component
-      on myself.
+      attached to myself.
     - I hope you had fun interacting with me...
+  typingSpeed: 0.02
   radius: 3
   InteractableKey: 101
 --- !u!1 &920438137
@@ -8817,8 +8818,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
   characterCamera: {fileID: 0}
-  walkingSpeed: 2
-  sprintSpeed: 4
+  walkingSpeed: 4
+  sprintSpeed: 8
   jumpForce: 4
 --- !u!136 &4026302132420472433
 CapsuleCollider:

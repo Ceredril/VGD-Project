@@ -13,10 +13,10 @@ public enum InteractableTypes { dialogueType, gameEventType, uselessType };
 public class InteractableObjects : MonoBehaviour
 {
     DialogueManager dialogueManager;
-    Transform interactionTransform;
     Transform playerTransform;
     public InteractableTypes CurrentInteractableType;
     public CreateDialogue dialogue;
+    public float typingSpeed = 0.02f;
     public float radius = 3f;
     public KeyCode InteractableKey = KeyCode.E; // Changeable
     bool isInteracting = false;
@@ -25,13 +25,12 @@ public class InteractableObjects : MonoBehaviour
     private void Start()
     {
         dialogueManager = FindObjectOfType<DialogueManager>();
-        interactionTransform = this.transform;
         playerTransform = GameObject.Find("Player Body").GetComponent<Transform>();
     }
 
     void Update()
     {
-        float distance = Vector3.Distance(playerTransform.position, interactionTransform.position);
+        float distance = Vector3.Distance(playerTransform.position, this.transform.position);
 
         // If the player is close enough
         if (Input.GetKeyDown(InteractableKey))
@@ -56,7 +55,7 @@ public class InteractableObjects : MonoBehaviour
                 }
                 else
                 {
-                    dialogueManager.StartDialogue(dialogue);
+                    dialogueManager.StartDialogue(dialogue, typingSpeed);
                     isInteracting = dialogueManager.DisplayNextSentence();
                 }
                 break;
@@ -72,6 +71,6 @@ public class InteractableObjects : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(interactionTransform.position, radius);
+        Gizmos.DrawWireSphere(this.transform.position, radius);
     }
 }

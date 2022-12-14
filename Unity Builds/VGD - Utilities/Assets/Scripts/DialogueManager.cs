@@ -10,8 +10,8 @@ public class DialogueManager : MonoBehaviour
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
-
     public Animator animator;
+    float _typingSpeed;
 
     private Queue<string> sentences;
 
@@ -21,8 +21,9 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
-    public void StartDialogue(CreateDialogue dialogue)
+    public void StartDialogue(CreateDialogue dialogue, float typingspeed)
     {
+        _typingSpeed= typingspeed;
         Debug.Log("Starting conversation with: " + dialogue.name);
         animator.SetBool("IsOpen", true);
 
@@ -56,7 +57,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return null;
+            yield return new WaitForSecondsRealtime(_typingSpeed);
         }
     }
 

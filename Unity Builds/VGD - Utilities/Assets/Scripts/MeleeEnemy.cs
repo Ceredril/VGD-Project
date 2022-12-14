@@ -8,7 +8,7 @@ public class MeleeEnemy : MonoBehaviour
     private Transform _player;
 
     private readonly float _sightRange = 10f;
-    private readonly float _walkPointRange = 5f;
+    private readonly float _walkPointRange = 6f;
     private readonly float _attackRange = 2f;
     private bool _canAttack=true;
     private readonly float _attackCooldown = 4f;
@@ -16,7 +16,6 @@ public class MeleeEnemy : MonoBehaviour
     private LayerMask _groundLayer, _playerLayer;
 
     private Vector3 _walkPoint;
-    //private bool _playerInSightRange;
     private bool _walkPointSet;
 
     private void Awake()
@@ -31,7 +30,6 @@ public class MeleeEnemy : MonoBehaviour
     void Update()
     {
         if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack)AttackPlayer();
-        
         if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer)) ChasePlayer();
         else Patrolling();
         

@@ -36,7 +36,7 @@ public class BodyMovement : MonoBehaviour
     private void Update()
     {
         instance.Move();
-        if(GameManager.GameIsOver)this.gameObject.SetActive(false);
+        if(GameManager.GameIsOver)gameObject.SetActive(false);
     }
 
 

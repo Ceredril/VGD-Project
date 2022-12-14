@@ -33,7 +33,6 @@ public class RangedEnemy : MonoBehaviour
     void Update()
     {
         if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack) AttackPlayer();
-        
         if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer)) ChasePlayer();
         else Patrolling();
         

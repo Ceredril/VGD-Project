@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 2
-    agentSlope: 45
+    agentRadius: 0.15
+    agentHeight: 1.5
+    agentSlope: 60
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.05
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 593681f145ff73d4caf29b289b5c24d0, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d139f4f09c1da544a9ba2adedc09d446, type: 2}
 --- !u!1 &26086166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1011,7 @@ RectTransform:
   m_GameObject: {fileID: 263198730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.6004, y: 3.6004, z: 3.6004}
+  m_LocalScale: {x: 0.95929056, y: 0.95929056, z: 0.95929056}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 745546987}
@@ -1020,7 +1020,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -120}
+  m_AnchoredPosition: {x: 0.000030518, y: -24}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &263198732
@@ -1742,7 +1742,7 @@ GameObject:
   - component: {fileID: 512177010}
   - component: {fileID: 512177009}
   - component: {fileID: 512177008}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Ranged Enemy NPC Test Area
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2059,7 +2059,7 @@ GameObject:
   - component: {fileID: 597028034}
   - component: {fileID: 597028033}
   - component: {fileID: 597028032}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3150,7 +3150,7 @@ GameObject:
   - component: {fileID: 836839427}
   - component: {fileID: 836839426}
   - component: {fileID: 836839425}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4098,7 +4098,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1166444195}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4531,7 +4531,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1279193138
 Transform:
@@ -4564,7 +4564,7 @@ GameObject:
   - component: {fileID: 1310899999}
   - component: {fileID: 1310899998}
   - component: {fileID: 1310899997}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4871,7 +4871,7 @@ RectTransform:
   m_GameObject: {fileID: 1403367344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.6004, y: 3.6004, z: 3.6004}
+  m_LocalScale: {x: 0.97022456, y: 0.97022456, z: 0.97022456}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1920611526}
@@ -4880,7 +4880,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 64}
+  m_AnchoredPosition: {x: 0.000030518, y: 11.8841}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1403367346
@@ -5266,7 +5266,7 @@ RectTransform:
   m_GameObject: {fileID: 1563824163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.8313746, y: 3.3320236, z: 3.3320236}
+  m_LocalScale: {x: 1.5537115, y: 0.88778436, z: 0.88778436}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1752358375}
@@ -5274,7 +5274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 7}
+  m_AnchoredPosition: {x: 0.000030518, y: 9.837996}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1563824165
@@ -5402,7 +5402,7 @@ RectTransform:
   m_GameObject: {fileID: 1600777785}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.6004, y: 3.6004, z: 3.6004}
+  m_LocalScale: {x: 0.97022456, y: 0.97022456, z: 0.97022456}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1626683435}
@@ -5411,7 +5411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 224}
+  m_AnchoredPosition: {x: 0.000030518, y: 55}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1600777787
@@ -7626,7 +7626,7 @@ RectTransform:
   m_GameObject: {fileID: 2036914548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.6004, y: 3.6004, z: 3.6004}
+  m_LocalScale: {x: 0.97022456, y: 0.97022456, z: 0.97022456}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 680754705}
@@ -7635,7 +7635,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -249}
+  m_AnchoredPosition: {x: 0.000030518, y: -72.463}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2036914550
@@ -7952,7 +7952,7 @@ GameObject:
   - component: {fileID: 2111871042}
   - component: {fileID: 2111871041}
   - component: {fileID: 2111871040}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8907,7 +8907,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133116236145}
-  m_LocalRotation: {x: -0.038376518, y: -0.000000002149213, z: -8.254012e-11, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: 0.0000000021492135, z: 8.2540134e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

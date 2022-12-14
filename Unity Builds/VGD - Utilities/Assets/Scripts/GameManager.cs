@@ -9,9 +9,8 @@ public class GameManager : MonoBehaviour
     public static event Action<int> OnManaCollected, OnHealthCollected, OnLivesCollected;
     public static event Action<Transform> OnCheckpointReached;
     public static event Action OnGameStart, OnGamePause, OnGameSave, OnGameResume, OnGameEnd, OnGameOver;
-    public static event Action OnObjectInteraction;
 
-    public static event Action<int> OnPlayerAttackedMelee;
+    public static event Action<int> OnPlayerAttackedMelee, OnPlayerAttackedRanged;
 
     public static bool GameIsOver;
     private void Start()
@@ -26,8 +25,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver) GamePause();
-        if (Input.GetKeyDown(KeyCode.T)) PlayerSpawn();
+        if(Input.GetKeyDown(KeyCode.Escape) && !GameIsOver)GamePause();
+        if(Input.GetKeyDown(KeyCode.T))PlayerSpawn();
     }
 
     private void MoveToMainMenu() => SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
@@ -37,9 +36,9 @@ public class GameManager : MonoBehaviour
     public static void HealthCollected(int amount) => OnHealthCollected?.Invoke(amount);
     public static void LivesCollected(int amount) => OnLivesCollected?.Invoke(amount);
     public static void CheckpointReached(Transform checkpoint) => OnCheckpointReached?.Invoke(checkpoint);
-
-    public static void PlayerSpawn() { Debug.Log("Player spawned"); OnPlayerSpawn?.Invoke(); }
-    public static void PlayerDeath() { Debug.Log("Player died"); OnPlayerDeath?.Invoke(); }
+    
+    public static void PlayerSpawn(){Debug.Log("Player spawned");OnPlayerSpawn?.Invoke();}
+    public static void PlayerDeath(){Debug.Log("Player died"); OnPlayerDeath?.Invoke();}
 
     public static void GameStart()
     {
@@ -47,9 +46,9 @@ public class GameManager : MonoBehaviour
         GameIsOver = false;
         OnGameStart?.Invoke();
     }
-    public static void GamePause() { Debug.Log("Game paused"); OnGamePause?.Invoke(); }
-    public static void GameSave() { Debug.Log("Game saved"); OnGameSave?.Invoke(); }
-    public static void GameResume() { Debug.Log("Game resumed"); OnGameResume?.Invoke(); }
+    public static void GamePause(){Debug.Log("Game paused");OnGamePause?.Invoke();}
+    public static void GameSave(){Debug.Log("Game saved");OnGameSave?.Invoke();}
+    public static void GameResume(){Debug.Log("Game resumed");OnGameResume?.Invoke();}
 
     public static void GameOver()
     {
@@ -57,8 +56,8 @@ public class GameManager : MonoBehaviour
         GameIsOver = true;
         OnGameOver?.Invoke();
     }
-    public static void GameEnd() { Debug.Log("Game ended"); OnGameEnd?.Invoke(); }
-
-    public static void PlayerAttackedMelee(int damage) { Debug.Log("Player took " + damage + " melee damage"); OnPlayerAttackedMelee?.Invoke(damage); }
-    public static void ObjectInteraction() { Debug.Log("Interacted with an Object"); OnObjectInteraction?.Invoke(); }
+    public static void GameEnd(){Debug.Log("Game ended");OnGameEnd?.Invoke();}
+    
+    public static void PlayerAttackedMelee(int damage){Debug.Log("Player took " + damage + " melee damage"); OnPlayerAttackedMelee?.Invoke(damage);}
+    public static void PlayerAttackedRanged(int damage){Debug.Log("Player took " + damage + " ranged damage"); OnPlayerAttackedRanged?.Invoke(damage);}
 }

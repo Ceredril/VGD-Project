@@ -22,6 +22,7 @@ public class playerStatsManager : MonoBehaviour
         GameManager.OnHealthCollected += AddHealth;
         GameManager.OnPlayerDeath += ReduceLives;
         GameManager.OnPlayerAttackedMelee += AddHealth;
+        GameManager.OnPlayerAttackedRanged += AddHealth;
     }
 
     private void OnDestroy()
@@ -32,6 +33,7 @@ public class playerStatsManager : MonoBehaviour
         GameManager.OnHealthCollected -= AddHealth;
         GameManager.OnPlayerDeath -= ReduceLives;
         GameManager.OnPlayerAttackedMelee -= AddHealth;
+        GameManager.OnPlayerAttackedRanged -= AddHealth;
     }
 
     private void SetStats()

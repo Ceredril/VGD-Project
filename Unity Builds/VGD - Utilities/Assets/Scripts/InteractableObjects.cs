@@ -5,29 +5,38 @@ using UnityEngine;
 /*
  * Types of interactables:
  * Executes a later specified game event (Starts combat or sth)
- * Displays a DialogueType
+ * Displays a Dialogue
  * Changes the players Stats in some way
  */
 
-public enum InteractableTypes { DialogueType, gameEventType, uselessType };
+public enum InteractableTypes { dialogueType, gameEventType, uselessType };
 public class InteractableObjects : MonoBehaviour
 {
+    DialogueManager dialogueManager;
+    Transform interactionTransform;
+    Transform playerTransform;
     public InteractableTypes CurrentInteractableType;
     public CreateDialogue dialogue;
     public float radius = 3f;
-    public Transform interactionTransform;
     public KeyCode InteractableKey = KeyCode.E; // Changeable
+    bool isInteracting = false;
 
-    public Transform player;       // Reference to the player transform
+
+    private void Start()
+    {
+        dialogueManager = FindObjectOfType<DialogueManager>();
+        interactionTransform = this.transform;
+        playerTransform = GameObject.Find("Player Body").GetComponent<Transform>();
+    }
 
     void Update()
     {
-        float distance = Vector3.Distance(player.position, interactionTransform.position);
+        float distance = Vector3.Distance(playerTransform.position, interactionTransform.position);
 
         // If the player is close enough
-        if (distance <= radius)
+        if (Input.GetKeyDown(InteractableKey))
         {
-            if (Input.GetKeyDown(InteractableKey))
+            if (distance <= radius || isInteracting)
             {
                 Interact();
             }
@@ -40,8 +49,16 @@ public class InteractableObjects : MonoBehaviour
         GameManager.ObjectInteraction();
         switch (CurrentInteractableType)
         {
-            case InteractableTypes.DialogueType:
-                FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+            case InteractableTypes.dialogueType:
+                if (isInteracting)
+                {
+                    isInteracting = dialogueManager.DisplayNextSentence();
+                }
+                else
+                {
+                    dialogueManager.StartDialogue(dialogue);
+                    isInteracting = dialogueManager.DisplayNextSentence();
+                }
                 break;
             case InteractableTypes.gameEventType:
                 break;

@@ -21,16 +21,17 @@ public class DisplayPlayerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.GameIsOver)gameObject.SetActive(false);
+        if (GameManager.GameIsOver) gameObject.SetActive(false);
         Lives.text = "Lives:\n" + PlayerStats.CurrentLives.ToString();
         Health.text = "Health:\n" + PlayerStats.CurrentHealth.ToString();
         Mana.text = "Mana:\n" + PlayerStats.CurrentMana.ToString();
         Stamina.text = "Stamina:\n" + PlayerStats.CurrentStamina.ToString();
         StartParameters.text = "Start Parameters:\n" + PlayerStats.StartParams;
         string displayString = "Powerup Cooldowns:\n";
-        foreach (KeyValuePair<KeyCode, int> powerupCooldown in PlayerStats.CurrentPowerupCooldown)
+        foreach (KeyValuePair<KeyCode, Cooldown> ability in AbilityManager.PlayerAbilities)
         {
-            displayString += powerupCooldown.Key.ToString() + ": " + powerupCooldown.Value.ToString() + "\n";
+            float currentCooldown = ability.Value._nextCooldownTime - Time.time;
+            displayString += ability.Key.ToString() + ": " + (currentCooldown > 0 ? currentCooldown : 0).ToString() + "\n";
         }
         PowerupCooldowns.text = displayString;
         OtherInfos.text = "Last checkpoint:\n" + spawnManager.Instance.lastCheckpoint.ToString();

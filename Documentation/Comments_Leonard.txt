@@ -1,11 +1,4 @@
-OVERALL:
-I dont know how it is for you or if that only happens because it is in the dev environment
-but if I run the game and turn my mouse a bit too fast the screen starts jumping a bit. Maybe we have to
-adjust some frame/update rate to stop that.
+Music with ecrett music?
 
-CAMERA:
-Pretty slick!
-something I especially noticed was how it is able to adjust its distance depending on the speed the player is going at.
-Pretty nice.
-Other than that I have no idea what is and what is not important since I did not dig into the topic that deep. But I
-appreciate you giving so much effort to getting a nicely working rotational view!
+We might need to set up a naming scheme for variables (when to use _, camelCase etc)
+https://en.wikipedia.org/wiki/Naming_convention_(programming)

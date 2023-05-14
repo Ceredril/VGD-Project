@@ -32,7 +32,8 @@ public class MeleeEnemy : MonoBehaviour
         if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack)AttackPlayer();
         if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer)) ChasePlayer();
         else Patrolling();
-        
+
+      
 
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
         if (distanceToWalkPoint.magnitude < 1f) _walkPointSet = false;

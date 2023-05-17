@@ -23,10 +23,6 @@ public class BodyMovement : MonoBehaviour
     private readonly float _gravity = 9.81f;
     private float _verticalSpeed;
 
-    //Camera variables
-    private float _turnSmoothTime;
-    private readonly float _turnSmoothVelocity = 0.001f;
-
     //Public instance
     public static BodyMovement instance;
 
@@ -37,9 +33,6 @@ public class BodyMovement : MonoBehaviour
         instance.characterController = FindObjectOfType<CharacterController>();
         instance.characterCamera = FindObjectOfType<Camera>().transform;
         animator = GetComponentInChildren<Animator>();
-
-
-
     }
 
     private void Update()
@@ -58,14 +51,31 @@ public class BodyMovement : MonoBehaviour
         float keyboardInputVertical = Input.GetAxis("Vertical");
         Vector3 movementDirection = new Vector3(keyboardInputHorizontal, 0f, keyboardInputVertical).normalized;
 
-        //While the character's moving, match the moving direction to the direction at which the camera is aiming
+
+        // Get the camera's forward direction without the vertical component
+        Vector3 cameraForward = characterCamera.forward;
+        cameraForward.y = 0f;
+        cameraForward.Normalize();
+
+        // Rotate the character to face the camera direction
+        if (cameraForward.magnitude >= 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+            transform.rotation = targetRotation;
+        }
+
+        // Calculate the movement vector in the camera's relative direction
+        Vector3 movement = movementDirection.x * characterCamera.right + movementDirection.z * cameraForward;
+        movement.Normalize();
+
+        // If the character is moving, apply the movement to the character controller
         if (movementDirection.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + characterCamera.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothTime, _turnSmoothVelocity);
-            instance.transform.rotation = Quaternion.Euler(0f, angle, 0f);
             movementDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
+
+        
         //If user presses Spacebar and the character is grounded, apply jump force. Otherwise let it fall :D
         if (Input.GetKeyDown(KeyCode.Space) && instance.characterController.isGrounded) {
             _verticalSpeed = jumpForce;

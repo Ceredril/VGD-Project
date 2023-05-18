@@ -63,7 +63,7 @@ public class RangedEnemy : MonoBehaviour
     private void AttackPlayer()
     {
         Transform thisTransform = transform;
-        Rigidbody bulletClone = Instantiate(_bullet, thisTransform.position, thisTransform.rotation);
+        Rigidbody bulletClone = Instantiate(_bullet, thisTransform.position+new Vector3(0,1f,0), thisTransform.rotation);
         Vector3 bulletDirection = _player.position - transform.position;
         bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
         StartCoroutine(AttackCooldown());

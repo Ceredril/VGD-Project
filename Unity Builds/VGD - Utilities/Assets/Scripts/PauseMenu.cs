@@ -1,10 +1,14 @@
 using UnityEngine;
+using Cinemachine;
+
 
 public class PauseMenu : MonoBehaviour
 {
     public void OnGameResume() => GameManager.GameResume();
     public void OnGameSave() => GameManager.GameSave();
     public void OnGameEnd() => GameManager.GameEnd();
+
+    private CinemachineBrain cameraBrain;
     
     private void Start()
     {
@@ -12,6 +16,7 @@ public class PauseMenu : MonoBehaviour
         GameManager.OnGamePause += Pause;
         GameManager.OnGameResume += Resume;
         GameManager.OnGameEnd += Unpause;
+        cameraBrain = FindObjectOfType<Camera>().GetComponent<CinemachineBrain>();
     }
 
     private void OnDestroy()
@@ -26,6 +31,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        cameraBrain.enabled = false;
         gameObject.SetActive(true);
     }
 
@@ -34,6 +40,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        cameraBrain.enabled = true;
         gameObject.SetActive(false);
     }
 

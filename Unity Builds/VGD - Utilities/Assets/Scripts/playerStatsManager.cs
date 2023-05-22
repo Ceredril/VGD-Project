@@ -20,6 +20,7 @@ public class playerStatsManager : MonoBehaviour
         GameManager.OnGameSave += SaveProgress;
         GameManager.OnManaCollected += AddMana;
         GameManager.OnHealthCollected += AddHealth;
+        GameManager.OnLivesCollected += IncreaseLives;
         GameManager.OnPlayerDeath += ReduceLives;
         GameManager.OnPlayerAttackedMelee += AddHealth;
         GameManager.OnPlayerAttackedRanged += AddHealth;
@@ -31,6 +32,7 @@ public class playerStatsManager : MonoBehaviour
         GameManager.OnGameSave -= SaveProgress;
         GameManager.OnManaCollected -= AddMana;
         GameManager.OnHealthCollected -= AddHealth;
+        GameManager.OnLivesCollected -= IncreaseLives;
         GameManager.OnPlayerDeath -= ReduceLives;
         GameManager.OnPlayerAttackedMelee -= AddHealth;
         GameManager.OnPlayerAttackedRanged -= AddHealth;
@@ -114,9 +116,9 @@ public class playerStatsManager : MonoBehaviour
     }
 
 
-    private void IncreaseLives()
+    private void IncreaseLives(int amount)
     {
-        int newLive = PlayerStats.CurrentLives + 1;
+        int newLive = PlayerStats.CurrentLives + amount;
         SetCurrentLives(newLive);
     }
     

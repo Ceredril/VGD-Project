@@ -31,14 +31,14 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver) GamePause();
         if (Input.GetKeyDown(KeyCode.T)) PlayerSpawn();
-        foreach (KeyValuePair<KeyCode, Cooldown> ability in AbilityManager.PlayerAbilities) // I WOULD MAYBE TRY TO INTEGRATE ALL KEYS INTO THIS
+        /*foreach (KeyValuePair<KeyCode, Cooldown> ability in AbilityManager.PlayerAbilities) // I WOULD MAYBE TRY TO INTEGRATE ALL KEYS INTO THIS
         {
             // Check if the player tries to execute an ability
             if (Input.GetKeyDown(ability.Key))
             {
                 AbilityButtonPressed(ability.Key);
             }
-        }
+        }*/
     }
 
     private void MoveToMainMenu() => SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);

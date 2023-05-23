@@ -96,8 +96,6 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
     public static void GameSave() { Debug.Log("Game saved"); OnGameSave?.Invoke(); }
-    public static void GameResume() { Debug.Log("Game resumed"); OnGameResume?.Invoke(); }
-
     public static void GameOver()
     {
         Debug.Log("Game lost");

@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public void OnGameResume() => GameManager.GameResume();
+    public void OnGameResume() => GameManager.Resume();
     public void OnGameSave() => GameManager.GameSave();
     
     private CinemachineBrain cameraBrain;

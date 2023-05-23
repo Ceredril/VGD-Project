@@ -19,6 +19,7 @@ public class InteractableObjects : MonoBehaviour
     public float typingSpeed = 0.02f;
     public float radius = 3f;
     public KeyCode InteractableKey = KeyCode.E; // Changeable
+    public float drop = 0;
     bool isInteracting = false;
 
 
@@ -55,7 +56,8 @@ public class InteractableObjects : MonoBehaviour
                 }
                 else
                 {
-                    dialogueManager.StartDialogue(dialogue, typingSpeed);
+                    dialogueManager.StartDialogue(dialogue, typingSpeed, drop);
+                    drop = 0;
                     isInteracting = dialogueManager.DisplayNextSentence();
                 }
                 break;

@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Animator animator;
     float _typingSpeed;
+    float _drop;
 
     private Queue<string> sentences;
 
@@ -21,9 +22,10 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
-    public void StartDialogue(CreateDialogue dialogue, float typingspeed)
+    public void StartDialogue(CreateDialogue dialogue, float typingspeed, float drop)
     {
         _typingSpeed= typingspeed;
+        _drop = drop;
         Debug.Log("Starting conversation with: " + dialogue.name);
         animator.SetBool("IsOpen", true);
 
@@ -63,6 +65,20 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        switch (_drop)
+        {
+            case 0:
+                break;
+            case 1:
+                GameManager.LivesCollected(1);
+                break;
+            case 2:
+                GameManager.ManaCollected(10);
+                break;
+            case 3:
+                // enable Fist attack
+                break;
+        }
         animator.SetBool("IsOpen", false);
     }
 }

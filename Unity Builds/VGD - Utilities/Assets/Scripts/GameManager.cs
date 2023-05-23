@@ -9,13 +9,15 @@ public class GameManager : MonoBehaviour
     public static event Action OnPlayerSpawn, OnPlayerDeath;
     public static event Action<int> OnManaCollected, OnHealthCollected, OnLivesCollected;
     public static event Action<Transform> OnCheckpointReached;
-    public static event Action OnGameStart, OnGamePause, OnGameSave, OnGameResume, OnGameEnd, OnGameOver;
+    public static event Action OnGameStart, OnGamePause, OnGameSave, OnGameRestart, OnGameResume, OnGameEnd, OnGameOver;
     public static event Action OnObjectInteraction;
     public static event Action<KeyCode> OnAbilityButtonPressed;
 
 
     public static event Action<int> OnPlayerAttackedMelee, OnPlayerAttackedRanged;
 
+    public static bool GameIsRunning;
+    public static bool GameIsPaused;
     public static bool GameIsOver;
     private void Start()
     {
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver) GamePause();
+        if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver && !GameIsPaused) Pause();
         if (Input.GetKeyDown(KeyCode.T)) PlayerSpawn();
         foreach (KeyValuePair<KeyCode, Cooldown> ability in AbilityManager.PlayerAbilities) // I WOULD MAYBE TRY TO INTEGRATE ALL KEYS INTO THIS
         {
@@ -42,7 +44,24 @@ public class GameManager : MonoBehaviour
     }
 
     private void MoveToMainMenu() => SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-
+    
+    public static void Pause()
+    {
+        OnGamePause?.Invoke();
+        GameIsPaused = true;
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Debug.Log("Game paused");
+    }
+    public static void Resume()
+    {
+        OnGameResume?.Invoke();
+        GameIsPaused = false;
+        Time.timeScale = 1;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     public static void ManaCollected(int amount) => OnManaCollected?.Invoke(amount);
     public static void HealthCollected(int amount) => OnHealthCollected?.Invoke(amount);
@@ -50,15 +69,32 @@ public class GameManager : MonoBehaviour
     public static void CheckpointReached(Transform checkpoint) => OnCheckpointReached?.Invoke(checkpoint);
 
     public static void PlayerSpawn() { Debug.Log("Player spawned"); OnPlayerSpawn?.Invoke(); }
-    public static void PlayerDeath() { Debug.Log("Player died"); OnPlayerDeath?.Invoke(); }
+
+    public static void PlayerDeath()
+    {
+        Debug.Log("Player died");
+        GameIsRunning = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        OnPlayerDeath?.Invoke();
+    }
 
     public static void GameStart()
     {
         Debug.Log("Game started");
         GameIsOver = false;
+        GameIsRunning = true;
         OnGameStart?.Invoke();
     }
-    public static void GamePause() { Debug.Log("Game paused"); OnGamePause?.Invoke(); }
+
+    public static void GameRestart()
+    {
+        OnGameRestart?.Invoke();
+        GameIsRunning = true;
+        Debug.Log("Game restarted");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     public static void GameSave() { Debug.Log("Game saved"); OnGameSave?.Invoke(); }
     public static void GameResume() { Debug.Log("Game resumed"); OnGameResume?.Invoke(); }
 
@@ -66,6 +102,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game lost");
         GameIsOver = true;
+        
         OnGameOver?.Invoke();
     }
     public static void GameEnd() { Debug.Log("Game ended"); OnGameEnd?.Invoke(); }

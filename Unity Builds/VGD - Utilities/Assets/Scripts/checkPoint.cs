@@ -12,6 +12,7 @@ public class checkPoint : MonoBehaviour
         {
             //This modifies the spawnPoint.
             GameManager.CheckpointReached(transform);
+            GameManager.GameSave();
             //This disables the checkPoint after it's been reached.
             GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<Collider>().enabled = false;

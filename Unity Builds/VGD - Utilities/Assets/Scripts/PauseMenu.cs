@@ -1,52 +1,37 @@
 using UnityEngine;
 using Cinemachine;
 
+//REMINDER A ME STESSO (FEDE GIUGNI) --> SISTEMA GAMESAVE E RETURNTOMENU DA INSPECTOR
 
 public class PauseMenu : MonoBehaviour
 {
     public void OnGameResume() => GameManager.GameResume();
     public void OnGameSave() => GameManager.GameSave();
-    public void OnGameEnd() => GameManager.GameEnd();
-
+    
     private CinemachineBrain cameraBrain;
     
     private void Start()
     {
         gameObject.SetActive(false);
-        GameManager.OnGamePause += Pause;
-        GameManager.OnGameResume += Resume;
-        GameManager.OnGameEnd += Unpause;
+        GameManager.OnGamePause += DisableCamera;
+        GameManager.OnGamePause += EnablePauseMenuUI;
+        GameManager.OnGameResume += EnableCamera;
+        GameManager.OnGameResume += DisablePauseMenuUI;
+        GameManager.OnGameEnd += GameManager.Resume;
         cameraBrain = FindObjectOfType<Camera>().GetComponent<CinemachineBrain>();
     }
-
     private void OnDestroy()
     {
-        GameManager.OnGamePause -= Pause;
-        GameManager.OnGameResume -= Resume;
-        GameManager.OnGameEnd -= Unpause;
+        GameManager.OnGamePause -= DisableCamera;
+        GameManager.OnGamePause -= EnablePauseMenuUI;
+        GameManager.OnGameResume -= EnableCamera;
+        GameManager.OnGameResume -= DisablePauseMenuUI;
     }
 
-    private void Pause()
-    {
-        Time.timeScale = 0;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        cameraBrain.enabled = false;
-        gameObject.SetActive(true);
-    }
+    private void EnableCamera() => cameraBrain.enabled = true;
+    private void DisableCamera() => cameraBrain.enabled = false;
 
-    private void Resume()
-    {
-        Time.timeScale = 1;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        cameraBrain.enabled = true;
-        gameObject.SetActive(false);
-    }
-
-    private void Unpause()
-    {
-        Time.timeScale = 1;
-    }
+    private void EnablePauseMenuUI() => gameObject.SetActive(true);
+    private void DisablePauseMenuUI() => gameObject.SetActive(false);
 }
 

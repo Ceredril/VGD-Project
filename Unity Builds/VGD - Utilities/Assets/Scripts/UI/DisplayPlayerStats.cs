@@ -22,11 +22,11 @@ public class DisplayPlayerStats : MonoBehaviour
     void Update()
     {
         if (GameManager.GameIsOver) gameObject.SetActive(false);
-        Lives.text = "Lives:\n" + PlayerStats.CurrentLives.ToString();
-        Health.text = "Health:\n" + PlayerStats.CurrentHealth.ToString();
-        Mana.text = "Mana:\n" + PlayerStats.CurrentMana.ToString();
-        Stamina.text = "Stamina:\n" + PlayerStats.CurrentStamina.ToString();
-        StartParameters.text = "Start Parameters:\n" + PlayerStats.StartParams;
+        Lives.text = "Lives:\n" + PlayerManager.CurrentLives.ToString();
+        Health.text = "Health:\n" + PlayerManager.CurrentHealth.ToString();
+        Mana.text = "Mana:\n" + PlayerManager.CurrentMana.ToString();
+        Stamina.text = "Stamina:\n" + PlayerManager.CurrentStamina.ToString();
+        StartParameters.text = "Start Parameters:\n" + PlayerManager.StartParams;
         string displayString = "Powerup Cooldowns:\n";
         foreach (KeyValuePair<KeyCode, Cooldown> ability in AbilityManager.PlayerAbilities)
         {
@@ -34,6 +34,6 @@ public class DisplayPlayerStats : MonoBehaviour
             displayString += ability.Key.ToString() + ": " + (currentCooldown > 0 ? currentCooldown : 0).ToString() + "\n";
         }
         PowerupCooldowns.text = displayString;
-        OtherInfos.text = "Last checkpoint:\n" + spawnManager.Instance.lastCheckpoint.ToString();
+        OtherInfos.text = "Last checkpoint:\n" + PlayerManager.LastCheckpoint.ToString();
     }
 }

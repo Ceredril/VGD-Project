@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     private readonly float _vanishingTime = 1;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("PlayerBody"))
         {
             GameManager.RangedEnemyAttacks(Random.Range(-20,-40));
             Destroy(gameObject);

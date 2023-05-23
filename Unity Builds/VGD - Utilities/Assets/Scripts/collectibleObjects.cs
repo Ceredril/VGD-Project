@@ -8,12 +8,12 @@ public class collectibleObjects : MonoBehaviour
     {
         if (other.CompareTag("Player") && CompareTag("manaCollectible")) {
             GameManager.ManaCollected(_amount=Random.Range(10,20));
-            GameManager.OnManaCollected -= playerStatsManager.AddMana;
+            GameManager.OnManaCollected -= PlayerManager.AddMana;
             Debug.Log("User has collected " + _amount + " mana");
         }
         else if (other.CompareTag("Player") && CompareTag("healthCollectible")){
             GameManager.HealthCollected(_amount=Random.Range(10,20));
-            GameManager.OnHealthCollected -= playerStatsManager.AddHealth;
+            GameManager.OnHealthCollected -= PlayerManager.AddHealth;
             Debug.Log("User has collected " + _amount + " health");
         }
         Destroy(gameObject);

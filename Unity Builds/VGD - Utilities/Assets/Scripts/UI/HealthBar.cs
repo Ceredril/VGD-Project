@@ -15,13 +15,13 @@ public class HealthBar : MonoBehaviour
 
     public void updateShownMaxHealthDisplayed()
     {
-        slider.maxValue = playerStatsManager.MaxHealth;
+        slider.maxValue = PlayerManager.MaxHealth;
         fill.color = gradient.Evaluate(1f);
     }
 
     public void updateCurrentHealthDisplayed()
     {
-        slider.value = PlayerStats.CurrentHealth;
+        slider.value = PlayerManager.CurrentHealth;
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
 }

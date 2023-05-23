@@ -8,7 +8,7 @@ public class checkPoint : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("PlayerBody"))
         {
             //This modifies the spawnPoint.
             GameManager.CheckpointReached(transform);

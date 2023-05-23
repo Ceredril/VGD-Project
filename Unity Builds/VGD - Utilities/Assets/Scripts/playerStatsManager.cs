@@ -17,7 +17,6 @@ public class playerStatsManager : MonoBehaviour
     private void Start()
     {
         GameManager.OnGameStart += SetStats;
-        GameManager.OnGameRestart += SetStats;
         GameManager.OnGameSave += SaveProgress;
         GameManager.OnGameOver += LoadDefaultStats;
         GameManager.OnManaCollected += AddMana;
@@ -31,7 +30,6 @@ public class playerStatsManager : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.OnGameStart -= SetStats;
-        GameManager.OnGameRestart -= SetStats;
         GameManager.OnGameSave -= SaveProgress;
         GameManager.OnGameOver -= LoadDefaultStats;
         GameManager.OnManaCollected -= AddMana;
@@ -99,6 +97,8 @@ public class playerStatsManager : MonoBehaviour
         else if (amount < 1) {
             PlayerStats.CurrentHealth = 0;
             GameManager.PlayerDeath();
+            PlayerStats.CurrentHealth = DefaultHealth;
+            PlayerStats.CurrentMana = DefaultMana;
         }else PlayerStats.CurrentHealth = amount;
         Debug.Log("Health set to " + PlayerStats.CurrentHealth);
     }

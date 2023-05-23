@@ -16,7 +16,6 @@ public class spawnManager : MonoBehaviour
     private void Start()
     {
         GameManager.OnGameStart += Spawn;
-        GameManager.OnPlayerSpawn += Respawn; // Temporary. This is just to use T to respawn
         GameManager.OnGameRestart += Respawn;
         GameManager.OnCheckpointReached += SetSpawnPoint;
     }
@@ -24,7 +23,6 @@ public class spawnManager : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.OnGameStart -= Spawn;
-        GameManager.OnPlayerSpawn -= Respawn;
         GameManager.OnGameRestart -= Respawn;
         GameManager.OnCheckpointReached -= SetSpawnPoint;
     }

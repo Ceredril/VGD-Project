@@ -29,11 +29,9 @@ public class MeleeEnemy : MonoBehaviour
 
     void Update()
     {
-        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack)AttackPlayer();
-        if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer)) ChasePlayer();
+        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack && GameManager.PlayerIsAlive)AttackPlayer();
+        if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && GameManager.PlayerIsAlive) ChasePlayer();
         else Patrolling();
-
-      
 
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
         if (distanceToWalkPoint.magnitude < 1f) _walkPointSet = false;
@@ -60,7 +58,7 @@ public class MeleeEnemy : MonoBehaviour
 
     private void AttackPlayer()
     {
-        GameManager.PlayerAttackedMelee(Random.Range(-15, -30));
+        GameManager.MeleeEnemyAttacks(Random.Range(-15, -30));
         StartCoroutine(AttackCooldown());
     }
 

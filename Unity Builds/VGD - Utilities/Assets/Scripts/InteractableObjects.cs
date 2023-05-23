@@ -46,7 +46,7 @@ public class InteractableObjects : MonoBehaviour
     // This method is meant to be overwritten
     public virtual void Interact()
     {
-        GameManager.ObjectInteraction();
+        GameManager.PlayerInteracted();
         switch (CurrentInteractableType)
         {
             case InteractableTypes.dialogueType:

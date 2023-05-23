@@ -1,15 +1,14 @@
 using UnityEngine;
 
-
-
 public class DeathMenu : MonoBehaviour
 {
-    
+    public void OnGameRestart() => GameManager.GameRestart();
     private void Start()
     {
         gameObject.SetActive(false);
         GameManager.OnPlayerDeath += EnableDeathMenuUI;
         GameManager.OnGameRestart += DisableDeathMenuUI;
+        GameManager.OnGameOver += DisableDeathMenuUI;
         GameManager.OnGameEnd += DisableDeathMenuUI;
     }
 
@@ -17,6 +16,7 @@ public class DeathMenu : MonoBehaviour
     {
         GameManager.OnPlayerDeath -= EnableDeathMenuUI;
         GameManager.OnGameRestart -= DisableDeathMenuUI;
+        GameManager.OnGameOver -= DisableDeathMenuUI;
         GameManager.OnGameEnd -= DisableDeathMenuUI;
     }
 
@@ -24,4 +24,3 @@ public class DeathMenu : MonoBehaviour
     private void DisableDeathMenuUI() => gameObject.SetActive(false);
 
 }
-

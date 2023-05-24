@@ -11,19 +11,20 @@ public class RangedEnemy : MonoBehaviour
     private readonly float _sightRange = 18f;
     private readonly float _walkPointRange = 6f;
     private readonly float _attackRange = 12f;
-    private bool _canAttack=true;
+    private bool _canAttack = true;
     private readonly float _attackCooldown = 1f;
     private readonly float _bulletSpeed = 2000f;
 
     private LayerMask _groundLayer, _playerLayer;
 
     private Vector3 _walkPoint;
+
     //private bool _playerInSightRange;
     private bool _walkPointSet;
 
     private void Awake()
     {
-        _agent = FindObjectOfType<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
         _player = GameObject.Find("Player Body").transform;
         _agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
@@ -35,7 +36,6 @@ public class RangedEnemy : MonoBehaviour
         if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack && GameManager.PlayerIsAlive) AttackPlayer();
         if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && GameManager.PlayerIsAlive) ChasePlayer();
         else Patrolling();
-        
 
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
         if (distanceToWalkPoint.magnitude < 1f) _walkPointSet = false;
@@ -58,9 +58,13 @@ public class RangedEnemy : MonoBehaviour
         else _agent.SetDestination(_walkPoint);
     }
 
-    void ChasePlayer() => _agent.SetDestination(_player.position);
+    void ChasePlayer()
+    {
+        _agent.SetDestination(_player.position);
+        _walkPointSet = false;  // Reset the flag when chasing the player
+    }
 
-    private void AttackPlayer()
+private void AttackPlayer()
     {
         Transform thisTransform = transform;
         Rigidbody bulletClone = Instantiate(_bullet, thisTransform.position+new Vector3(0,1f,0), thisTransform.rotation);

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -51,7 +53,6 @@ public class PlayerManager : MonoBehaviour
         MaxStamina + " mS";
 
 
-    
     //Utility functions
     private IEnumerator Wait(float amount)
     {
@@ -156,9 +157,28 @@ public class PlayerManager : MonoBehaviour
     }
     
     //Powerup functions
-    private void GodMode() {}
-    private void SpeedHack(){}
-    private void FireFists(){}
+    private IEnumerator GodMode(float cooldownTime)
+    {
+        godModeEnabled = true;
+        yield return new WaitForSeconds(cooldownTime);
+        godModeEnabled = false;
+    }
+
+    private IEnumerator SpeedHack(float cooldownTime)
+    {
+        walkingSpeed *= 2;
+        sprintSpeed *= 2;
+        yield return new WaitForSeconds(cooldownTime);
+        walkingSpeed /= 2;
+        sprintSpeed /= 2;
+    }
+
+    private IEnumerator FireFists(float cooldownTime)
+    {
+        _attackCooldown /= 4;
+        yield return new WaitForSeconds(cooldownTime);
+        _attackCooldown *= 4;
+    }
     
     //Stats functions
     private void SetStats()
@@ -224,6 +244,7 @@ public class PlayerManager : MonoBehaviour
     }
     public static void AddMana(int amount)
     {
+        if (amount < 0 && godModeEnabled) return;
         if (CurrentMana+amount > MaxMana) CurrentMana = MaxMana;
         else if (CurrentMana+amount < 0) CurrentMana = 0;
         else CurrentMana += amount;
@@ -281,5 +302,24 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         Move();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("godModePowerup"))
+        {
+            GodMode(GodModeCooldown);
+            Destroy(other.GameObject());
+        }
+        if (other.CompareTag("speedHackPowerup"))
+        {
+            SpeedHack(SpeedHackCooldown);
+            Destroy(other.GameObject());
+        }
+        if (other.CompareTag("fireFistsPowerup"))
+        {
+            FireFists(FireFistsCooldown);
+            Destroy(other.GameObject());
+        }
     }
 }

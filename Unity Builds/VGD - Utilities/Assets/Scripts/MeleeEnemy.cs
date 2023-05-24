@@ -20,7 +20,7 @@ public class MeleeEnemy : MonoBehaviour
 
     private void Awake()
     {
-        _agent = FindObjectOfType<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
         _player = GameObject.Find("Player Body").transform;
         _agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
@@ -29,7 +29,7 @@ public class MeleeEnemy : MonoBehaviour
 
     void Update()
     {
-        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack && GameManager.PlayerIsAlive)AttackPlayer();
+        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack && GameManager.PlayerIsAlive) AttackPlayer();
         if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && GameManager.PlayerIsAlive) ChasePlayer();
         else Patrolling();
 
@@ -54,7 +54,11 @@ public class MeleeEnemy : MonoBehaviour
         else _agent.SetDestination(_walkPoint);
     }
 
-    void ChasePlayer() => _agent.SetDestination(_player.position);
+    void ChasePlayer()
+    {
+        _agent.SetDestination(_player.position);
+        _walkPointSet = false;  // Reset the flag when chasing the player
+    }
 
     private void AttackPlayer()
     {

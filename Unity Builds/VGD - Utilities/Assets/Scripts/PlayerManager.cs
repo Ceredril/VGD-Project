@@ -9,33 +9,36 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Transform characterCamera;
     [HideInInspector] public Animator animator;
     
-    //Movement variables
-    [SerializeField] private float walkingSpeed = 2f;
-    [SerializeField] private float sprintSpeed = 4f;
-    [SerializeField] private float jumpForce = 4f;
-    private float _speedOffset;
-
-    //Gravity variables
-    private readonly float _gravity = 9.81f;
-    private float _verticalSpeed;
-    
-    //Spawn variables
-    public static Transform SpawnPoint;
-    public static Transform LastCheckpoint;
-
-    //Attack variables
-    private bool _canHit = false;
-    
     //Stats parameters
     public static readonly int MaxLives = 5;
     public static readonly int MaxHealth = 100;
     public static readonly int MaxMana = 100;
     public static readonly int MaxStamina = 100;
-
     private static readonly int DefaultLives = 3;
     private static readonly int DefaultHealth = 80;
     private static readonly int DefaultMana = 80;
     private static readonly int DefaultStamina = 100;
+    //Cooldown parameters
+    private readonly int GodModeCooldown = 5;
+    private readonly int SpeedHackCooldown = 15;
+    private readonly int FireFistsCooldown = 10;
+    
+    //Movement variables
+    [SerializeField] private float walkingSpeed = 2f;
+    [SerializeField] private float sprintSpeed = 4f;
+    [SerializeField] private float jumpForce = 4f;
+    private float _speedOffset;
+    //Gravity variables
+    private readonly float _gravity = 9.81f;
+    private float _verticalSpeed;
+    //Spawn variables
+    public static Transform SpawnPoint;
+    public static Transform LastCheckpoint;
+    //Attack variables
+    private bool _canHit=true;
+    private static float _attackCooldown=5f;
+    //Powerup variables
+    private static bool godModeEnabled;
     //Stats variables
     public static int CurrentLives;
     public static int CurrentHealth;
@@ -46,11 +49,14 @@ public class PlayerManager : MonoBehaviour
         MaxHealth + " mH\n" + 
         MaxMana + " mM\n" + 
         MaxStamina + " mS";
+
+
     
     //Utility functions
-    private IEnumerator Wait() {
+    private IEnumerator Wait(float amount)
+    {
         _canHit = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(amount);
         _canHit = true;
     }
     
@@ -115,13 +121,9 @@ public class PlayerManager : MonoBehaviour
 
         // Setting the jump and hit states based on keystroke
         if (Input.GetKeyUp(KeyCode.Space)) animator.SetBool("jump", false);
-        if (Input.GetMouseButtonDown(0) && _canHit)
-        {
-            animator.SetTrigger("hook");
-            StartCoroutine(Wait());
-        }
+        if (Input.GetMouseButtonDown(0) && _canHit) Attack();
 
-        // Switch between states based on whether you are running or walking
+            // Switch between states based on whether you are running or walking
         if (_speedOffset == sprintSpeed) animator.SetBool("running", true);
         else animator.SetBool("running", false);
 
@@ -146,6 +148,17 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Spawn point set");
     }
     
+    //Attack functions
+    private void Attack()
+    {
+        animator.SetTrigger("hook");
+        StartCoroutine(Wait(_attackCooldown));
+    }
+    
+    //Powerup functions
+    private void GodMode() {}
+    private void SpeedHack(){}
+    private void FireFists(){}
     
     //Stats functions
     private void SetStats()
@@ -177,7 +190,6 @@ public class PlayerManager : MonoBehaviour
         LastCheckpoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
         Debug.Log("Progress loaded");
     }
-
     private void LoadDefaultStats()
     {
         CurrentLives = DefaultLives;
@@ -198,7 +210,6 @@ public class PlayerManager : MonoBehaviour
         }else CurrentLives += amount;
         Debug.Log("Lives set to " + CurrentLives);
     }
-    
     public static void AddHealth(int amount)
     {
         if (CurrentHealth+amount > MaxHealth) CurrentHealth = MaxHealth;
@@ -211,7 +222,6 @@ public class PlayerManager : MonoBehaviour
         }else CurrentHealth += amount;
         Debug.Log("Health set to " + CurrentHealth);
     }
-    
     public static void AddMana(int amount)
     {
         if (CurrentMana+amount > MaxMana) CurrentMana = MaxMana;
@@ -219,7 +229,6 @@ public class PlayerManager : MonoBehaviour
         else CurrentMana += amount;
         Debug.Log("Mana set to " + CurrentMana);
     }
-    
     public static void AddStamina(int amount)
     {
         if (CurrentStamina + amount > MaxStamina) CurrentStamina = MaxStamina;
@@ -229,7 +238,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         //Components
         characterController = GetComponentInChildren<CharacterController>();
@@ -254,10 +263,6 @@ public class PlayerManager : MonoBehaviour
     
     private void OnDestroy()
     {
-        
-
-
-
         //Stats events
         GameManager.OnGameStart -= SetStats;
         GameManager.OnGameStart -= Spawn;

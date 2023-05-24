@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
         if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && GameManager.PlayerIsAlive) ChasePlayer();
         else Patrolling();
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
-        if (distanceToWalkPoint.magnitude < 4f) _walkPointSet = false;
+        if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
     }
     
     void SearchWalkPoint()

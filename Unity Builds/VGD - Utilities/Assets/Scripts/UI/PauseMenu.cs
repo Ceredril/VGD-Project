@@ -5,9 +5,9 @@ using Cinemachine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public void OnGameResume() => GameManager.Resume();
+    public void OnGameResume() => GameManager.Resume();   //?
 
-    
+
     private void Start()
     {
         gameObject.SetActive(false);

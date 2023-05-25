@@ -17,11 +17,8 @@ public class EnemyHealthBar : MonoBehaviour
     private void Start()
     {
         currentEnemy = GetComponentInParent<Enemy>();
-    }
-    private void Update()
-    {
-        updateMaxHealthDisplayed();
-        updateCurrentHealthDisplayed();
+        gameObject.SetActive(false);
+        GameManager.OnPlayerAttack += UpdateHealthBar;
     }
 
     private void updateMaxHealthDisplayed()
@@ -30,9 +27,12 @@ public class EnemyHealthBar : MonoBehaviour
         fill.color = gradient.Evaluate(1f);
     }
 
-    private void updateCurrentHealthDisplayed()
+    private void UpdateHealthBar( int a, Enemy b) // two useless parameters
     {
+        slider.maxValue = currentEnemy._maxHealth;
         slider.value = currentEnemy._currentHealth;
+        fill.color = gradient.Evaluate(1f);
         fill.color = gradient.Evaluate(slider.normalizedValue);
+        if(currentEnemy._currentHealth < currentEnemy._maxHealth) gameObject.SetActive(true);
     }
 }

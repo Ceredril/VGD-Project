@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DeathMenu : MonoBehaviour
 {
-    public void OnGameRestart() => GameManager.GameRestart();
+    public void OnGameRestart() => GameManager.GameRestart();   //?
     private void Start()
     {
         gameObject.SetActive(false);

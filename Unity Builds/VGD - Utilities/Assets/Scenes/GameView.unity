@@ -874,9 +874,10 @@ GameObject:
   - component: {fileID: 160123130}
   - component: {fileID: 160123129}
   - component: {fileID: 160123132}
+  - component: {fileID: 160123133}
   m_Layer: 0
   m_Name: Melee Enemy "Sempronius"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -953,8 +954,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHealth: 0
   enemyType: 0
   _bullet: {fileID: 0}
+--- !u!136 &160123133
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160123127}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &169098533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,9 +1619,10 @@ GameObject:
   - component: {fileID: 246049743}
   - component: {fileID: 246049742}
   - component: {fileID: 246049745}
+  - component: {fileID: 246049746}
   m_Layer: 0
   m_Name: Melee Enemy "Caius"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1682,8 +1699,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHealth: 0
   enemyType: 0
   _bullet: {fileID: 0}
+--- !u!136 &246049746
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246049740}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &257262995
 GameObject:
   m_ObjectHideFlags: 0
@@ -2431,9 +2463,10 @@ GameObject:
   - component: {fileID: 286619054}
   - component: {fileID: 286619053}
   - component: {fileID: 286619056}
+  - component: {fileID: 286619057}
   m_Layer: 0
   m_Name: Ranged Enemy "Eminemonious"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2510,8 +2543,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHealth: 0
   enemyType: 1
   _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+--- !u!136 &286619057
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286619051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &303767909
 GameObject:
   m_ObjectHideFlags: 0
@@ -5090,9 +5138,10 @@ GameObject:
   - component: {fileID: 681513713}
   - component: {fileID: 681513712}
   - component: {fileID: 681513715}
+  - component: {fileID: 681513716}
   m_Layer: 0
   m_Name: Ranged Enemy "SnoopDoggius"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5169,8 +5218,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHealth: 0
   enemyType: 1
   _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+--- !u!136 &681513716
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681513710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &683815265
 GameObject:
   m_ObjectHideFlags: 0
@@ -17253,7 +17317,6 @@ GameObject:
   - component: {fileID: 543450652352217417}
   - component: {fileID: 1356195493}
   - component: {fileID: 1356195495}
-  - component: {fileID: 919132148363484148}
   m_Layer: 6
   m_Name: Player Body
   m_TagString: PlayerBody
@@ -17261,20 +17324,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &919132148363484148
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148363484147}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &943164255086831445
 GameObject:
   m_ObjectHideFlags: 0
@@ -19978,6 +20027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4026302133065288768}
   - component: {fileID: 4026302133065288771}
+  - component: {fileID: 4026302133065288772}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -19999,10 +20049,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
   characterCamera: {fileID: 0}
-  animator: {fileID: 0}
   walkingSpeed: 2
   sprintSpeed: 4
   jumpForce: 4
+--- !u!136 &4026302133065288772
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026302133065288769}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: -1.6, z: -2.95}
 --- !u!4 &4026302133082211056
 Transform:
   m_ObjectHideFlags: 3
@@ -20150,7 +20213,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133116236145}
-  m_LocalRotation: {x: -0.038376518, y: -0.000000002149213, z: -8.254012e-11, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: 0.0000000021492135, z: 8.2540134e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21544,9 +21607,10 @@ GameObject:
   - component: {fileID: 1975998973305810680}
   - component: {fileID: 5587845963551093892}
   - component: {fileID: 5587845963551093893}
+  - component: {fileID: 5587845963551093894}
   m_Layer: 0
   m_Name: Ranged Enemy "Notorious"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21905,8 +21969,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHealth: 0
   enemyType: 1
   _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+--- !u!136 &5587845963551093894
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5100279165041536568}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!4 &5667614737495962341
 Transform:
   m_ObjectHideFlags: 0
@@ -23082,9 +23161,10 @@ GameObject:
   - component: {fileID: 4446347525187562416}
   - component: {fileID: 7734005818386821580}
   - component: {fileID: 7734005818386821581}
+  - component: {fileID: 7734005818386821582}
   m_Layer: 0
   m_Name: Melee Enemy "Brutus"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23777,8 +23857,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHealth: 0
   enemyType: 0
   _bullet: {fileID: 0}
+--- !u!136 &7734005818386821582
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6926366885687618416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!4 &7750963681148851101
 Transform:
   m_ObjectHideFlags: 0

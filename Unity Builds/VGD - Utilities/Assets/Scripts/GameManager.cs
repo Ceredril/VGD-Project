@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     public static event Action<Transform> OnCheckpointReached;
     public static event Action OnObjectInteraction;
     public static event Action<KeyCode> OnAbilityButtonPressed;
-    public static event Action<int> OnPlayerAttackedMelee, OnPlayerAttackedRanged;
+    public static event Action<int> OnMeleeEnemyAttacks, OnRangedEnemyAttacks;
+    public static event Action<int, Enemy> OnPlayerAttack;
 
     public static bool GameIsRunning;
     public static bool GameIsPaused;
@@ -124,16 +125,21 @@ public class GameManager : MonoBehaviour
         OnPlayerDeath?.Invoke();
     }
 
+    public static void PlayerAttack(int damage, Enemy enemy)
+    {
+        OnPlayerAttack?.Invoke(damage,enemy);
+    }
+
     public static void MeleeEnemyAttacks(int damage)
     {
         Debug.Log("Player took " + damage + " melee damage");
-        OnPlayerAttackedMelee?.Invoke(damage);
+        OnMeleeEnemyAttacks?.Invoke(damage);
     }
 
     public static void RangedEnemyAttacks(int damage)
     {
         Debug.Log("Player took " + damage + " ranged damage");
-        OnPlayerAttackedRanged?.Invoke(damage);
+        OnRangedEnemyAttacks?.Invoke(damage);
     }
 
     public static void PlayerInteracted()

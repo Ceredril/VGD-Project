@@ -12,6 +12,7 @@ TagManager:
   - manaCollectible
   - healthCollectible
   - PlayerBody
+  - Enemy
   layers:
   - Default
   - TransparentFX

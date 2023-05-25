@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,7 +7,8 @@ public class PlayerManager : MonoBehaviour
     //Object references
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform characterCamera;
-    [HideInInspector] public Animator animator;
+    [HideInInspector] public static Animator animator;
+    private static PlayerManager Instance;
     
     //Stats parameters
     public static readonly int MaxLives = 5;
@@ -37,10 +36,11 @@ public class PlayerManager : MonoBehaviour
     public static Transform SpawnPoint;
     public static Transform LastCheckpoint;
     //Attack variables
-    private bool _canHit=true;
-    private static float _attackCooldown=5f;
+    public static bool _canHit=true;
+    private bool _isNear;
+    private static float _attackCooldown=1f;
     //Powerup variables
-    private static bool godModeEnabled;
+    private static bool godModeEnabled=false;
     //Stats variables
     public static int CurrentLives;
     public static int CurrentHealth;
@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
 
 
     //Utility functions
-    private IEnumerator Wait(float amount)
+    private static IEnumerator Wait(float amount)
     {
         _canHit = false;
         yield return new WaitForSeconds(amount);
@@ -122,9 +122,8 @@ public class PlayerManager : MonoBehaviour
 
         // Setting the jump and hit states based on keystroke
         if (Input.GetKeyUp(KeyCode.Space)) animator.SetBool("jump", false);
-        if (Input.GetMouseButtonDown(0) && _canHit) Attack();
 
-            // Switch between states based on whether you are running or walking
+        // Switch between states based on whether you are running or walking
         if (_speedOffset == sprintSpeed) animator.SetBool("running", true);
         else animator.SetBool("running", false);
 
@@ -150,10 +149,13 @@ public class PlayerManager : MonoBehaviour
     }
     
     //Attack functions
-    private void Attack()
+    public static void Attack(Enemy enemy)
     {
+        int amount = 30;
+        Debug.Log("Attacking");
+        GameManager.PlayerAttack(amount,enemy);
         animator.SetTrigger("hook");
-        StartCoroutine(Wait(_attackCooldown));
+        Instance.StartCoroutine(Wait(_attackCooldown));
     }
     
     //Powerup functions
@@ -232,6 +234,7 @@ public class PlayerManager : MonoBehaviour
     }
     public static void AddHealth(int amount)
     {
+        if(godModeEnabled && amount<0)return;
         if (CurrentHealth+amount > MaxHealth) CurrentHealth = MaxHealth;
         else if (CurrentHealth+amount < 1) {
             GameManager.PlayerDeath();
@@ -267,6 +270,7 @@ public class PlayerManager : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         SpawnPoint = GameObject.Find("checkPoint_0").transform;
         LastCheckpoint = SpawnPoint;
+        Instance = this;
 
         //Events
         GameManager.OnGameStart += SetStats;
@@ -277,8 +281,8 @@ public class PlayerManager : MonoBehaviour
         GameManager.OnManaCollected += AddMana;
         GameManager.OnHealthCollected += AddHealth;
         GameManager.OnLivesCollected += AddLives;
-        GameManager.OnPlayerAttackedMelee += AddHealth;
-        GameManager.OnPlayerAttackedRanged += AddHealth;
+        GameManager.OnMeleeEnemyAttacks += AddHealth;
+        GameManager.OnRangedEnemyAttacks += AddHealth;
         GameManager.OnCheckpointReached += SetSpawnPoint;
     }
     
@@ -293,8 +297,8 @@ public class PlayerManager : MonoBehaviour
         GameManager.OnManaCollected -= AddMana;
         GameManager.OnHealthCollected -= AddHealth;
         GameManager.OnLivesCollected -= AddLives;
-        GameManager.OnPlayerAttackedMelee -= AddHealth;
-        GameManager.OnPlayerAttackedRanged -= AddHealth;
+        GameManager.OnMeleeEnemyAttacks -= AddHealth;
+        GameManager.OnRangedEnemyAttacks -= AddHealth;
         GameManager.OnCheckpointReached -= SetSpawnPoint;
     }
 
@@ -322,4 +326,6 @@ public class PlayerManager : MonoBehaviour
             Destroy(other.GameObject());
         }
     }
+    
+
 }

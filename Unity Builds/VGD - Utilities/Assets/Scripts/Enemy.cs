@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-
+    
+    [SerializeField]private float _currentHealth;
+    private bool _isAlive=true;
     enum EnemyType
     {
         Melee,Ranged,Boss
@@ -21,12 +25,24 @@ public class Enemy : MonoBehaviour
     private float _attackRange;
     private bool _canAttack=true;
     private float _attackCooldown;
-    private float _bulletSpeed=1200f;
+    private readonly float _bulletSpeed=1200f;
     
     private LayerMask _groundLayer, _playerLayer;
 
     private Vector3 _walkPoint;
     private bool _walkPointSet;
+
+
+    private void Awake()
+    {
+        GameManager.OnPlayerAttack += ReduceHealth;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnPlayerAttack -= ReduceHealth;
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -36,13 +52,15 @@ public class Enemy : MonoBehaviour
                 _sightRange = 10f;
                 _walkPointRange = 6f;
                 _attackRange = 2f;
-                _attackCooldown = 2f;
+                _attackCooldown = 4f;
+                _currentHealth = 80f;
                 break;
             case EnemyType.Ranged:
                 _sightRange = 18f;
                 _walkPointRange = 6f;
                 _attackRange = 12f;
                 _attackCooldown = 3f;
+                _currentHealth = 90;
                 break;
         }
         
@@ -56,6 +74,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!_isAlive)return;
         if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack && GameManager.PlayerIsAlive) AttackPlayer(enemyType);
         if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && GameManager.PlayerIsAlive) ChasePlayer();
         else Patrolling();
@@ -104,10 +123,32 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void ReduceHealth(int amount, Enemy enemy)
+    {
+        if (enemy == this)
+        {
+            _currentHealth -= amount;
+            if (_currentHealth < 1)
+            {
+                _isAlive = false;
+                Destroy(gameObject);
+            }
+        }
+    }
+
     private IEnumerator AttackCooldown()
     {
         _canAttack = false;
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!other.CompareTag("PlayerBody")) return;
+        if (Input.GetMouseButtonDown(0) && PlayerManager._canHit)
+        {
+            PlayerManager.Attack(this);
+        }
     }
 }

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     
-    [SerializeField]public static int _currentHealth;
+    [SerializeField]public int _currentHealth;
     private bool _isAlive=true;
     enum EnemyType
     {

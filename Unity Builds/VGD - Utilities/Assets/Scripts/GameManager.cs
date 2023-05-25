@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     public static bool GameIsOver;
 
     public static bool PlayerIsAlive;
+
+    public static CinemachineBrain cameraBrain;
     
     
     //DEFAULT FUNCTIONS
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        cameraBrain = FindObjectOfType<Camera>().GetComponent<CinemachineBrain>();
         GameStart();
     }
     
@@ -92,6 +96,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        cameraBrain.enabled = false;
         Debug.Log("Game paused");
     }
     
@@ -102,6 +107,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        cameraBrain.enabled = true;
     }
 
     public static void GameSave()

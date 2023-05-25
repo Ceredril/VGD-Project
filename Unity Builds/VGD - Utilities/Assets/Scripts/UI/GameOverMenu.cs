@@ -8,19 +8,17 @@ public class GameOverMenu : MonoBehaviour
     private void Start()
     {
         gameObject.SetActive(false);
-        GameManager.OnGameOver += Show;
+        GameManager.OnGameOver += EnableGameOverMenuUI;
     }
 
     private void OnDestroy()
     {
-        GameManager.OnGameOver -= Show;
+        GameManager.OnGameOver -= EnableGameOverMenuUI;
     }
 
-    void Show()
+    void EnableGameOverMenuUI()
     {
         gameObject.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
     }
 
 }

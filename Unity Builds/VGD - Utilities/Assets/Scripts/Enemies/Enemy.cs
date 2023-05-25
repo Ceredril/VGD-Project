@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     
-    [SerializeField]private float _currentHealth;
+    [SerializeField]public static int _currentHealth;
     private bool _isAlive=true;
     enum EnemyType
     {
@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
                 _walkPointRange = 6f;
                 _attackRange = 2f;
                 _attackCooldown = 4f;
-                _currentHealth = 80f;
+                _currentHealth = 80;
                 break;
             case EnemyType.Ranged:
                 _sightRange = 18f;

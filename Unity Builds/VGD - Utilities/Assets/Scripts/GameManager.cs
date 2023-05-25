@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game lost");
         GameIsOver = true;
         GameIsRunning = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         OnGameOver?.Invoke();
     }
     

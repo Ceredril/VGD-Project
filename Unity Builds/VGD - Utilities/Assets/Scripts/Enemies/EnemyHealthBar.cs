@@ -20,17 +20,13 @@ public class EnemyHealthBar : MonoBehaviour
     }
     private void Update()
     {
-        if (once)
-        {
-            updateShownMaxHealthDisplayed(); // this has to work different somehow
-            once = false;
-        }
+        updateMaxHealthDisplayed();
         updateCurrentHealthDisplayed();
     }
 
-    private void updateShownMaxHealthDisplayed()
+    private void updateMaxHealthDisplayed()
     {
-        slider.maxValue = currentEnemy._currentHealth;
+        slider.maxValue = currentEnemy._maxHealth;
         fill.color = gradient.Evaluate(1f);
     }
 

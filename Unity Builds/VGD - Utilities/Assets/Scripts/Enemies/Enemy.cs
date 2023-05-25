@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     
-    [SerializeField]public int _currentHealth;
+    [SerializeField]public int _currentHealth, _maxHealth;
     private bool _isAlive=true;
     enum EnemyType
     {
@@ -32,7 +32,6 @@ public class Enemy : MonoBehaviour
     private Vector3 _walkPoint;
     private bool _walkPointSet;
 
-
     private void Awake()
     {
         GameManager.OnPlayerAttack += ReduceHealth;
@@ -54,6 +53,7 @@ public class Enemy : MonoBehaviour
                 _attackRange = 2f;
                 _attackCooldown = 4f;
                 _currentHealth = 80;
+                _maxHealth = 80;
                 break;
             case EnemyType.Ranged:
                 _sightRange = 18f;
@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour
                 _attackRange = 12f;
                 _attackCooldown = 3f;
                 _currentHealth = 90;
+                _maxHealth = 90;
                 break;
         }
         

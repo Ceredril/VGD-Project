@@ -10,6 +10,7 @@ using UnityEngine;
 public enum InteractableTypes { dialogueType, gameEventType, uselessType };
 public class InteractableObjects : MonoBehaviour
 {
+    public Animator animator;
     DialogueManager dialogueManager;
     Transform playerTransform;
     public InteractableTypes CurrentInteractableType;
@@ -23,6 +24,7 @@ public class InteractableObjects : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         playerTransform = GameObject.Find("Player Body").GetComponent<Transform>();
     }
@@ -37,6 +39,7 @@ public class InteractableObjects : MonoBehaviour
             if (distance <= radius || isInteracting)
             {
                 Interact();
+                animator.SetBool("isTalking", true);
             }
         }
     }

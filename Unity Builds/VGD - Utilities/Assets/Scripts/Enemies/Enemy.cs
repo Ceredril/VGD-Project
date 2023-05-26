@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     }
 
     [SerializeField] EnemyType enemyType;
+    Animator animator;
     
     private NavMeshAgent _agent;
     private Transform _player;
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponentInChildren<Animator>();
         GameManager.OnPlayerAttack += ReduceHealth;
     }
 
@@ -111,6 +113,7 @@ public class Enemy : MonoBehaviour
         {
             case EnemyType.Melee:
                 GameManager.MeleeEnemyAttacks(Random.Range(-15, -30));
+                animator.SetTrigger("swip");  
                 StartCoroutine(AttackCooldown());
                 break;
             case EnemyType.Ranged:

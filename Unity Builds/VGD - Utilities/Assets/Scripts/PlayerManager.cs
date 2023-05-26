@@ -140,6 +140,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (GameManager.GameIsOver) return;
         GameObject.Find("Player Body").transform.position = LastCheckpoint.transform.position;
+        animator.SetTrigger("alive");
         Physics.SyncTransforms();
     }
     private void SetSpawnPoint(Transform checkpoint)
@@ -238,6 +239,7 @@ public class PlayerManager : MonoBehaviour
         if (CurrentHealth+amount > MaxHealth) CurrentHealth = MaxHealth;
         else if (CurrentHealth+amount < 1) {
             GameManager.PlayerDeath();
+            animator.SetTrigger("death");
             AddLives(-1);
             CurrentHealth = DefaultHealth;
             CurrentMana = DefaultMana;

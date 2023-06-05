@@ -699,8 +699,9 @@ MonoBehaviour:
   animator: {fileID: 0}
   CurrentInteractableType: 0
   dialogue:
-    name: 
-    sentences: []
+    name: NPC 3
+    sentences:
+    - Take what you can get, but only once
   typingSpeed: 0.02
   radius: 3
   InteractableKey: 101
@@ -3349,8 +3350,9 @@ MonoBehaviour:
   animator: {fileID: 0}
   CurrentInteractableType: 0
   dialogue:
-    name: 
-    sentences: []
+    name: NPC 2
+    sentences:
+    - I dont have much to say
   typingSpeed: 0.02
   radius: 3
   InteractableKey: 101
@@ -27810,7 +27812,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302132388071567}
-  m_LocalRotation: {x: -0.056546256, y: 0.00000001717885, z: 9.729565e-10, w: 0.99840003}
+  m_LocalRotation: {x: -0.056546256, y: 1e-45, z: -0, w: 0.99840003}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28125,7 +28127,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133082211058}
-  m_LocalRotation: {x: -0.074649386, y: 0.000000017158376, z: 0.0000000012844459, w: 0.99720985}
+  m_LocalRotation: {x: -0.074649386, y: 1e-45, z: -0, w: 0.99720985}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28265,7 +28267,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133116236145}
-  m_LocalRotation: {x: -0.03837652, y: 2.317524e-10, z: 8.900443e-12, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: 0.000000002149213, z: 8.254012e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28512,7 +28514,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133376305314}
-  m_LocalRotation: {x: -0.056546256, y: 0.0000000343577, z: 0.0000000019459132, w: 0.9984}
+  m_LocalRotation: {x: -0.056546263, y: 0.000000030670375, z: 0.0000000017370746, w: 0.9984}
   m_LocalPosition: {x: 0, y: -1.6500001, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32931,8 +32933,10 @@ MonoBehaviour:
   animator: {fileID: 0}
   CurrentInteractableType: 0
   dialogue:
-    name: 
-    sentences: []
+    name: NPC 1
+    sentences:
+    - This is my firs sentence
+    - This is good bye
   typingSpeed: 0.02
   radius: 3
   InteractableKey: 101

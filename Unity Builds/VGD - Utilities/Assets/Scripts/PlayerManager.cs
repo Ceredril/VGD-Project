@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Transform characterCamera;
     [HideInInspector] public static Animator animator;
     private static PlayerManager Instance;
-    
+
     //Stats parameters
     public static readonly int MaxLives = 5;
     public static readonly int MaxHealth = 100;
@@ -19,15 +20,29 @@ public class PlayerManager : MonoBehaviour
     private static readonly int DefaultHealth = 80;
     private static readonly int DefaultMana = 80;
     private static readonly int DefaultStamina = 100;
+
+
+    //Stamina parameters
+    private bool canSprint = true;
+    [SerializeField] private float StaminaUseMultiplier = 4;
+    [SerializeField] private float TimeBeforeStaminaRegenStarts = 1.5f;
+    private float StaminaValueIncrement = 2;
+    private float StaminaTimeIncrement = 0.1f;
+    public static float CurrentStamina;
+    private Coroutine regeneratingStamina;
+    public static Action<float> OnStaminaChange;
+
     //Cooldown parameters
     private readonly int GodModeCooldown = 5;
     private readonly int SpeedHackCooldown = 15;
     private readonly int FireFistsCooldown = 10;
-    
+
     //Movement variables
     [SerializeField] private float walkingSpeed = 2f;
     [SerializeField] private float sprintSpeed = 4f;
     [SerializeField] private float jumpForce = 4f;
+    [SerializeField] private float JumpMultiplier = 10;
+    private bool isJumping = false;
     private float _speedOffset;
     //Gravity variables
     private readonly float _gravity = 9.81f;
@@ -36,20 +51,19 @@ public class PlayerManager : MonoBehaviour
     public static Transform SpawnPoint;
     public static Transform LastCheckpoint;
     //Attack variables
-    public static bool _canHit=true;
+    public static bool _canHit = true;
     private bool _isNear;
-    private static float _attackCooldown=1f;
+    private static float _attackCooldown = 1f;
     //Powerup variables
-    private static bool godModeEnabled=false;
+    private static bool godModeEnabled = false;
     //Stats variables
     public static int CurrentLives;
     public static int CurrentHealth;
     public static int CurrentMana;
-    public static int CurrentStamina;
-    public static string StartParams = 
-        MaxLives + " mL\n" + 
-        MaxHealth + " mH\n" + 
-        MaxMana + " mM\n" + 
+    public static string StartParams =
+        MaxLives + " mL\n" +
+        MaxHealth + " mH\n" +
+        MaxMana + " mM\n" +
         MaxStamina + " mS";
 
 
@@ -60,7 +74,7 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(amount);
         _canHit = true;
     }
-    
+
     //Movement functions
     private void Move()
     {
@@ -94,17 +108,21 @@ public class PlayerManager : MonoBehaviour
             movementDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
 
-        
+
         //If user presses Spacebar and the character is grounded, apply jump force. Otherwise let it fall :D
-        if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded) {
+        if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded && CurrentStamina >= JumpMultiplier)
+        {
             _verticalSpeed = jumpForce;
             animator.SetBool("jump", true);
-        } else _verticalSpeed -= _gravity * Time.deltaTime;
+            isJumping = true;
+        }
+        else _verticalSpeed -= _gravity * Time.deltaTime;
 
 
         //If the user is holding Shift, assign sprintSpeed to the speedOffset. 
-        if (Input.GetKey(KeyCode.LeftShift)) _speedOffset = sprintSpeed;
+        if (Input.GetKey(KeyCode.LeftShift) && canSprint) _speedOffset = sprintSpeed;
         else _speedOffset = walkingSpeed;
+
 
         //Update the movement vector with the new values
         movementDirection.y = _verticalSpeed;
@@ -121,14 +139,91 @@ public class PlayerManager : MonoBehaviour
 
 
         // Setting the jump and hit states based on keystroke
-        if (Input.GetKeyUp(KeyCode.Space)) animator.SetBool("jump", false);
+        if (Input.GetKeyUp(KeyCode.Space)) { animator.SetBool("jump", false); isJumping = false; }
 
-        // Switch between states based on whether you are running or walking
-        if (_speedOffset == sprintSpeed) animator.SetBool("running", true);
-        else animator.SetBool("running", false);
+        // Switch between states based on whether you are running or walking and managing stamina level
+        // first if, manage the stamina when the character is running or is running and jumping at the same time
+        if (_speedOffset == sprintSpeed && movementDirection.magnitude >= 0.1f)
+        {
+            animator.SetBool("running", true);
+
+            if (regeneratingStamina != null)
+            {
+                StopCoroutine(regeneratingStamina);
+                regeneratingStamina = null;
+            }
+
+            if (isJumping)   // that means it's running and jumping 
+                CurrentStamina -= (JumpMultiplier + StaminaUseMultiplier) * Time.deltaTime;
+            else            // here is just running 
+                CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
+
+            if (CurrentStamina < 0)
+                CurrentStamina = 0;
+
+            OnStaminaChange?.Invoke(CurrentStamina);
+
+            if (CurrentStamina <= 0)
+            {
+                canSprint = false;
+            }
+        }
+        else if (_speedOffset != sprintSpeed && isJumping)  // this second if, manage the stamina when the character is walking or standing still but is jumping
+        {
+            if (regeneratingStamina != null)
+            {
+                StopCoroutine(regeneratingStamina);
+                regeneratingStamina = null;
+            }
+
+            CurrentStamina -= JumpMultiplier * Time.deltaTime;
+
+            if (CurrentStamina < 0)
+                CurrentStamina = 0;
+
+            OnStaminaChange?.Invoke(CurrentStamina);
+
+            if (CurrentStamina <= 0)
+            {
+                canSprint = false;
+            }
+        }
+        else if (_speedOffset != sprintSpeed && CurrentStamina < MaxStamina && regeneratingStamina == null)// when the character is still,it begin to regenerate stamina
+        {
+            animator.SetBool("running", false);
+            regeneratingStamina = StartCoroutine(RegenerateStamina());
+        }
 
     }
-        
+
+    //Sprint and stamina function
+    private IEnumerator RegenerateStamina()
+    {
+        yield return new WaitForSeconds(TimeBeforeStaminaRegenStarts);
+        WaitForSeconds timeToWait = new WaitForSeconds(StaminaTimeIncrement);
+
+        while (CurrentStamina < MaxStamina)
+        {
+            if (CurrentStamina > 0)
+            {
+                canSprint = true;
+                //canJump = true;
+            }
+
+            CurrentStamina += StaminaValueIncrement;
+
+            if (CurrentStamina > MaxStamina)
+                CurrentStamina = MaxStamina;
+
+            CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
+
+            yield return timeToWait;
+        }
+
+
+        regeneratingStamina = null;
+    }
+
     //Spawn Functions
     private void Spawn()
     {
@@ -148,17 +243,17 @@ public class PlayerManager : MonoBehaviour
         LastCheckpoint = checkpoint;
         Debug.Log("Spawn point set");
     }
-    
+
     //Attack functions
     public static void Attack(Enemy enemy)
     {
         int amount = 30;
         Debug.Log("Attacking");
-        GameManager.PlayerAttack(amount,enemy);
+        GameManager.PlayerAttack(amount, enemy);
         animator.SetTrigger("hook");
         Instance.StartCoroutine(Wait(_attackCooldown));
     }
-    
+
     //Powerup functions
     private IEnumerator GodMode(float cooldownTime)
     {
@@ -182,22 +277,22 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(cooldownTime);
         _attackCooldown *= 4;
     }
-    
+
     //Stats functions
     private void SetStats()
     {
-        if(PlayerPrefs.GetInt("SaveExists")==1)LoadProgress();
-        else if(PlayerPrefs.GetInt("SaveExists")==0)LoadDefaultStats();
+        if (PlayerPrefs.GetInt("SaveExists") == 1) LoadProgress();
+        else if (PlayerPrefs.GetInt("SaveExists") == 0) LoadDefaultStats();
         else Debug.Log("Error while setting the stats");
     }
-    
+
     private void SaveProgress()
     {
         PlayerPrefs.SetInt("SaveExists", 1);
         PlayerPrefs.SetInt("Lives", CurrentLives);
         PlayerPrefs.SetInt("Health", CurrentHealth);
         PlayerPrefs.SetInt("Mana", CurrentMana);
-        PlayerPrefs.SetInt("Stamina", CurrentStamina);
+        PlayerPrefs.SetFloat("Stamina", CurrentStamina);
         PlayerPrefs.SetString("LastCheckpoint", LastCheckpoint.name);
         PlayerPrefs.Save();
         Debug.Log("Progress saved");
@@ -223,35 +318,40 @@ public class PlayerManager : MonoBehaviour
         LastCheckpoint = GameObject.Find("checkPoint_0").transform;
         Debug.Log("Default stats set.");
     }
-    
+
     static void AddLives(int amount)
     {
         if (CurrentLives + amount > MaxLives) CurrentLives = MaxLives;
-        else if (CurrentLives + amount < 1) {
+        else if (CurrentLives + amount < 1)
+        {
             CurrentLives = 0;
             GameManager.GameOver();
-        }else CurrentLives += amount;
+        }
+        else CurrentLives += amount;
         Debug.Log("Lives set to " + CurrentLives);
     }
     public static void AddHealth(int amount)
     {
-        if(godModeEnabled && amount<0)return;
-        if (CurrentHealth+amount > MaxHealth) CurrentHealth = MaxHealth;
-        else if (CurrentHealth+amount < 1) {
+        if (godModeEnabled && amount < 0) return;
+        if (CurrentHealth + amount > MaxHealth) CurrentHealth = MaxHealth;
+        else if (CurrentHealth + amount < 1)
+        {
             GameManager.PlayerDeath();
             animator.SetTrigger("death");
             AddLives(-1);
             CurrentHealth = DefaultHealth;
             CurrentMana = DefaultMana;
             CurrentStamina = DefaultStamina;
-        }else CurrentHealth += amount;
+        }
+        else CurrentHealth += amount;
         Debug.Log("Health set to " + CurrentHealth);
     }
+
     public static void AddMana(int amount)
     {
         if (amount < 0 && godModeEnabled) return;
-        if (CurrentMana+amount > MaxMana) CurrentMana = MaxMana;
-        else if (CurrentMana+amount < 0) CurrentMana = 0;
+        if (CurrentMana + amount > MaxMana) CurrentMana = MaxMana;
+        else if (CurrentMana + amount < 0) CurrentMana = 0;
         else CurrentMana += amount;
         Debug.Log("Mana set to " + CurrentMana);
     }
@@ -273,6 +373,7 @@ public class PlayerManager : MonoBehaviour
         SpawnPoint = GameObject.Find("checkPoint_0").transform;
         LastCheckpoint = SpawnPoint;
         Instance = this;
+        CurrentStamina = DefaultStamina;
 
         //Events
         GameManager.OnGameStart += SetStats;
@@ -287,7 +388,7 @@ public class PlayerManager : MonoBehaviour
         GameManager.OnRangedEnemyAttacks += AddHealth;
         GameManager.OnCheckpointReached += SetSpawnPoint;
     }
-    
+
     private void OnDestroy()
     {
         //Stats events
@@ -328,6 +429,6 @@ public class PlayerManager : MonoBehaviour
             Destroy(other.GameObject());
         }
     }
-    
+
 
 }

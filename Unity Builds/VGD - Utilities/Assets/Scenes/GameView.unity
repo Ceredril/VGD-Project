@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 40654960}
   m_Layer: 0
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1363,7 +1363,7 @@ Transform:
   - {fileID: 2099513568}
   - {fileID: 1268479117}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &160123132
 MonoBehaviour:
@@ -1392,7 +1392,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2
-  m_Height: 2
+  m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &168160771
@@ -1929,20 +1929,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 188270859}
+  slider: {fileID: 0}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0.97197837, b: 0, a: 1}
-    key2: {r: 0.28755283, g: 0.8301887, b: 0.24801227, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32781
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -1957,9 +1957,9 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 3
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  fill: {fileID: 1589848968}
+  fill: {fileID: 0}
 --- !u!114 &188270859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2812,7 +2812,7 @@ Transform:
   - {fileID: 1468792424}
   - {fileID: 284220746}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &246049745
 MonoBehaviour:
@@ -2841,7 +2841,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2
-  m_Height: 2
+  m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &251101990
@@ -3563,20 +3563,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 270148778}
+  slider: {fileID: 0}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0.97197837, b: 0, a: 1}
-    key2: {r: 0.28755283, g: 0.8301887, b: 0.24801227, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32781
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -3591,9 +3591,9 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 3
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  fill: {fileID: 1194823599}
+  fill: {fileID: 0}
 --- !u!114 &270148778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3928,7 +3928,7 @@ GameObject:
   - component: {fileID: 284220746}
   m_Layer: 0
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4094,7 +4094,7 @@ Transform:
   - {fileID: 1839363118}
   - {fileID: 234901156}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &286619056
 MonoBehaviour:
@@ -4265,7 +4265,7 @@ GameObject:
   - component: {fileID: 319437381}
   m_Layer: 0
   m_Name: Alpha_Surface
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5506,7 +5506,7 @@ GameObject:
   - component: {fileID: 459285421}
   m_Layer: 0
   m_Name: Alpha_Surface
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7952,7 +7952,7 @@ Transform:
   - {fileID: 40654960}
   - {fileID: 354554856}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &681513715
 MonoBehaviour:
@@ -10126,20 +10126,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 863369783}
+  slider: {fileID: 0}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0.97197837, b: 0, a: 1}
-    key2: {r: 0.28755283, g: 0.8301887, b: 0.24801227, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32781
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -10154,9 +10154,9 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 3
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  fill: {fileID: 52540151}
+  fill: {fileID: 0}
 --- !u!114 &863369783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11159,7 +11159,7 @@ GameObject:
   - component: {fileID: 942650229}
   m_Layer: 0
   m_Name: Alpha_Joints
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11809,7 +11809,7 @@ GameObject:
   - component: {fileID: 1007073883}
   m_Layer: 0
   m_Name: Alpha_Joints
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14155,20 +14155,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1215553832}
+  slider: {fileID: 0}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0.97197837, b: 0, a: 1}
-    key2: {r: 0.28755283, g: 0.8301887, b: 0.24801227, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32781
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -14183,9 +14183,9 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 3
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  fill: {fileID: 88999951}
+  fill: {fileID: 0}
 --- !u!114 &1215553832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15139,7 +15139,7 @@ GameObject:
   - component: {fileID: 1268479117}
   m_Layer: 0
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17244,20 +17244,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1459020526}
+  slider: {fileID: 0}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0.97197837, b: 0, a: 1}
-    key2: {r: 0.28755283, g: 0.8301887, b: 0.24801227, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32781
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -17272,9 +17272,9 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 3
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  fill: {fileID: 1341234059}
+  fill: {fileID: 0}
 --- !u!114 &1459020526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17450,7 +17450,7 @@ GameObject:
   - component: {fileID: 1468792425}
   m_Layer: 0
   m_Name: Alpha_Surface
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19982,20 +19982,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1733713668}
+  slider: {fileID: 0}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0.97197837, b: 0, a: 1}
-    key2: {r: 0.28755283, g: 0.8301887, b: 0.24801227, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32781
-    ctime2: 65535
+    ctime1: 65535
+    ctime2: 0
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -20010,9 +20010,9 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 3
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  fill: {fileID: 2070851076}
+  fill: {fileID: 0}
 --- !u!114 &1733713668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20107,7 +20107,7 @@ GameObject:
   - component: {fileID: 1734243480}
   m_Layer: 0
   m_Name: Alpha_Joints
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21570,7 +21570,7 @@ GameObject:
   - component: {fileID: 1839363118}
   m_Layer: 0
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21669,7 +21669,7 @@ GameObject:
   - component: {fileID: 1844818890}
   m_Layer: 0
   m_Name: Alpha_Joints
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24161,7 +24161,7 @@ GameObject:
   - component: {fileID: 2099513569}
   m_Layer: 0
   m_Name: Alpha_Surface
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25164,8 +25164,8 @@ Transform:
   - {fileID: 268055663625205927}
   - {fileID: 2484128539572404838}
   - {fileID: 5465940245719998941}
-  m_Father: {fileID: 4026302133065288768}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &545348832755196894
 GameObject:
@@ -25496,6 +25496,8 @@ GameObject:
   - component: {fileID: 543450652352217417}
   - component: {fileID: 1356195493}
   - component: {fileID: 1356195495}
+  - component: {fileID: 919132148363484148}
+  - component: {fileID: 919132148363484149}
   m_Layer: 6
   m_Name: Player Body
   m_TagString: PlayerBody
@@ -25503,6 +25505,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &919132148363484148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148363484147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b678ea6fc2c494395b924c6816ab77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 1356195493}
+  characterCamera: {fileID: 4026302133376305319}
+  StaminaUseMultiplier: 4
+  TimeBeforeStaminaRegenStarts: 1.5
+  walkingSpeed: 2
+  sprintSpeed: 4
+  jumpForce: 4
+  JumpMultiplier: 10
+--- !u!135 &919132148363484149
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148363484147}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &927166237412659780
 GameObject:
   m_ObjectHideFlags: 0
@@ -27011,7 +27046,7 @@ GameObject:
   - component: {fileID: 1929911758811596618}
   m_Layer: 0
   m_Name: Alpha_Surface
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28828,7 +28863,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302132388071567}
-  m_LocalRotation: {x: -0.056546256, y: -0.000000017178854, z: -9.729567e-10, w: 0.99840003}
+  m_LocalRotation: {x: -0.056546256, y: 1e-45, z: -0, w: 0.99840003}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28914,8 +28949,8 @@ Transform:
   - {fileID: 4026302133116236151}
   - {fileID: 4026302132388071565}
   - {fileID: 4026302133082211056}
-  m_Father: {fileID: 4026302133065288768}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4026302132603362113
 MonoBehaviour:
@@ -29069,76 +29104,6 @@ MonoBehaviour:
   m_Damping: 0.1
   m_DampingWhenOccluded: 0.1
   m_OptimalTargetDistance: 0
---- !u!4 &4026302133065288768
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4026302133065288769}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 543450652352217417}
-  - {fileID: 4026302133376305319}
-  - {fileID: 4026302132603362112}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4026302133065288769
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4026302133065288768}
-  - component: {fileID: 4026302133065288771}
-  - component: {fileID: 4026302133065288772}
-  m_Layer: 6
-  m_Name: Player
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &4026302133065288771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4026302133065288769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19b678ea6fc2c494395b924c6816ab77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterController: {fileID: 0}
-  characterCamera: {fileID: 0}
-  StaminaUseMultiplier: 4
-  TimeBeforeStaminaRegenStarts: 1.5
-  walkingSpeed: 2
-  sprintSpeed: 4
-  jumpForce: 4
-  JumpMultiplier: 10
---- !u!136 &4026302133065288772
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4026302133065288769}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 2
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: -1.6, z: -2.95}
 --- !u!4 &4026302133082211056
 Transform:
   m_ObjectHideFlags: 3
@@ -29146,7 +29111,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133082211058}
-  m_LocalRotation: {x: -0.074649386, y: -0.000000017158376, z: -0.0000000012844459, w: 0.99720985}
+  m_LocalRotation: {x: -0.074649386, y: -1e-45, z: -0, w: 0.99720985}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -29286,7 +29251,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133116236145}
-  m_LocalRotation: {x: -0.03837652, y: 2.317524e-10, z: 8.900443e-12, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: -0.0000000021492135, z: -8.2540134e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -29533,13 +29498,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133376305314}
-  m_LocalRotation: {x: -0.056546256, y: -0.0000000343577, z: -0.0000000019459132, w: 0.9984}
+  m_LocalRotation: {x: -0.056546263, y: 0.000000030670375, z: 0.0000000017370746, w: 0.9984}
   m_LocalPosition: {x: 0, y: -1.6500001, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4026302133065288768}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -6.483, y: 180, z: 0}
 --- !u!4 &4026302133778817024
 Transform:
@@ -29946,7 +29911,7 @@ GameObject:
   - component: {fileID: 4328202887294386690}
   m_Layer: 0
   m_Name: Alpha_Surface
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30776,7 +30741,7 @@ GameObject:
   - component: {fileID: 134077200677622806}
   m_Layer: 0
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31358,7 +31323,7 @@ Transform:
   - {fileID: 134077200677622806}
   - {fileID: 1446282843}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &5587845963551093892
 NavMeshAgent:
@@ -31850,7 +31815,7 @@ GameObject:
   - component: {fileID: 9173411361346070687}
   m_Layer: 0
   m_Name: Alpha_Joints
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33245,7 +33210,7 @@ GameObject:
   - component: {fileID: 2811626724789211486}
   m_Layer: 0
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33850,7 +33815,7 @@ Transform:
   - {fileID: 2811626724789211486}
   - {fileID: 1141562335}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &7734005818386821580
 NavMeshAgent:
@@ -34893,7 +34858,7 @@ GameObject:
   - component: {fileID: 6455400008962321879}
   m_Layer: 0
   m_Name: Alpha_Joints
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

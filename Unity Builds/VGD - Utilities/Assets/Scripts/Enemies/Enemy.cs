@@ -6,9 +6,8 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-    
-    [SerializeField]public int _currentHealth, _maxHealth;
-    private bool _isAlive=true;
+    public int _currentHealth, _maxHealth;
+    private static bool _isAlive=true;
     enum EnemyType
     {
         Melee,Ranged,Boss
@@ -127,7 +126,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void ReduceHealth(int amount, Enemy enemy)
+    public void ReduceHealth(int amount, Enemy enemy)
     {
         if (enemy == this)
         {
@@ -145,14 +144,5 @@ public class Enemy : MonoBehaviour
         _canAttack = false;
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (!other.CompareTag("PlayerBody")) return;
-        if (Input.GetMouseButtonDown(0) && PlayerManager._canHit)
-        {
-            PlayerManager.Attack(this);
-        }
     }
 }

@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    //ENUMS
+    enum AttackType {None,Melee,Ranged}
     //Object references
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform characterCamera;
-    [HideInInspector] public static Animator animator;
+    public static Animator animator;
     private static PlayerManager Instance;
-
     //Stats parameters
     public static readonly int MaxLives = 5;
     public static readonly int MaxHealth = 100;
@@ -20,8 +21,8 @@ public class PlayerManager : MonoBehaviour
     private static readonly int DefaultHealth = 80;
     private static readonly int DefaultMana = 80;
     private static readonly int DefaultStamina = 100;
-
-
+    private static bool _hasMeleeAttack = true;
+    private static bool _hasRangedAttack = true;
     //Stamina parameters
     private bool canSprint = true;
     [SerializeField] private float StaminaUseMultiplier = 4;
@@ -31,7 +32,6 @@ public class PlayerManager : MonoBehaviour
     public static float CurrentStamina;
     private Coroutine regeneratingStamina;
     public static Action<float> OnStaminaChange;
-
     //Cooldown parameters
     private readonly int GodModeCooldown = 5;
     private readonly int SpeedHackCooldown = 15;
@@ -54,6 +54,7 @@ public class PlayerManager : MonoBehaviour
     public static bool _canHit = true;
     private bool _isNear;
     private static float _attackCooldown = 1f;
+    private AttackType _currentAttack;
     //Powerup variables
     private static bool godModeEnabled = false;
     //Stats variables
@@ -83,27 +84,22 @@ public class PlayerManager : MonoBehaviour
         float keyboardInputHorizontal = Input.GetAxis("Horizontal");
         float keyboardInputVertical = Input.GetAxis("Vertical");
         Vector3 movementDirection = new Vector3(keyboardInputHorizontal, 0f, keyboardInputVertical).normalized;
-
-
         // Get the camera's forward direction without the vertical component
         Vector3 cameraForward = characterCamera.forward;
         cameraForward.y = 0f;
         cameraForward.Normalize();
-
         // Rotate the character to face the camera direction
         if (cameraForward.magnitude >= 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
             transform.rotation = targetRotation;
         }
-
         // Calculate the movement vector in the camera's relative direction
         Vector3 movement = movementDirection.x * characterCamera.right + movementDirection.z * cameraForward;
         movement.Normalize();
-
-        // If the character is moving, apply the movement to the character controller
+        
         if (movementDirection.magnitude >= 0.1f)
-        {
+        {   // If the character is moving, apply the movement to the character controller
             float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + characterCamera.eulerAngles.y;
             movementDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
@@ -128,41 +124,30 @@ public class PlayerManager : MonoBehaviour
         movementDirection.y = _verticalSpeed;
         movementDirection.x *= _speedOffset;
         movementDirection.z *= _speedOffset;
-
-
         //Apply the movement to the character
         characterController.Move(movementDirection * Time.deltaTime);
-
         //Passing the horizontal and vertical value to the animator
         animator.SetFloat("hInput", keyboardInputHorizontal);
         animator.SetFloat("vInput", keyboardInputVertical);
-
-
         // Setting the jump and hit states based on keystroke
         if (Input.GetKeyUp(KeyCode.Space)) { animator.SetBool("jump", false); isJumping = false; }
-
         // Switch between states based on whether you are running or walking and managing stamina level
         // first if, manage the stamina when the character is running or is running and jumping at the same time
         if (_speedOffset == sprintSpeed && movementDirection.magnitude >= 0.1f)
         {
             animator.SetBool("running", true);
-
             if (regeneratingStamina != null)
             {
                 StopCoroutine(regeneratingStamina);
                 regeneratingStamina = null;
             }
-
             if (isJumping)   // that means it's running and jumping 
                 CurrentStamina -= (JumpMultiplier + StaminaUseMultiplier) * Time.deltaTime;
             else            // here is just running 
                 CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
-
             if (CurrentStamina < 0)
                 CurrentStamina = 0;
-
             OnStaminaChange?.Invoke(CurrentStamina);
-
             if (CurrentStamina <= 0)
             {
                 canSprint = false;
@@ -175,14 +160,10 @@ public class PlayerManager : MonoBehaviour
                 StopCoroutine(regeneratingStamina);
                 regeneratingStamina = null;
             }
-
             CurrentStamina -= JumpMultiplier * Time.deltaTime;
-
             if (CurrentStamina < 0)
                 CurrentStamina = 0;
-
             OnStaminaChange?.Invoke(CurrentStamina);
-
             if (CurrentStamina <= 0)
             {
                 canSprint = false;
@@ -193,7 +174,6 @@ public class PlayerManager : MonoBehaviour
             animator.SetBool("running", false);
             regeneratingStamina = StartCoroutine(RegenerateStamina());
         }
-
     }
 
     //Sprint and stamina function
@@ -201,7 +181,6 @@ public class PlayerManager : MonoBehaviour
     {
         yield return new WaitForSeconds(TimeBeforeStaminaRegenStarts);
         WaitForSeconds timeToWait = new WaitForSeconds(StaminaTimeIncrement);
-
         while (CurrentStamina < MaxStamina)
         {
             if (CurrentStamina > 0)
@@ -209,18 +188,12 @@ public class PlayerManager : MonoBehaviour
                 canSprint = true;
                 //canJump = true;
             }
-
             CurrentStamina += StaminaValueIncrement;
-
             if (CurrentStamina > MaxStamina)
                 CurrentStamina = MaxStamina;
-
             CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
-
             yield return timeToWait;
         }
-
-
         regeneratingStamina = null;
     }
 
@@ -245,13 +218,22 @@ public class PlayerManager : MonoBehaviour
     }
 
     //Attack functions
-    public static void Attack(Enemy enemy)
+    private void Attack(AttackType attackType)
     {
-        int amount = 30;
-        Debug.Log("Attacking");
-        GameManager.PlayerAttack(amount, enemy);
-        animator.SetTrigger("hook");
-        Instance.StartCoroutine(Wait(_attackCooldown));
+        switch (attackType)
+        {
+            case AttackType.None:
+                //Player starts a dialogue saying "I should learn how to fight.. Maybe some villager here could help me to do so"
+                break;
+            case AttackType.Melee:
+                animator.SetTrigger("hook");
+                Instance.StartCoroutine(Wait(_attackCooldown));
+                break;
+            case AttackType.Ranged:
+                //Ranged attack to be implemented
+                break;
+        }
+
     }
 
     //Powerup functions
@@ -294,6 +276,9 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.SetInt("Mana", CurrentMana);
         PlayerPrefs.SetFloat("Stamina", CurrentStamina);
         PlayerPrefs.SetString("LastCheckpoint", LastCheckpoint.name);
+        PlayerPrefs.SetInt("HasMeleeAttack", Convert.ToInt32(_hasMeleeAttack));
+        PlayerPrefs.SetInt("HasRangedAttack", Convert.ToInt32(_hasRangedAttack));
+        PlayerPrefs.SetInt("CurrentAttack", (int)_currentAttack);
         PlayerPrefs.Save();
         Debug.Log("Progress saved");
     }
@@ -306,6 +291,9 @@ public class PlayerManager : MonoBehaviour
         CurrentStamina = PlayerPrefs.GetInt("Stamina");
         SpawnPoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
         LastCheckpoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
+        _hasMeleeAttack = Convert.ToBoolean(PlayerPrefs.GetInt("HasMeleeAttack"));
+        _hasRangedAttack = Convert.ToBoolean(PlayerPrefs.GetInt("hasRangedAttack"));
+        _currentAttack = (AttackType)PlayerPrefs.GetInt("CurrentAttack");
         Debug.Log("Progress loaded");
     }
     private void LoadDefaultStats()
@@ -367,9 +355,9 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         //Components
-        characterController = GetComponentInChildren<CharacterController>();
-        characterCamera = GetComponentInChildren<Camera>().transform;
-        animator = GetComponentInChildren<Animator>();
+        characterController = GetComponent<CharacterController>();
+        characterCamera = GameObject.Find("Main Camera").transform;
+        animator = GetComponent<Animator>();
         SpawnPoint = GameObject.Find("checkPoint_0").transform;
         LastCheckpoint = SpawnPoint;
         Instance = this;
@@ -409,6 +397,19 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         if (!GameManager.GameIsPaused) Move();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && _hasMeleeAttack)
+        {
+            _currentAttack = AttackType.Melee;
+            Debug.Log("Melee attack selected");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && _hasRangedAttack)
+        {
+            _currentAttack = AttackType.Ranged;
+            Debug.Log("Ranged attack selected");
+        }
+
+        if (Input.GetMouseButtonDown(0) && _currentAttack==AttackType.Ranged) Attack(_currentAttack);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -430,5 +431,14 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (!other.CompareTag("Enemy")) return;
+        if (Input.GetMouseButtonDown(0) && _currentAttack == AttackType.Melee)
+        {
+            Attack(_currentAttack);
+            int amount = 30;
+            GameManager.PlayerAttack(amount, other.GetComponent<Enemy>());
+        }
+    }
 }

@@ -13,6 +13,9 @@ TagManager:
   - healthCollectible
   - PlayerBody
   - Enemy
+  - godModePowerup
+  - fireFistsPowerup
+  - speedHackPowerup
   layers:
   - Default
   - TransparentFX

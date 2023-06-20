@@ -18,7 +18,7 @@ public class InteractableObjects : MonoBehaviour
     public float typingSpeed = 0.02f;
     public float radius = 3f;
     public KeyCode InteractableKey = KeyCode.E; // Changeable
-    public float drop = 0;
+    public float InteractionStatus = 0;
     bool isInteracting = false;
 
 
@@ -27,6 +27,8 @@ public class InteractableObjects : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         playerTransform = GameObject.Find("Player Body").GetComponent<Transform>();
+        GameManager.OnGameSave += SaveProgress;
+        GameManager.OnGameStart += LoadProgress;
     }
 
     void Update()
@@ -57,8 +59,8 @@ public class InteractableObjects : MonoBehaviour
                 }
                 else
                 {
-                    dialogueManager.StartDialogue(dialogue, typingSpeed, drop);
-                    drop = 0;
+                    dialogueManager.StartDialogue(dialogue, typingSpeed, InteractionStatus);
+                    InteractionStatus = 0;
                     isInteracting = dialogueManager.DisplayNextSentence();
                 }
                 break;
@@ -76,4 +78,17 @@ public class InteractableObjects : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(this.transform.position, radius);
     }
+
+    private void SaveProgress()
+    {
+        PlayerPrefs.SetFloat("InteractionStatus", InteractionStatus);
+    }
+    private void LoadProgress()
+    {
+        if (PlayerPrefs.GetInt("SaveExists") == 1)
+        {
+            InteractionStatus = PlayerPrefs.GetFloat("InteractionStatus");
+        }
+    }
+
 }

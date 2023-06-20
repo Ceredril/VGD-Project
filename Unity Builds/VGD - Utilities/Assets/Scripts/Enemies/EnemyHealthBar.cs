@@ -12,8 +12,6 @@ public class EnemyHealthBar : MonoBehaviour
     public Gradient gradient;
     public Image fill;
 
-    bool once = true;
-
     private void Start()
     {
         currentEnemy = GetComponentInParent<Enemy>();

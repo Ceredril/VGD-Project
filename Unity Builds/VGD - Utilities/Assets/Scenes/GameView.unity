@@ -1380,7 +1380,7 @@ MonoBehaviour:
   _currentHealth: 0
   _maxHealth: 0
   enemyType: 0
-  _bullet: {fileID: 0}
+  enemyBullet: {fileID: 0}
 --- !u!136 &160123133
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2829,7 +2829,7 @@ MonoBehaviour:
   _currentHealth: 0
   _maxHealth: 0
   enemyType: 0
-  _bullet: {fileID: 0}
+  enemyBullet: {fileID: 0}
 --- !u!136 &246049746
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4111,7 +4111,7 @@ MonoBehaviour:
   _currentHealth: 0
   _maxHealth: 0
   enemyType: 1
-  _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  enemyBullet: {fileID: 0}
 --- !u!136 &286619057
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7969,7 +7969,7 @@ MonoBehaviour:
   _currentHealth: 0
   _maxHealth: 0
   enemyType: 1
-  _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  enemyBullet: {fileID: 0}
 --- !u!136 &681513716
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25544,6 +25544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddf33e54c75d4b4c998a18b28dd677c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterCamera: {fileID: 0}
+  playerBullet: {fileID: 2682111366274297182, guid: 55b572be29fc45048af615670b83ee13, type: 3}
 --- !u!114 &919132148363484151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29275,7 +29277,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133116236145}
-  m_LocalRotation: {x: -0.038376518, y: 0.000000002149213, z: 8.254012e-11, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: -0.0000000021492135, z: -8.2540134e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -31386,7 +31388,7 @@ MonoBehaviour:
   _currentHealth: 0
   _maxHealth: 0
   enemyType: 1
-  _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  enemyBullet: {fileID: 0}
 --- !u!136 &5587845963551093894
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33878,7 +33880,7 @@ MonoBehaviour:
   _currentHealth: 0
   _maxHealth: 0
   enemyType: 0
-  _bullet: {fileID: 0}
+  enemyBullet: {fileID: 0}
 --- !u!136 &7734005818386821582
 CapsuleCollider:
   m_ObjectHideFlags: 0

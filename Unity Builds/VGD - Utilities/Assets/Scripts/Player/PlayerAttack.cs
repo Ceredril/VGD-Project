@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,28 +6,28 @@ public class PlayerAttack : MonoBehaviour
 {
     
     private enum Skill {Fist,Fireball,Shield}
+    //Object references
     private Animator animator;
     private Enemy _nearEnemy;
-
-
+    [SerializeField] private Transform characterCamera;
+    [SerializeField] private Rigidbody playerBullet;
+    //Skill parameters
     private float _fistCooldown=2;
-    private int _fireballCooldown;
-    private float _lastAttackTime;
-
-    
-    
+    private int _fireballCooldown=2;
+    private float _lastFistTime;
+    private float _lastFireballTime;
+    private float _bulletSpeed=1800;
+    //Skill variables
     private static bool _hasFist = true;
     private static bool _hasFireball = true;
     //private static bool _hasShield = true;
     private Skill _currentSkill;
-    
     private readonly int _minFistDamage = 20, _maxFistDamage=30;
-    private readonly int _minFireballDamage = 10, _maxFireballDamage = 20;
-
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        characterCamera = GameObject.Find("Main Camera").transform;
     }
 
     void Update()
@@ -78,24 +77,29 @@ public class PlayerAttack : MonoBehaviour
 
     private void Fist(Enemy enemy)
     {
-        if (Time.time - _lastAttackTime >= _fistCooldown)
+        if (Time.time - _lastFistTime >= _fistCooldown)
         {
             animator.SetTrigger("hook");
             if (_nearEnemy != null)
             {
                 int damage = Random.Range(_minFistDamage, _maxFistDamage);
-                enemy._currentHealth -= damage;
+                enemy.ReduceHealth(damage,enemy);
             }
-
-            _lastAttackTime = Time.time;
+            _lastFistTime = Time.time;
         }
     }
 
     private void Fireball()
     {
-        int damage = Random.Range(_minFireballDamage, _maxFireballDamage);
-        //Throws a fireball prefab towards where the main camera is pointing at.
-        //If the prefab hits a object of tag "Enemy", it reduces the enemy's parameter _currentHealth
+        if (Time.time - _lastFireballTime >= _fireballCooldown)
+        {
+            Transform thisTransform = transform;
+            Rigidbody bulletClone = Instantiate(playerBullet, thisTransform.position + new Vector3(0, 2f, 0) + Vector3.forward,
+                thisTransform.rotation);
+            Vector3 bulletDirection = characterCamera.forward;
+            bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
+            _lastFireballTime = Time.time;
+        }
     }
 
     private void Shield()
@@ -113,9 +117,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void LoadProgress()
     {
-        _hasFist = Convert.ToBoolean(PlayerPrefs.GetInt("HasMeleeAttack"));
-        _hasFireball = Convert.ToBoolean(PlayerPrefs.GetInt("hasRangedAttack"));
-        _currentSkill = (Skill)PlayerPrefs.GetInt("CurrentAttack");
+        if (PlayerPrefs.GetInt("SaveExists") == 1)
+        {
+            _hasFist = Convert.ToBoolean(PlayerPrefs.GetInt("HasMeleeAttack"));
+            _hasFireball = Convert.ToBoolean(PlayerPrefs.GetInt("hasRangedAttack"));
+            _currentSkill = (Skill)PlayerPrefs.GetInt("CurrentAttack");
+        }
     }
 
     private void OnTriggerEnter(Collider other)

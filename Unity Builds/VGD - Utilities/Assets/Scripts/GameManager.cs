@@ -15,9 +15,6 @@ public class GameManager : MonoBehaviour
     //CHECKPOINT EVENTS
     public static event Action<Transform> OnCheckpointReached;
     public static event Action OnObjectInteraction;
-    public static event Action<KeyCode> OnAbilityButtonPressed;
-    public static event Action<int> OnMeleeEnemyAttacks, OnRangedEnemyAttacks;
-    public static event Action<int, Enemy> OnPlayerAttack;
 
     public static bool GameIsRunning;
     public static bool GameIsPaused;
@@ -40,16 +37,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver && !GameIsPaused && GameIsRunning) Pause();
-        /*foreach (KeyValuePair<KeyCode, Cooldown> ability in AbilityManager.PlayerAbilities) // I WOULD MAYBE TRY TO INTEGRATE ALL KEYS INTO THIS
-        {
-            // Check if the player tries to execute an ability
-            if (Input.GetKeyDown(ability.Key))
-            {
-                AbilityButtonPressed(ability.Key);
-            }
-        }*/
     }
-
 
     //EVENT RELATED FUNCTIONS
     public static void GameStart()
@@ -133,32 +121,10 @@ public class GameManager : MonoBehaviour
         OnPlayerDeath?.Invoke();
     }
 
-    public static void PlayerAttack(int damage, Enemy enemy)
-    {
-        OnPlayerAttack?.Invoke(damage,enemy);
-    }
-
-    public static void MeleeEnemyAttacks(int damage)
-    {
-        Debug.Log("Player took " + damage + " melee damage");
-        OnMeleeEnemyAttacks?.Invoke(damage);
-    }
-
-    public static void RangedEnemyAttacks(int damage)
-    {
-        Debug.Log("Player took " + damage + " ranged damage");
-        OnRangedEnemyAttacks?.Invoke(damage);
-    }
-
     public static void PlayerInteracted()
     {
         Debug.Log("Interacting with an Object");
         OnObjectInteraction?.Invoke();
     }
 
-    public static void PlayerPressedAbilityButton(KeyCode keyBind)
-    {
-        Debug.Log("Ability Button: " + keyBind + " pressed");
-        OnAbilityButtonPressed?.Invoke(keyBind);
-    }
 }

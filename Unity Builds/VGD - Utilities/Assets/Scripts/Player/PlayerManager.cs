@@ -149,8 +149,6 @@ public class PlayerManager : MonoBehaviour
         GameManager.OnManaCollected += AddMana;
         GameManager.OnHealthCollected += AddHealth;
         GameManager.OnLivesCollected += AddLives;
-        GameManager.OnMeleeEnemyAttacks += AddHealth;
-        GameManager.OnRangedEnemyAttacks += AddHealth;
         GameManager.OnCheckpointReached += SetSpawnPoint;
     }
 
@@ -165,28 +163,6 @@ public class PlayerManager : MonoBehaviour
         GameManager.OnManaCollected -= AddMana;
         GameManager.OnHealthCollected -= AddHealth;
         GameManager.OnLivesCollected -= AddLives;
-        GameManager.OnMeleeEnemyAttacks -= AddHealth;
-        GameManager.OnRangedEnemyAttacks -= AddHealth;
         GameManager.OnCheckpointReached -= SetSpawnPoint;
     }
-    
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("godModePowerup"))
-        {
-            GodMode(GodModeCooldown);
-            Destroy(other.GameObject());
-        }
-        if (other.CompareTag("speedHackPowerup"))
-        {
-            SpeedHack(SpeedHackCooldown);
-            Destroy(other.GameObject());
-        }
-        if (other.CompareTag("fireFistsPowerup"))
-        {
-            FireFists(FireFistsCooldown);
-            Destroy(other.GameObject());
-        }
-    }*/
 }

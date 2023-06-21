@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     
     private NavMeshAgent _agent;
     private Transform _player;
-    [SerializeField] private Rigidbody _bullet;
+    [SerializeField] private Rigidbody enemyBullet;
     
     private float _sightRange;
     private float _walkPointRange;
@@ -32,12 +32,6 @@ public class Enemy : MonoBehaviour
     private Vector3 _walkPoint;
     private bool _walkPointSet;
 
-    private void Awake()
-    {
-        animator = GetComponentInChildren<Animator>();
-    }
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -48,8 +42,8 @@ public class Enemy : MonoBehaviour
                 _walkPointRange = 6f;
                 _attackRange = 2f;
                 _attackCooldown = 4f;
-                _currentHealth = 80;
-                _maxHealth = 80;
+                _currentHealth = 60;
+                _maxHealth = 60;
                 break;
             case EnemyType.Ranged:
                 _sightRange = 18f;
@@ -62,6 +56,7 @@ public class Enemy : MonoBehaviour
         }
         
         _agent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
         _player = GameObject.Find("Player Body").transform;
         _agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
@@ -71,18 +66,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_isAlive)return;
         if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && _canAttack && GameManager.PlayerIsAlive) AttackPlayer(enemyType);
         if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && GameManager.PlayerIsAlive) ChasePlayer();
         else Patrolling();
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
         if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
-        
-        if (_currentHealth < 1)
-        {
-            _isAlive = false;
-            Destroy(gameObject);
-        }
     }
     
     void SearchWalkPoint()
@@ -112,19 +100,18 @@ public class Enemy : MonoBehaviour
         switch (enemyType)
         {
             case EnemyType.Melee:
-                GameManager.MeleeEnemyAttacks(Random.Range(-15, -30));
+                PlayerManager.AddHealth(Random.Range(-15,-30));
                 animator.SetTrigger("swip");  
                 StartCoroutine(AttackCooldown());
                 break;
             case EnemyType.Ranged:
                 Transform thisTransform = transform;
-                Rigidbody bulletClone = Instantiate(_bullet, thisTransform.position+new Vector3(0,1f,0), thisTransform.rotation);
+                Rigidbody bulletClone = Instantiate(enemyBullet, thisTransform.position+new Vector3(0,1f,0), thisTransform.rotation);
                 Vector3 bulletDirection = _player.position - transform.position;
                 bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
                 StartCoroutine(AttackCooldown());
                 break;
         }
-
     }
 
     private IEnumerator AttackCooldown()
@@ -132,5 +119,18 @@ public class Enemy : MonoBehaviour
         _canAttack = false;
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
+    }
+    
+    public void ReduceHealth(int amount, Enemy enemy)
+    {
+        if (enemy == this)
+        {
+            _currentHealth -= amount;
+            if (_currentHealth < 1)
+            {
+                _isAlive = false;
+                Destroy(gameObject);
+            }
+        }
     }
 }

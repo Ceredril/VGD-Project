@@ -35,14 +35,9 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-        GameManager.OnPlayerAttack += ReduceHealth;
     }
 
-    private void OnDestroy()
-    {
-        GameManager.OnPlayerAttack -= ReduceHealth;
-    }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +77,12 @@ public class Enemy : MonoBehaviour
         else Patrolling();
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
         if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
+        
+        if (_currentHealth < 1)
+        {
+            _isAlive = false;
+            Destroy(gameObject);
+        }
     }
     
     void SearchWalkPoint()
@@ -124,19 +125,6 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-    }
-
-    public void ReduceHealth(int amount, Enemy enemy)
-    {
-        if (enemy == this)
-        {
-            _currentHealth -= amount;
-            if (_currentHealth < 1)
-            {
-                _isAlive = false;
-                Destroy(gameObject);
-            }
-        }
     }
 
     private IEnumerator AttackCooldown()

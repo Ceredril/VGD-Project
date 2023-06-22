@@ -1377,10 +1377,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 0
-  _maxHealth: 0
   enemyType: 0
   enemyBullet: {fileID: 0}
+  _currentHealth: 0
+  _maxHealth: 0
 --- !u!136 &160123133
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2826,10 +2826,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 0
-  _maxHealth: 0
   enemyType: 0
   enemyBullet: {fileID: 0}
+  _currentHealth: 0
+  _maxHealth: 0
 --- !u!136 &246049746
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4108,10 +4108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
+  enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 1
-  enemyBullet: {fileID: 0}
 --- !u!136 &286619057
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7966,10 +7966,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
+  enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 1
-  enemyBullet: {fileID: 0}
 --- !u!136 &681513716
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -31385,10 +31385,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
+  enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 1
-  enemyBullet: {fileID: 0}
 --- !u!136 &5587845963551093894
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33877,10 +33877,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 0
-  _maxHealth: 0
   enemyType: 0
   enemyBullet: {fileID: 0}
+  _currentHealth: 0
+  _maxHealth: 0
 --- !u!136 &7734005818386821582
 CapsuleCollider:
   m_ObjectHideFlags: 0

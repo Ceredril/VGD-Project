@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /*
@@ -22,13 +23,26 @@ public class InteractableObjects : MonoBehaviour
     bool isInteracting = false;
 
 
+    private void Awake()
+    {
+        GameManager.OnGameNew += SaveNew;
+        GameManager.OnGameSave += SaveProgress;
+        GameManager.OnGameLoad += LoadProgress;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameNew -= SaveNew;
+        GameManager.OnGameSave -= SaveProgress;
+        GameManager.OnGameLoad -= LoadProgress;
+    }
+
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         playerTransform = GameObject.Find("Player Body").GetComponent<Transform>();
-        GameManager.OnGameSave += SaveProgress;
-        GameManager.OnGameStart += LoadProgress;
+
     }
 
     void Update()
@@ -79,16 +93,18 @@ public class InteractableObjects : MonoBehaviour
         Gizmos.DrawWireSphere(this.transform.position, radius);
     }
 
+    private void SaveNew()
+    {
+        InteractionStatus = 0;
+        SaveProgress();
+    }
     private void SaveProgress()
     {
-        PlayerPrefs.SetFloat("InteractionStatus", InteractionStatus);
+        PlayerPrefs.SetFloat(name, InteractionStatus);
+        PlayerPrefs.Save();
     }
     private void LoadProgress()
     {
-        if (PlayerPrefs.GetInt("SaveExists") == 1)
-        {
-            InteractionStatus = PlayerPrefs.GetFloat("InteractionStatus");
-        }
+        InteractionStatus = PlayerPrefs.GetFloat(name);
     }
-
 }

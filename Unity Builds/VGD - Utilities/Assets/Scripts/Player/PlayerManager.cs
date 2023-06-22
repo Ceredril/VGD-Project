@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -27,6 +24,34 @@ public class PlayerManager : MonoBehaviour
     public static int CurrentHealth;
     public static int CurrentMana;
     public static int CurrentStamina;
+    
+    // Start is called before the first frame update
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        SpawnPoint = GameObject.Find("checkPoint_0").transform;
+        LastCheckpoint = SpawnPoint;
+
+        //Events
+        GameManager.OnGameStart += Spawn;
+        GameManager.OnGameRestart += Respawn;
+        GameManager.OnGameSave += SaveProgress;
+        GameManager.OnCheckpointReached += SetSpawnPoint;
+        GameManager.OnGameNew += SaveNew;
+        GameManager.OnGameLoad += LoadProgress;
+        GameManager.OnGameSave += SaveProgress;
+    }
+
+    private void OnDestroy()
+    {
+        //Stats events
+        GameManager.OnGameStart -= Spawn;
+        GameManager.OnGameRestart -= Respawn;
+        GameManager.OnCheckpointReached -= SetSpawnPoint;
+        GameManager.OnGameNew -= SaveNew;
+        GameManager.OnGameLoad -= LoadProgress;
+        GameManager.OnGameSave -= SaveProgress;
+    }
 
     //Spawn Functions
     private void Spawn()
@@ -48,48 +73,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Spawn point set");
     }
 
-    //Stats functions
-    private void SetStats()
-    {
-        if (PlayerPrefs.GetInt("SaveExists") == 1) LoadProgress();
-        else if (PlayerPrefs.GetInt("SaveExists") == 0) LoadDefaultStats();
-        else Debug.Log("Error while setting the stats");
-    }
-
-    private void SaveProgress()
-    {
-        PlayerPrefs.SetInt("SaveExists", 1);
-        PlayerPrefs.SetInt("Lives", CurrentLives);
-        PlayerPrefs.SetInt("Health", CurrentHealth);
-        PlayerPrefs.SetInt("Mana", CurrentMana);
-        PlayerPrefs.SetFloat("Stamina", CurrentStamina);
-        PlayerPrefs.SetString("LastCheckpoint", LastCheckpoint.name);
-        PlayerPrefs.Save();
-        Debug.Log("Progress saved");
-    }
-
-    private void LoadProgress()
-    {
-        CurrentLives = PlayerPrefs.GetInt("Lives");
-        CurrentHealth = PlayerPrefs.GetInt("Health");
-        CurrentMana = PlayerPrefs.GetInt("Mana");
-        CurrentStamina = PlayerPrefs.GetInt("Stamina");
-        SpawnPoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
-        LastCheckpoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
-        Debug.Log("Progress loaded");
-    }
-    private void LoadDefaultStats()
-    {
-        CurrentLives = DefaultLives;
-        CurrentHealth = DefaultHealth;
-        CurrentMana = DefaultMana;
-        CurrentStamina = DefaultStamina;
-        SpawnPoint = GameObject.Find("checkPoint_0").transform;
-        LastCheckpoint = GameObject.Find("checkPoint_0").transform;
-        Debug.Log("Default stats set.");
-    }
-
-    static void AddLives(int amount)
+    public static void AddLives(int amount)
     {
         if (CurrentLives + amount > MaxLives) CurrentLives = MaxLives;
         else if (CurrentLives + amount < 1)
@@ -133,36 +117,35 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Stamina set");
     }
 
-    // Start is called before the first frame update
-    private void Awake()
+    private void SaveProgress()
     {
-        animator = GetComponent<Animator>();
-        SpawnPoint = GameObject.Find("checkPoint_0").transform;
-        LastCheckpoint = SpawnPoint;
-
-        //Events
-        GameManager.OnGameStart += SetStats;
-        GameManager.OnGameStart += Spawn;
-        GameManager.OnGameRestart += Respawn;
-        GameManager.OnGameSave += SaveProgress;
-        GameManager.OnGameOver += LoadDefaultStats;
-        GameManager.OnManaCollected += AddMana;
-        GameManager.OnHealthCollected += AddHealth;
-        GameManager.OnLivesCollected += AddLives;
-        GameManager.OnCheckpointReached += SetSpawnPoint;
+        PlayerPrefs.SetInt("SaveExists", 1);
+        PlayerPrefs.SetInt("Lives", CurrentLives);
+        PlayerPrefs.SetInt("Health", CurrentHealth);
+        PlayerPrefs.SetInt("Mana", CurrentMana);
+        PlayerPrefs.SetFloat("Stamina", CurrentStamina);
+        PlayerPrefs.SetString("LastCheckpoint", LastCheckpoint.name);
+        PlayerPrefs.Save();
+        Debug.Log("Progress saved");
     }
-
-    private void OnDestroy()
+    private void LoadProgress()
     {
-        //Stats events
-        GameManager.OnGameStart -= SetStats;
-        GameManager.OnGameStart -= Spawn;
-        GameManager.OnGameRestart -= Respawn;
-        GameManager.OnGameSave -= SaveProgress;
-        GameManager.OnGameOver -= LoadDefaultStats;
-        GameManager.OnManaCollected -= AddMana;
-        GameManager.OnHealthCollected -= AddHealth;
-        GameManager.OnLivesCollected -= AddLives;
-        GameManager.OnCheckpointReached -= SetSpawnPoint;
+        CurrentLives = PlayerPrefs.GetInt("Lives");
+        CurrentHealth = PlayerPrefs.GetInt("Health");
+        CurrentMana = PlayerPrefs.GetInt("Mana");
+        CurrentStamina = PlayerPrefs.GetInt("Stamina");
+        SpawnPoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
+        LastCheckpoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
+        Debug.Log("Progress loaded");
+    }
+    private void SaveNew()
+    {
+        CurrentLives = DefaultLives;
+        CurrentHealth = DefaultHealth;
+        CurrentMana = DefaultMana;
+        CurrentStamina = DefaultStamina;
+        SpawnPoint = GameObject.Find("checkPoint_0").transform;
+        LastCheckpoint = GameObject.Find("checkPoint_0").transform;
+        Debug.Log("Default stats set.");
     }
 }

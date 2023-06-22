@@ -7,11 +7,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //GAME EVENTS
-    public static event Action OnGameStart,OnGameRestart,OnGameOver,OnGameEnd,OnGamePause,OnGameResume,OnGameSave;
+    public static event Action OnGameStart,OnGameRestart,OnGameOver,OnGameEnd,OnGamePause,OnGameResume;
+    public static event Action OnGameNew, OnGameLoad, OnGameSave;
     public static event Action OnPlayerDeath;
     
-    //COLLECTIBLE EVENTS
-    public static event Action<int> OnManaCollected, OnHealthCollected, OnLivesCollected;
     //CHECKPOINT EVENTS
     public static event Action<Transform> OnCheckpointReached;
     public static event Action OnObjectInteraction;
@@ -28,26 +27,24 @@ public class GameManager : MonoBehaviour
     //DEFAULT FUNCTIONS
     private void Start()
     {
+        if(PlayerPrefs.GetInt("SaveExists")==1)OnGameLoad?.Invoke();
+        else OnGameNew?.Invoke();
+        
+        cameraBrain = FindObjectOfType<Camera>().GetComponent<CinemachineBrain>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        cameraBrain = FindObjectOfType<Camera>().GetComponent<CinemachineBrain>();
-        GameStart();
+        GameIsOver = false;
+        GameIsRunning = true;
+        PlayerIsAlive = true;
+        OnGameStart?.Invoke();
+        Debug.Log("Game started");
     }
     
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver && !GameIsPaused && GameIsRunning) Pause();
     }
-
-    //EVENT RELATED FUNCTIONS
-    public static void GameStart()
-    {
-        Debug.Log("Game started");
-        GameIsOver = false;
-        GameIsRunning = true;
-        PlayerIsAlive = true;
-        OnGameStart?.Invoke();
-    }
+    
     
     public static void GameRestart()
     {
@@ -105,10 +102,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game saved");
         OnGameSave?.Invoke();
     }
-
-    public static void ManaCollected(int amount) => OnManaCollected?.Invoke(amount);
-    public static void HealthCollected(int amount) => OnHealthCollected?.Invoke(amount);
-    public static void LivesCollected(int amount) => OnLivesCollected?.Invoke(amount);
+    
     public static void CheckpointReached(Transform checkpoint) => OnCheckpointReached?.Invoke(checkpoint);
 
     public static void PlayerDeath()

@@ -6,8 +6,6 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-    public int _currentHealth, _maxHealth;
-    private static bool _isAlive=true;
     enum EnemyType
     {
         Melee,Ranged,Boss
@@ -15,26 +13,42 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] EnemyType enemyType;
     Animator animator;
-    
     private NavMeshAgent _agent;
     private Transform _player;
     [SerializeField] private Rigidbody enemyBullet;
+    private LayerMask _groundLayer, _playerLayer;
     
+    private static bool _isAlive=true;
+    public int _currentHealth;
+    public int _maxHealth;
     private float _sightRange;
     private float _walkPointRange;
     private float _attackRange;
     private bool _canAttack=true;
     private float _attackCooldown;
     private readonly float _bulletSpeed=1200f;
-    
-    private LayerMask _groundLayer, _playerLayer;
+   
 
     private Vector3 _walkPoint;
     private bool _walkPointSet;
 
+    private void Awake()
+    {
+        //GameManager.OnGameSave += SaveProgress;
+        //GameManager.OnGameLoad += LoadProgress;
+        //GameManager.OnGameNew += NewSave;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        _agent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
+        _player = GameObject.Find("Player Body").transform;
+        _agent.SetDestination(_player.position);
+        _groundLayer = LayerMask.GetMask("Ground");
+        _playerLayer = LayerMask.GetMask("Player");
+        
         switch (enemyType)
         {
             case EnemyType.Melee:
@@ -42,7 +56,6 @@ public class Enemy : MonoBehaviour
                 _walkPointRange = 6f;
                 _attackRange = 2f;
                 _attackCooldown = 4f;
-                _currentHealth = 60;
                 _maxHealth = 60;
                 break;
             case EnemyType.Ranged:
@@ -50,17 +63,23 @@ public class Enemy : MonoBehaviour
                 _walkPointRange = 6f;
                 _attackRange = 12f;
                 _attackCooldown = 3f;
-                _currentHealth = 90;
                 _maxHealth = 90;
                 break;
+            case EnemyType.Boss:
+                _sightRange = 18f;
+                _walkPointRange = 6f;
+                _attackRange = 12f;
+                _attackCooldown = 3f;
+                _maxHealth = 500;
+                break;
         }
-        
-        _agent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();
-        _player = GameObject.Find("Player Body").transform;
-        _agent.SetDestination(_player.position);
-        _groundLayer = LayerMask.GetMask("Ground");
-        _playerLayer = LayerMask.GetMask("Player");
+    }
+
+    private void OnDestroy()
+    {
+        //GameManager.OnGameSave -= SaveProgress;
+        //GameManager.OnGameLoad -= LoadProgress;
+        //GameManager.OnGameNew -= NewSave;
     }
 
     // Update is called once per frame
@@ -129,8 +148,32 @@ public class Enemy : MonoBehaviour
             if (_currentHealth < 1)
             {
                 _isAlive = false;
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
+    }
+
+    private void NewSave()
+    {
+        _currentHealth = _maxHealth;
+        gameObject.SetActive(true);
+        SaveProgress();
+    }
+
+    private void LoadProgress()
+    {
+        string healthString = name + "health";
+        string aliveString = name + "isAlive";
+        _currentHealth = PlayerPrefs.GetInt(healthString);
+        _isAlive = Convert.ToBoolean(PlayerPrefs.GetInt(aliveString));
+    }
+
+    private void SaveProgress()
+    {
+        string healthString = name + "health";
+        string aliveString = name + "isAlive";
+        PlayerPrefs.SetInt(healthString,_currentHealth);
+        PlayerPrefs.SetInt(aliveString, Convert.ToInt32(_isAlive));
+        PlayerPrefs.Save();
     }
 }

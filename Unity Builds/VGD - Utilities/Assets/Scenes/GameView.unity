@@ -1379,8 +1379,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   enemyBullet: {fileID: 0}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &160123133
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1392,7 +1398,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2
-  m_Height: 2.5
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &168160771
@@ -2828,8 +2834,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   enemyBullet: {fileID: 0}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &246049746
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2841,7 +2853,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2
-  m_Height: 2.5
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &251101990
@@ -4110,8 +4122,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &286619057
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7195,6 +7213,7 @@ GameObject:
   - component: {fileID: 623520386}
   - component: {fileID: 623520387}
   - component: {fileID: 623520388}
+  - component: {fileID: 623520389}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7254,6 +7273,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 400924829c006cb418e75c0dc86ef6e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &623520389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623520378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69885fad55ea7746b154a32af87603e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &629145547
@@ -7968,8 +7999,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &681513716
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -31387,8 +31424,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &5587845963551093894
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33879,8 +33922,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   enemyBullet: {fileID: 0}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &7734005818386821582
 CapsuleCollider:
   m_ObjectHideFlags: 0

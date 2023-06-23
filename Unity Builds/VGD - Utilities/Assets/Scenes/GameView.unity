@@ -705,7 +705,7 @@ MonoBehaviour:
   typingSpeed: 0.02
   radius: 3
   InteractableKey: 101
-  drop: 1
+  InteractionStatus: 0
 --- !u!95 &67944587
 Animator:
   serializedVersion: 4
@@ -1377,10 +1377,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
+  enemyBullet: {fileID: 0}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 0
-  _bullet: {fileID: 0}
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &160123133
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1392,7 +1398,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2
-  m_Height: 2.5
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &168160771
@@ -2826,10 +2832,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
+  enemyBullet: {fileID: 0}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 0
-  _bullet: {fileID: 0}
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &246049746
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2841,7 +2853,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2
-  m_Height: 2.5
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &251101990
@@ -3490,7 +3502,7 @@ MonoBehaviour:
   typingSpeed: 0.02
   radius: 3
   InteractableKey: 101
-  drop: 1
+  InteractionStatus: 0
 --- !u!95 &268019077
 Animator:
   serializedVersion: 4
@@ -4108,10 +4120,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
+  enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 1
-  _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &286619057
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7195,6 +7213,7 @@ GameObject:
   - component: {fileID: 623520386}
   - component: {fileID: 623520387}
   - component: {fileID: 623520388}
+  - component: {fileID: 623520389}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7254,6 +7273,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 400924829c006cb418e75c0dc86ef6e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &623520389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623520378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69885fad55ea7746b154a32af87603e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &629145547
@@ -7966,10 +7997,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
+  enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 1
-  _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &681513716
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25498,6 +25535,8 @@ GameObject:
   - component: {fileID: 1356195495}
   - component: {fileID: 919132148363484148}
   - component: {fileID: 919132148363484149}
+  - component: {fileID: 919132148363484150}
+  - component: {fileID: 919132148363484151}
   m_Layer: 6
   m_Name: Player Body
   m_TagString: PlayerBody
@@ -25517,14 +25556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b678ea6fc2c494395b924c6816ab77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 1356195493}
-  characterCamera: {fileID: 4026302133376305319}
-  StaminaUseMultiplier: 4
-  TimeBeforeStaminaRegenStarts: 1.5
-  walkingSpeed: 2
-  sprintSpeed: 4
-  jumpForce: 4
-  JumpMultiplier: 10
 --- !u!135 &919132148363484149
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -25538,6 +25569,38 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &919132148363484150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148363484147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddf33e54c75d4b4c998a18b28dd677c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterCamera: {fileID: 0}
+  playerBullet: {fileID: 2682111366274297182, guid: 55b572be29fc45048af615670b83ee13, type: 3}
+--- !u!114 &919132148363484151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148363484147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d184865f7c207647a95f88ac97c1494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  characterCamera: {fileID: 0}
+  StaminaUseMultiplier: 4
+  TimeBeforeStaminaRegenStarts: 1.5
+  jumpForce: 4
+  JumpMultiplier: 10
 --- !u!1 &927166237412659780
 GameObject:
   m_ObjectHideFlags: 0
@@ -31359,10 +31422,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
+  enemyBullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 1
-  _bullet: {fileID: 2682111366274297182, guid: 1d486d8890b0a0b49a3394682953799d, type: 3}
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &5587845963551093894
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33851,10 +33920,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e959ca048085bb1488891f8445434807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
+  enemyBullet: {fileID: 0}
+  _isAlive: 1
   _currentHealth: 0
   _maxHealth: 0
-  enemyType: 0
-  _bullet: {fileID: 0}
+  _sightRange: 0
+  _walkPointRange: 0
+  _attackRange: 0
+  _canAttack: 1
+  _attackCooldown: 0
 --- !u!136 &7734005818386821582
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33924,7 +33999,7 @@ MonoBehaviour:
   typingSpeed: 0.02
   radius: 3
   InteractableKey: 101
-  drop: 3
+  InteractionStatus: 0
 --- !u!4 &7750963681148851101
 Transform:
   m_ObjectHideFlags: 0

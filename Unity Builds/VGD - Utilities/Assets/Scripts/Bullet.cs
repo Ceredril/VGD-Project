@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("PlayerBody"))
         {
-            GameManager.RangedEnemyAttacks(Random.Range(-20,-40));
+            PlayerManager.AddHealth(Random.Range(-10,-20));
             Destroy(gameObject);
         }
     }

@@ -70,10 +70,10 @@ public class DialogueManager : MonoBehaviour
             case 0:
                 break;
             case 1:
-                GameManager.LivesCollected(1);
+                PlayerManager.AddLives(1);
                 break;
             case 2:
-                GameManager.ManaCollected(10);
+                PlayerManager.AddHealth(20);
                 break;
             case 3:
                 // enable Fist attack

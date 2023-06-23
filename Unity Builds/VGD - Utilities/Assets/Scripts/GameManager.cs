@@ -30,12 +30,15 @@ public class GameManager : MonoBehaviour
         if(PlayerPrefs.GetInt("SaveExists")==1)OnGameLoad?.Invoke();
         else OnGameNew?.Invoke();
         
+        
         cameraBrain = FindObjectOfType<Camera>().GetComponent<CinemachineBrain>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         GameIsOver = false;
         GameIsRunning = true;
+        GameIsPaused = false;
         PlayerIsAlive = true;
+        Resume();
         OnGameStart?.Invoke();
         Debug.Log("Game started");
     }

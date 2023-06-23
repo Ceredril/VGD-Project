@@ -7060,7 +7060,7 @@ Transform:
   - {fileID: 763611741}
   - {fileID: 1341445423}
   m_Father: {fileID: 1669485171}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596834635
 GameObject:
@@ -8479,7 +8479,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1669485171}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 37.693, y: 1.947, z: 31.155}
 --- !u!1 &709142495
 GameObject:
@@ -19295,7 +19295,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 543450652352217417}
   - {fileID: 596708436}
   - {fileID: 705507995}
   m_Father: {fileID: 0}
@@ -25297,16 +25296,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148363484147}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: -2.65, z: 3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.65, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 268055663625205927}
   - {fileID: 2484128539572404838}
   - {fileID: 5465940245719998941}
-  m_Father: {fileID: 1669485171}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &545348832755196894
 GameObject:
@@ -25657,7 +25656,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919132148363484147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19b678ea6fc2c494395b924c6816ab77, type: 3}
+  m_Script: {fileID: 11500000, guid: fafdab01223c34b89b66cb820e3e8396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &919132148363484149
@@ -25696,7 +25695,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919132148363484147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d184865f7c207647a95f88ac97c1494, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d07ec529b7184eb094a907bd9f69c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
@@ -29418,7 +29417,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133116236145}
-  m_LocalRotation: {x: -0.038376518, y: -0.0000000021492135, z: -8.2540134e-11, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: 0.000000002149213, z: 8.254012e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

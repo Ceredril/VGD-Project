@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     
     [SerializeField] public EnemyType enemyType;
     Animator animator;
+    EnemyHealthBar healthBar;
     private NavMeshAgent _agent;
     private Transform _player;
     [SerializeField] private Rigidbody enemyBullet;
@@ -46,6 +47,7 @@ public class Enemy : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
         _player = GameObject.Find("Player Body").transform;
         _agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
@@ -117,6 +119,7 @@ public class Enemy : MonoBehaviour
         {
             currentHealth -= amount;
         }
+        healthBar.UpdateHealthBar();
     }
 
     private void SetStats()

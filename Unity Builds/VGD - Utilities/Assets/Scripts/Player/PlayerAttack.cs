@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 public class PlayerAttack : MonoBehaviour
 {
     
-    private enum Skill {Fist,Fireball,Shield}
+    public enum Skill {Fist,Fireball,Shield}
     //Object references
     private Animator animator;
     private Enemy _nearEnemy;
@@ -18,10 +18,10 @@ public class PlayerAttack : MonoBehaviour
     private float _lastFireballTime;
     private float _bulletSpeed=1800;
     //Skill variables
-    private static bool _hasFist = true;
-    private static bool _hasFireball = true;
+    public static bool _hasFist = true;
+    public static bool _hasFireball = true;
     //private static bool _hasShield = true;
-    private Skill _currentSkill;
+    public static Skill _currentSkill;
     private readonly int _minFistDamage = 20, _maxFistDamage=30;
 
     private void Awake()

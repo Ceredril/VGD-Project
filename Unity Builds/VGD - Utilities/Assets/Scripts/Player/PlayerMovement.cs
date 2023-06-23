@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float TimeBeforeStaminaRegenStarts = 1.5f;
     private float StaminaValueIncrement = 2;
     private float StaminaTimeIncrement = 0.1f;
-    public static float CurrentStamina;
+    //public static float CurrentStamina;
     private Coroutine regeneratingStamina;
     public static Action<float> OnStaminaChange;
     
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CurrentStamina = PlayerManager.MaxStamina;
+        PlayerManager.CurrentStamina = PlayerManager.MaxStamina;
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         characterCamera = GameObject.Find("Main Camera").transform;
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         //If user presses Spacebar and the character is grounded, apply jump force. Otherwise let it fall :D
-        if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded && CurrentStamina >= JumpMultiplier)
+        if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded && PlayerManager.CurrentStamina >= JumpMultiplier)
         {
             _verticalSpeed = jumpForce;
             animator.SetBool("jump", true);
@@ -111,13 +111,13 @@ public class PlayerMovement : MonoBehaviour
                 regeneratingStamina = null;
             }
             if (isJumping)   // that means it's running and jumping 
-                CurrentStamina -= (JumpMultiplier + StaminaUseMultiplier) * Time.deltaTime;
+                PlayerManager.CurrentStamina -= (JumpMultiplier + StaminaUseMultiplier) * Time.deltaTime;
             else            // here is just running 
-                CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
-            if (CurrentStamina < 0)
-                CurrentStamina = 0;
-            OnStaminaChange?.Invoke(CurrentStamina);
-            if (CurrentStamina <= 0)
+                PlayerManager.CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
+            if (PlayerManager.CurrentStamina < 0)
+                PlayerManager.CurrentStamina = 0;
+            OnStaminaChange?.Invoke(PlayerManager.CurrentStamina);
+            if (PlayerManager.CurrentStamina <= 0)
             {
                 canSprint = false;
             }
@@ -129,16 +129,16 @@ public class PlayerMovement : MonoBehaviour
                 StopCoroutine(regeneratingStamina);
                 regeneratingStamina = null;
             }
-            CurrentStamina -= JumpMultiplier * Time.deltaTime;
-            if (CurrentStamina < 0)
-                CurrentStamina = 0;
-            OnStaminaChange?.Invoke(CurrentStamina);
-            if (CurrentStamina <= 0)
+            PlayerManager.CurrentStamina -= JumpMultiplier * Time.deltaTime;
+            if (PlayerManager.CurrentStamina < 0)
+                PlayerManager.CurrentStamina = 0;
+            OnStaminaChange?.Invoke(PlayerManager.CurrentStamina);
+            if (PlayerManager.CurrentStamina <= 0)
             {
                 canSprint = false;
             }
         }
-        else if (_speedOffset != sprintSpeed && CurrentStamina < PlayerManager.MaxStamina && regeneratingStamina == null)// when the character is still,it begin to regenerate stamina
+        else if (_speedOffset != sprintSpeed && PlayerManager.CurrentStamina < PlayerManager.MaxStamina && regeneratingStamina == null)// when the character is still,it begin to regenerate stamina
         {
             animator.SetBool("running", false);
             regeneratingStamina = StartCoroutine(RegenerateStamina());
@@ -150,17 +150,17 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(TimeBeforeStaminaRegenStarts);
         WaitForSeconds timeToWait = new WaitForSeconds(StaminaTimeIncrement);
-        while (CurrentStamina < PlayerManager.MaxStamina)
+        while (PlayerManager.CurrentStamina < PlayerManager.MaxStamina)
         {
-            if (CurrentStamina > 0)
+            if (PlayerManager.CurrentStamina > 0)
             {
                 canSprint = true;
                 //canJump = true;
             }
-            CurrentStamina += StaminaValueIncrement;
-            if (CurrentStamina > PlayerManager.MaxStamina)
-                CurrentStamina = PlayerManager.MaxStamina;
-            CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
+            PlayerManager.CurrentStamina += StaminaValueIncrement;
+            if (PlayerManager.CurrentStamina > PlayerManager.MaxStamina)
+                PlayerManager.CurrentStamina = PlayerManager.MaxStamina;
+            PlayerManager.CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
             yield return timeToWait;
         }
         regeneratingStamina = null;

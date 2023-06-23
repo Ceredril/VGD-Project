@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
         else
             bullet.enabled = false;
 
-        /*if (PlayerAttack._hasShield == true)
+        /*if (PlayerAttack. == true)
             shield.enabled = true;
         else
             shield.enabled = false;
@@ -53,6 +53,12 @@ public class Weapon : MonoBehaviour
             border1.enabled = false;
             border2.enabled = true;
             border3.enabled = false;
+        }
+        if (PlayerAttack._currentSkill == PlayerAttack.Skill.Shield)
+        {
+            border1.enabled = false;
+            border2.enabled = false;
+            border3.enabled = true;
         }
 
     }

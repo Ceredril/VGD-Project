@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     public static readonly int MaxLives = 5;
     public static readonly int MaxHealth = 100;
     public static readonly int MaxMana = 100;
-    public static readonly int MaxStamina = 100;
+    public static readonly float MaxStamina = 100;
     private static readonly int DefaultLives = 3;
     private static readonly int DefaultHealth = 80;
     private static readonly int DefaultMana = 80;
@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour
     public static int CurrentLives;
     public static int CurrentHealth;
     public static int CurrentMana;
-    public static int CurrentStamina;
+    public static float CurrentStamina;
     
     // Start is called before the first frame update
     private void Awake()

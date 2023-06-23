@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     //Object references
     private Animator animator;
     private Enemy _nearEnemy;
+    public static GameObject wand;
     [SerializeField] private Transform characterCamera;
     [SerializeField] private Rigidbody playerBullet;
     //Skill parameters
@@ -20,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
     //Skill variables
     public static bool _hasFist = true;
     public static bool _hasFireball = true;
-    //private static bool _hasShield = true;
+    private static bool _hasShield = true;
     public static Skill _currentSkill;
     private readonly int _minFistDamage = 20, _maxFistDamage=30;
 
@@ -28,6 +29,8 @@ public class PlayerAttack : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterCamera = GameObject.Find("Main Camera").transform;
+        wand = GameObject.Find("Wand");
+        wand.SetActive(false);
     }
 
     void Update()
@@ -40,17 +43,20 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && _hasFist && _currentSkill!=Skill.Fist)
         {
+            wand.SetActive(false);
             _currentSkill = Skill.Fist;
             Debug.Log("Melee attack selected");
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && _hasFist && _currentSkill!=Skill.Fireball)
         {
+            wand.SetActive(true);
             _currentSkill = Skill.Fireball;
             Debug.Log("Ranged attack selected");
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3) && _hasFist && _currentSkill != Skill.Shield)
         {
+            wand.SetActive(false);
             _currentSkill = Skill.Shield;
             Debug.Log("Shield attack selected");
         }
@@ -93,6 +99,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Time.time - _lastFireballTime >= _fireballCooldown)
         {
+            animator.SetTrigger("magicAttack");
             Transform thisTransform = transform;
             Rigidbody bulletClone = Instantiate(playerBullet, thisTransform.position + new Vector3(0, 2f, 0) + Vector3.forward,
                 thisTransform.rotation);

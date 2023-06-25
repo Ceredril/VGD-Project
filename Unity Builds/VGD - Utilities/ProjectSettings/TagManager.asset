@@ -28,10 +28,10 @@ TagManager:
   - PlayerBody
   - Enemy
   - EnemyBody
-  - 
-  - 
-  - 
-  - 
+  - MiniMap
+  - Npc
+  - CheckPoint
+  - Bullet
   - 
   - 
   - 

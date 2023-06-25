@@ -35,11 +35,10 @@ public class Weapon : MonoBehaviour
         else
             bullet.enabled = false;
 
-        /*if (PlayerAttack. == true)
+        if (PlayerAttack._hasShield)
             shield.enabled = true;
         else
             shield.enabled = false;
-        */
 
 
         if (PlayerAttack._currentSkill == PlayerAttack.Skill.Fist)

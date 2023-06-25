@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
     //Skill variables
     public static bool _hasFist = true;
     public static bool _hasFireball = true;
-    private static bool _hasShield = true;
+    public static bool _hasShield = false;
     public static Skill _currentSkill;
     private readonly int _minFistDamage = 20, _maxFistDamage=30;
 
@@ -47,14 +47,14 @@ public class PlayerAttack : MonoBehaviour
             _currentSkill = Skill.Fist;
             Debug.Log("Melee attack selected");
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && _hasFist && _currentSkill!=Skill.Fireball)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && _hasFireball && _currentSkill!=Skill.Fireball)
         {
             wand.SetActive(true);
             _currentSkill = Skill.Fireball;
             Debug.Log("Ranged attack selected");
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3) && _hasFist && _currentSkill != Skill.Shield)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && _hasShield && _currentSkill != Skill.Shield)
         {
             wand.SetActive(false);
             _currentSkill = Skill.Shield;
@@ -118,6 +118,7 @@ public class PlayerAttack : MonoBehaviour
     {
         PlayerPrefs.SetInt("HasMeleeAttack", Convert.ToInt32(_hasFist));
         PlayerPrefs.SetInt("HasRangedAttack", Convert.ToInt32(_hasFireball));
+        PlayerPrefs.SetInt("HasShield", Convert.ToInt32(_hasShield));
         PlayerPrefs.SetInt("CurrentAttack", (int)_currentSkill);
         PlayerPrefs.Save();
     }
@@ -128,6 +129,7 @@ public class PlayerAttack : MonoBehaviour
         {
             _hasFist = Convert.ToBoolean(PlayerPrefs.GetInt("HasMeleeAttack"));
             _hasFireball = Convert.ToBoolean(PlayerPrefs.GetInt("hasRangedAttack"));
+            _hasShield = Convert.ToBoolean(PlayerPrefs.GetInt("HasShield"));
             _currentSkill = (Skill)PlayerPrefs.GetInt("CurrentAttack");
         }
     }

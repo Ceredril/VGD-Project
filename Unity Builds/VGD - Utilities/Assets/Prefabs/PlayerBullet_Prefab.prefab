@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9026069573438450075}
   - component: {fileID: 2682111366274297182}
   - component: {fileID: 6860877484753963471}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PlayerBullet_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

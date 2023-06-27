@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     //public static float CurrentStamina;
     private Coroutine regeneratingStamina;
     public static Action<float> OnStaminaChange;
+    public static bool normalMode = true;
     
     //Movement variables
     public static float walkingSpeed = 2f;
@@ -110,9 +111,9 @@ public class PlayerMovement : MonoBehaviour
                 StopCoroutine(regeneratingStamina);
                 regeneratingStamina = null;
             }
-            if (isJumping)   // that means it's running and jumping 
+            if (isJumping && normalMode)   // that means it's running and jumping 
                 PlayerManager.CurrentStamina -= (JumpMultiplier + StaminaUseMultiplier) * Time.deltaTime;
-            else            // here is just running 
+            else if (normalMode)           // here is just running 
                 PlayerManager.CurrentStamina -= StaminaUseMultiplier * Time.deltaTime;
             if (PlayerManager.CurrentStamina < 0)
                 PlayerManager.CurrentStamina = 0;
@@ -122,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
                 canSprint = false;
             }
         }
-        else if (_speedOffset != sprintSpeed && isJumping)  // this second if, manage the stamina when the character is walking or standing still but is jumping
+        else if (_speedOffset != sprintSpeed && isJumping && normalMode)  // this second if, manage the stamina when the character is walking or standing still but is jumping
         {
             if (regeneratingStamina != null)
             {

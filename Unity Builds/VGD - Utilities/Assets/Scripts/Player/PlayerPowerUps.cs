@@ -29,6 +29,8 @@ public class PlayerPowerUps : MonoBehaviour
         PlayerMovement.walkingSpeed *= _speedHackOffset;
         PlayerMovement.sprintSpeed *= _speedHackOffset;
         //Stop consuming stamina
+        PlayerMovement.normalMode = false;
+
         Wait(_speedHackDuration);
         PlayerMovement.walkingSpeed /= _speedHackOffset;
         PlayerMovement.sprintSpeed /= _speedHackOffset;

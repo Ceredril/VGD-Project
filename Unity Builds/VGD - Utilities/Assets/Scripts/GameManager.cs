@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public static bool PlayerIsAlive;
 
+    public static Camera MainCamera;
     public static CinemachineBrain cameraBrain;
     
     
@@ -30,8 +31,8 @@ public class GameManager : MonoBehaviour
         if(PlayerPrefs.GetInt("SaveExists")==1)OnGameLoad?.Invoke();
         else OnGameNew?.Invoke();
         
-        
-        cameraBrain = FindObjectOfType<Camera>().GetComponent<CinemachineBrain>();
+        MainCamera = Camera.main;
+        cameraBrain = MainCamera.GetComponent<CinemachineBrain>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         GameIsOver = false;

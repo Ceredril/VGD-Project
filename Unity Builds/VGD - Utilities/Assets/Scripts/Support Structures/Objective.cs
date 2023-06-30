@@ -2,11 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ObjectiveType { Interacting, Killing, Collecting };
 [System.Serializable]
 public class Objective : MonoBehaviour
 {
-    public string ObjectiveType;
+    public bool finished = false;
+    public ObjectiveType objectiveType;
+    public int level = 1;
+    public string objectiveName;
 
-    [TextArea(3, 10)]
-    public string[] ObjectiveDescription;
+    public void Start()
+    {
+        objectiveName = objectiveType + " " + gameObject.name;
+    }
+    public void objectiveFinished()
+    {
+        finished = true;
+    }
+    private void SaveNew()
+    {
+        finished = false;
+        SaveProgress();
+    }
+    private void SaveProgress()
+    {
+        PlayerPrefs.SetInt(objectiveName, finished ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+    private void LoadProgress()
+    {
+        finished = PlayerPrefs.GetInt(objectiveName) == 1;
+    }
 }

@@ -912,15 +912,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  CurrentInteractableType: 0
+  interactableType: 0
   dialogue:
     name: NPC 3
     sentences:
     - Take what you can get, but only once
   typingSpeed: 0.02
   radius: 3
-  InteractableKey: 101
-  InteractionStatus: 0
+  interactableKey: 101
+  interactionStatus: 0
 --- !u!95 &67944587
 Animator:
   serializedVersion: 4
@@ -1512,6 +1512,7 @@ GameObject:
   - component: {fileID: 160123129}
   - component: {fileID: 160123132}
   - component: {fileID: 160123133}
+  - component: {fileID: 160123134}
   m_Layer: 8
   m_Name: Melee Enemy "Sempronius"
   m_TagString: Enemy
@@ -1612,6 +1613,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &160123134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160123127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca82e7fe5734dbb4e8f2a00a30f27cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finished: 0
+  objectiveType: 1
+  level: 1
+  objectiveName: 
 --- !u!1 &168160771
 GameObject:
   m_ObjectHideFlags: 0
@@ -3779,15 +3796,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  CurrentInteractableType: 0
+  interactableType: 0
   dialogue:
     name: NPC 2
     sentences:
     - I dont have much to say
   typingSpeed: 0.02
   radius: 3
-  InteractableKey: 101
-  InteractionStatus: 0
+  interactableKey: 101
+  interactionStatus: 0
 --- !u!95 &268019077
 Animator:
   serializedVersion: 4
@@ -3820,9 +3837,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca82e7fe5734dbb4e8f2a00a30f27cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectiveType: Interact
-  ObjectiveDescription:
-  - Talk to me
+  finished: 0
+  objectiveType: 0
+  level: 1
+  objectiveName: 
 --- !u!1 &270148775
 GameObject:
   m_ObjectHideFlags: 0
@@ -8279,8 +8297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbb1a33bf08c4101ad4d269ec63cde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 0}
-  cameraHeight: 0
 --- !u!1 &640652438
 GameObject:
   m_ObjectHideFlags: 0
@@ -31628,7 +31644,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302132388071567}
-  m_LocalRotation: {x: -0.056546256, y: -0.000000017178854, z: -9.729567e-10, w: 0.99840003}
+  m_LocalRotation: {x: -0.056546256, y: 1e-45, z: -0, w: 0.99840003}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -31876,7 +31892,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133082211058}
-  m_LocalRotation: {x: -0.074649386, y: 0.000000017158373, z: 0.0000000012844455, w: 0.99720985}
+  m_LocalRotation: {x: -0.074649386, y: -0, z: -0, w: 0.99720985}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32016,7 +32032,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133116236145}
-  m_LocalRotation: {x: -0.03837652, y: 2.3174884e-10, z: 8.900443e-12, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: 0.000000002149213, z: 8.254012e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32263,7 +32279,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133376305314}
-  m_LocalRotation: {x: -0.056546256, y: -0.0000000343577, z: -0.0000000019459132, w: 0.9984}
+  m_LocalRotation: {x: -0.056546263, y: 0.000000030670375, z: 0.0000000017370746, w: 0.9984}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -36701,7 +36717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  CurrentInteractableType: 0
+  interactableType: 0
   dialogue:
     name: NPC 1
     sentences:
@@ -36709,8 +36725,8 @@ MonoBehaviour:
     - This is good bye
   typingSpeed: 0.02
   radius: 3
-  InteractableKey: 101
-  InteractionStatus: 0
+  interactableKey: 101
+  interactionStatus: 0
 --- !u!114 &7744516476079536801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36723,9 +36739,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca82e7fe5734dbb4e8f2a00a30f27cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectiveType: Interact
-  ObjectiveDescription:
-  - Talk to me
+  finished: 0
+  objectiveType: 0
+  level: 1
+  objectiveName: 
 --- !u!4 &7750963681148851101
 Transform:
   m_ObjectHideFlags: 0

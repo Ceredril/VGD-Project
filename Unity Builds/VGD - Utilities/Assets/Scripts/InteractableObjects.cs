@@ -8,18 +8,18 @@ using UnityEngine;
  * Changes the players Stats in some way
  */
 
-public enum InteractableTypes { dialogueType, gameEventType, uselessType };
+public enum InteractableType { dialogueType, gameEventType, uselessType };
 public class InteractableObjects : MonoBehaviour
 {
     public Animator animator;
     DialogueManager dialogueManager;
     Transform playerTransform;
-    public InteractableTypes CurrentInteractableType;
+    public InteractableType interactableType;
     public CreateDialogue dialogue;
     public float typingSpeed = 0.02f;
     public float radius = 3f;
-    public KeyCode InteractableKey = KeyCode.E; // Changeable
-    public float InteractionStatus = 0;
+    public KeyCode interactableKey = KeyCode.E; // Changeable
+    public float interactionStatus = 0;
     bool isInteracting = false;
 
 
@@ -50,7 +50,7 @@ public class InteractableObjects : MonoBehaviour
         float distance = Vector3.Distance(playerTransform.position, this.transform.position);
 
         // If the player is close enough
-        if (Input.GetKeyDown(InteractableKey))
+        if (Input.GetKeyDown(interactableKey))
         {
             if (distance <= radius || isInteracting)
             {
@@ -64,23 +64,23 @@ public class InteractableObjects : MonoBehaviour
     public virtual void Interact()
     {
         GameManager.PlayerInteracted();
-        switch (CurrentInteractableType)
+        switch (interactableType)
         {
-            case InteractableTypes.dialogueType:
+            case InteractableType.dialogueType:
                 if (isInteracting)
                 {
                     isInteracting = dialogueManager.DisplayNextSentence();
                 }
                 else
                 {
-                    dialogueManager.StartDialogue(dialogue, typingSpeed, InteractionStatus);
-                    InteractionStatus = 0;
+                    dialogueManager.StartDialogue(dialogue, typingSpeed, interactionStatus);
+                    interactionStatus = 0;
                     isInteracting = dialogueManager.DisplayNextSentence();
                 }
                 break;
-            case InteractableTypes.gameEventType:
+            case InteractableType.gameEventType:
                 break;
-            case InteractableTypes.uselessType:
+            case InteractableType.uselessType:
                 break;
             default: break;
         }
@@ -95,16 +95,16 @@ public class InteractableObjects : MonoBehaviour
 
     private void SaveNew()
     {
-        InteractionStatus = 0;
+        interactionStatus = 0;
         SaveProgress();
     }
     private void SaveProgress()
     {
-        PlayerPrefs.SetFloat(name, InteractionStatus);
+        PlayerPrefs.SetFloat(dialogue.name, interactionStatus);
         PlayerPrefs.Save();
     }
     private void LoadProgress()
     {
-        InteractionStatus = PlayerPrefs.GetFloat(name);
+        interactionStatus = PlayerPrefs.GetFloat(dialogue.name);
     }
 }

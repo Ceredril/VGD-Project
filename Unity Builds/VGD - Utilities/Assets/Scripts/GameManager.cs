@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public static Camera MainCamera;
     public static CinemachineBrain cameraBrain;
+    public static AudioManager audioManager;
     
     
     //DEFAULT FUNCTIONS
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         
         MainCamera = Camera.main;
         cameraBrain = MainCamera.GetComponent<CinemachineBrain>();
+        audioManager = FindObjectOfType<AudioManager>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         GameIsOver = false;
@@ -115,6 +117,7 @@ public class GameManager : MonoBehaviour
     public static void PlayerDeath()
     {
         Debug.Log("Player died");
+        audioManager.Play("PlayerDeath");
         GameIsRunning = false;
         PlayerIsAlive = false;
         Cursor.visible = true;

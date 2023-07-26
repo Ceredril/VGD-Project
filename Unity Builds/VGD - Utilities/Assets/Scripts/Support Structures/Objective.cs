@@ -6,7 +6,6 @@ public enum ObjectiveType { Interacting, Killing, Collecting };
 [System.Serializable]
 public class Objective : MonoBehaviour
 {
-    AudioManager audioManager;
     public bool finished = false;
     public ObjectiveType objectiveType;
     public Transform connectedCheckpoint;
@@ -15,13 +14,12 @@ public class Objective : MonoBehaviour
     public void Start()
     {
         objectiveName = objectiveType + " " + gameObject.name;
-        audioManager = FindObjectOfType<AudioManager>();
     }
     public void objectiveFinished()
     {
         if (!finished) 
         {
-            audioManager.Play("ObjectiveFinished");
+            GameManager.audioManager.Play("ObjectiveFinished");
             finished = true;
         }
     }

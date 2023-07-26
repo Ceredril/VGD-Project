@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     
     [SerializeField] public EnemyType enemyType;
     Animator animator;
+    AudioManager audioManager;
     EnemyHealthBar healthBar;
     private NavMeshAgent _agent;
     private Transform _player;
@@ -47,6 +48,7 @@ public class Enemy : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        audioManager = FindObjectOfType<AudioManager>();
         healthBar = GetComponentInChildren<EnemyHealthBar>();
         _player = GameObject.Find("Player Body").transform;
         _agent.SetDestination(_player.position);
@@ -100,6 +102,7 @@ public class Enemy : MonoBehaviour
                 {
                     PlayerManager.AddHealth(Random.Range(-15, -30));
                     animator.SetTrigger("swip");
+                    audioManager.Play("Hit");
                     _lastAttackTime = Time.time;
                 }
                 break;

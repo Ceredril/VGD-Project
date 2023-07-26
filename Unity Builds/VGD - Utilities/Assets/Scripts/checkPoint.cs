@@ -6,15 +6,18 @@ using UnityEngine;
  */
 public class checkPoint : MonoBehaviour
 {
+    AudioManager audioManager;
     public ObjectivesManager objectivesManager;
     private void Start()
     {
         objectivesManager = FindObjectOfType<ObjectivesManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PlayerBody") && objectivesManager.objectivesCompleted)
         {
+            audioManager.Play("Checkpoint");
             //This modifies the spawnPoint.
             GameManager.CheckpointReached(transform);
             GameManager.GameSave();

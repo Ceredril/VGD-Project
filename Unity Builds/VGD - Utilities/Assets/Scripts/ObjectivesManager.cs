@@ -78,7 +78,7 @@ public class ObjectivesManager : MonoBehaviour
         Objective targetObjective = Object.GetComponent<Objective>();
         if (targetObjective != null)
         {
-            targetObjective.finished = true;
+            targetObjective.objectiveFinished();
         }
         showCurrentObjectives(PlayerManager.LastCheckpoint);
     }

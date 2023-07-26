@@ -1,8 +1,9 @@
 using System;
+using System.Diagnostics;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Debug = UnityEngine.Debug;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class GameManager : MonoBehaviour
     public static event Action OnGameStart,OnGameRestart,OnGameOver,OnGameEnd,OnGamePause,OnGameResume;
     public static event Action OnGameNew, OnGameLoad, OnGameSave;
     public static event Action OnPlayerDeath;
-    
+    public static event Action<GameObject> OnInteraction;
+    public static event Action<GameObject> OnEnemyKill;
+    public static event Action<GameObject> OnCollection;
+
     //CHECKPOINT EVENTS
     public static event Action<Transform> OnCheckpointReached;
-    public static event Action OnObjectInteraction;
 
     public static bool GameIsRunning;
     public static bool GameIsPaused;
@@ -106,7 +109,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game saved");
         OnGameSave?.Invoke();
     }
-    
+
     public static void CheckpointReached(Transform checkpoint) => OnCheckpointReached?.Invoke(checkpoint);
 
     public static void PlayerDeath()
@@ -119,10 +122,22 @@ public class GameManager : MonoBehaviour
         OnPlayerDeath?.Invoke();
     }
 
-    public static void PlayerInteracted()
+    public static void PlayerInteracted(GameObject Object)
     {
-        Debug.Log("Interacting with an Object");
-        OnObjectInteraction?.Invoke();
+        Debug.Log("Interacting with something");
+        OnInteraction?.Invoke(Object);
+    }
+
+    public static void EnemyKilled(GameObject Enemy)
+    {
+        Debug.Log("Killed an enemy");
+        OnEnemyKill?.Invoke(Enemy);
+    }
+
+    public static void Collected(GameObject Collectable)
+    {
+        Debug.Log("collected a Collectable");
+        OnCollection?.Invoke(Collectable);
     }
 
 }

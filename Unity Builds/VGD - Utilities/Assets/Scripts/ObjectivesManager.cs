@@ -11,6 +11,23 @@ public class ObjectivesManager : MonoBehaviour
     public Objective[] objectives;
     public TextMeshProUGUI _objectivesTitle;
     public TextMeshProUGUI _objectivesText;
+    public bool objectivesCompleted;
+
+    private void Awake()
+    {
+        GameManager.OnInteraction += finishObjectives;
+        GameManager.OnEnemyKill += finishObjectives;
+        GameManager.OnCollection += finishObjectives;
+        GameManager.OnCheckpointReached += showCurrentObjectives;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnInteraction -= finishObjectives;
+        GameManager.OnEnemyKill -= finishObjectives;
+        GameManager.OnCollection -= finishObjectives;
+        GameManager.OnCheckpointReached -= showCurrentObjectives;
+    }
 
     private void Start()
     {
@@ -18,24 +35,27 @@ public class ObjectivesManager : MonoBehaviour
         _objectivesTitle = GameObject.Find("ObjectivesTitle").GetComponent<TextMeshProUGUI>();
         _objectivesText = GameObject.Find("ObjectivesText").GetComponent<TextMeshProUGUI>();
         objectives = FindObjectsOfType<Objective>();
+        objectivesCompleted = true;
+        showCurrentObjectives(PlayerManager.LastCheckpoint);
     }
     private void Update()
     {
-        objectives = FindObjectsOfType<Objective>(); //this should only be called after relevant actions (enemy dies, dialogue ends etc.)
+        //this should only be called after relevant actions (enemy dies, dialogue ends etc.)
         // this script needs to know which level is currently being played
-        // showCurrentObjectives(GameManager.Level)
+        // showCurrentObjectives(PlayerManager.LastCheckpoint);
     }
 
-    public void showCurrentObjectives(int level) // looks through all objectives and displays the ones that are not finished and from the current level (or displays nothing if there are none)
+    public void showCurrentObjectives(Transform checkpoint) // looks through all objectives and displays the ones that are not finished and from the current checkpoint (or displays nothing if there are none)
     {
-        _objectivesTitle.text = "Objectives (Test)";
+        objectives = FindObjectsOfType<Objective>();
+        _objectivesTitle.text = "Objectives (T)";
         string objectivesText = "";
         int counter = 1;
         for (int i = 0; i < objectives.Length; i++)
         {
-            if (objectives[i].level == level && !objectives[i].finished)
+            if (objectives[i].connectedCheckpoint == checkpoint && !objectives[i].finished)
             {
-                objectivesText += counter + ". " + objectives[i].objectiveName[0] + "\n";
+                objectivesText += counter + ". " + objectives[i].objectiveName + "\n";
                 counter++;
             }
         }
@@ -43,11 +63,24 @@ public class ObjectivesManager : MonoBehaviour
         {
             _objectivesText.text = objectivesText;
             animator.SetBool("IsOpen", true);
+            objectivesCompleted = false;
         }
         else
         {
             animator.SetBool("IsOpen", false);
+            objectivesCompleted = true;
         }
 
     }
+
+    public void finishObjectives(GameObject Object)
+    {
+        Objective targetObjective = Object.GetComponent<Objective>();
+        if (targetObjective != null)
+        {
+            targetObjective.finished = true;
+        }
+        showCurrentObjectives(PlayerManager.LastCheckpoint);
+    }
+
 }

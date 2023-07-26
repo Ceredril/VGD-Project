@@ -64,7 +64,11 @@ public class Enemy : MonoBehaviour
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
         if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
         if (currentHealth < 0) isAlive = false;
-        if(!isAlive)gameObject.SetActive(false);
+        if (!isAlive)
+        {
+            GameManager.EnemyKilled(this.gameObject);
+            gameObject.SetActive(false);
+        }
     }
     
     void SearchWalkPoint()

@@ -6,9 +6,14 @@ using UnityEngine;
  */
 public class checkPoint : MonoBehaviour
 {
+    public ObjectivesManager objectivesManager;
+    private void Start()
+    {
+        objectivesManager = FindObjectOfType<ObjectivesManager>();
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerBody"))
+        if (other.CompareTag("PlayerBody") && objectivesManager.objectivesCompleted)
         {
             //This modifies the spawnPoint.
             GameManager.CheckpointReached(transform);

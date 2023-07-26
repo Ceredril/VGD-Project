@@ -42,6 +42,7 @@ public class collectibleObjects : MonoBehaviour
                 Debug.Log("User has collected " + _amount + " health");
             }
             _wasCollected = true;
+            GameManager.Collected(this.gameObject);
             gameObject.SetActive(false);
         }
     }

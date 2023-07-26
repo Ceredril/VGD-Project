@@ -1627,7 +1627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finished: 0
   objectiveType: 1
-  level: 1
+  connectedCheckpoint: {fileID: 1753151950}
   objectiveName: 
 --- !u!1 &168160771
 GameObject:
@@ -3839,7 +3839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finished: 0
   objectiveType: 0
-  level: 1
+  connectedCheckpoint: {fileID: 1085999865}
   objectiveName: 
 --- !u!1 &270148775
 GameObject:
@@ -8219,7 +8219,6 @@ GameObject:
   m_Component:
   - component: {fileID: 639249414}
   - component: {fileID: 639249416}
-  - component: {fileID: 639249417}
   m_Layer: 0
   m_Name: MiniMapCamera
   m_TagString: Untagged
@@ -8285,18 +8284,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &639249417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639249413}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dbb1a33bf08c4101ad4d269ec63cde8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &640652438
 GameObject:
   m_ObjectHideFlags: 0
@@ -22035,6 +22022,7 @@ GameObject:
   - component: {fileID: 1699852197}
   - component: {fileID: 1699852196}
   - component: {fileID: 1699852195}
+  - component: {fileID: 1699852200}
   m_Layer: 0
   m_Name: healthCollectable
   m_TagString: healthCollectible
@@ -22194,6 +22182,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699852193}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1699852200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699852193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca82e7fe5734dbb4e8f2a00a30f27cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finished: 0
+  objectiveType: 2
+  connectedCheckpoint: {fileID: 1085999865}
+  objectiveName: healthCollectable  1
 --- !u!1 &1707566242
 GameObject:
   m_ObjectHideFlags: 0
@@ -22812,6 +22816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81808783733b4b4a801d57f00d7d116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectivesManager: {fileID: 0}
 --- !u!1 &1759564170
 GameObject:
   m_ObjectHideFlags: 0
@@ -25247,6 +25252,7 @@ MonoBehaviour:
   objectives: []
   _objectivesTitle: {fileID: 957406188}
   _objectivesText: {fileID: 1568451349}
+  objectivesCompleted: 0
 --- !u!95 &1932310595
 Animator:
   serializedVersion: 4
@@ -36741,8 +36747,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finished: 0
   objectiveType: 0
-  level: 1
-  objectiveName: 
+  connectedCheckpoint: {fileID: 1085999865}
+  objectiveName: Interact with me
 --- !u!4 &7750963681148851101
 Transform:
   m_ObjectHideFlags: 0
@@ -37410,6 +37416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81808783733b4b4a801d57f00d7d116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectivesManager: {fileID: 0}
 --- !u!1 &8256391867399540912
 GameObject:
   m_ObjectHideFlags: 0
@@ -37502,6 +37509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81808783733b4b4a801d57f00d7d116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectivesManager: {fileID: 0}
 --- !u!1 &8256391867763596548
 GameObject:
   m_ObjectHideFlags: 0

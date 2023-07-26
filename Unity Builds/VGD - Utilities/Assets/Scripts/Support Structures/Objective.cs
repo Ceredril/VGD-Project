@@ -8,7 +8,7 @@ public class Objective : MonoBehaviour
 {
     public bool finished = false;
     public ObjectiveType objectiveType;
-    public int level = 1;
+    public Transform connectedCheckpoint;
     public string objectiveName;
 
     public void Start()

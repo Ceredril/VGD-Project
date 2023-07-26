@@ -143,4 +143,9 @@ public class GameManager : MonoBehaviour
         OnCollection?.Invoke(Collectable);
     }
 
+    public void playAudio(string sound)
+    {
+        audioManager.Play(sound);
+    }
+
 }

@@ -5,7 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    // maybe we make a gamestats script for this?
+    AudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
     public static int GameDifficulty = 0;
     public void SetDifficulty(int difficulty)
     {
@@ -41,5 +47,10 @@ public class MainMenuManager : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    public void playAudio(string sound)
+    {
+        audioManager.Play(sound);
     }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Sound {
+public class ThemeSound {
 
 	public string name;
 
@@ -20,9 +20,9 @@ public class Sound {
 
 	public bool loop = false;
 
-	public AudioMixerGroup mixerGroup;
-
-	[HideInInspector]
-	public AudioSource source;
+    [HideInInspector]
+    public AudioMixerGroup mixerGroup;
+    [HideInInspector]
+    public AudioSource source;
 
 }

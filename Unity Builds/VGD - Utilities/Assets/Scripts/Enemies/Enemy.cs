@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
                 {
                     PlayerManager.AddHealth(Random.Range(-15, -30));
                     animator.SetTrigger("swip");
-                    GameManager.audioManager.Play("Hit");
+                    GameManager.audioManager.GlobalPlay("Hit");
                     _lastAttackTime = Time.time;
                 }
                 break;

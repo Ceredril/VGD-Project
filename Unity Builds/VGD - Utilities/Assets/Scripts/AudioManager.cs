@@ -1,15 +1,24 @@
 using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using UnityEditorInternal;
+using static System.TimeZoneInfo;
+using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
 
 	public static AudioManager instance;
+    public AudioMixerGroup mixerGroup;
+    public ThemeSound[] Themes;
+    public Sound[] GlobalSounds;
+    public Sound[] LocalSounds;
 
-	public AudioMixerGroup mixerGroup;
-
-	public Sound[] sounds;
+    [Range(0f, 2f)]
+    public float generalVolume = 1f;
+    [Range(0f, 5f)]
+    public float themeTransitionTime = 2f;
+    public AudioSource ThemeSource;
 
 	void Awake()
 	{
@@ -21,31 +30,95 @@ public class AudioManager : MonoBehaviour
 		{
 			instance = this;
 			DontDestroyOnLoad(gameObject);
-		}
+        }
 
-		foreach (Sound s in sounds)
-		{
-			s.source = gameObject.AddComponent<AudioSource>();
-			s.source.clip = s.clip;
-			s.source.loop = s.loop;
+        foreach (ThemeSound s in Themes)
+        {
+            s.source = ThemeSource;
+        }
 
-			s.source.outputAudioMixerGroup = mixerGroup;
-		}
-	}
+        foreach (Sound s in GlobalSounds)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+        }
+    }
 
-	public void Play(string sound)
-	{
-		Sound s = Array.Find(sounds, item => item.name == sound);
-		if (s == null)
-		{
-			Debug.LogWarning("Sound: " + name + " not found!");
-			return;
-		}
+    private void Start()
+    {
+		ThemePlay("MenuTheme");
+    }
 
-		s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
-		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+    public void GlobalPlay(string sound)
+    {
+        Sound s = Array.Find(GlobalSounds, item => item.name == sound);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+        s.source.volume = generalVolume * s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+        s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+        s.source.Play();
+    }
+    public void LocalPlay(string sound)
+    {
+        Sound s = Array.Find(LocalSounds, item => item.name == sound);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+        s.source.volume = generalVolume * s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+        s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
-		s.source.Play();
-	}
+        s.source.Play();
+    }
+    public void ThemePlay(string theme)
+    {
+        ThemeSound s = Array.Find(Themes, item => item.name == theme);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+        s.source = ThemeSource;
+        s.source.clip = s.clip;
+        s.source.loop = s.loop;
+        s.source.volume = generalVolume * s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+        s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+        s.source.Play();
+    }
+
+
+
+    public void setVolume(float volume)
+    {
+		generalVolume = volume;
+    }
+
+    public void ThemeTransition(string theme)
+    {
+        StartCoroutine(ChangeTheme(theme));
+    }
+
+    IEnumerator ChangeTheme(string theme)
+    {
+        float percentage = 0;
+        while (ThemeSource.volume > 0f)
+        {
+            ThemeSource.volume = Mathf.Lerp(ThemeSource.volume, 0f, percentage);
+            percentage += Time.deltaTime / (themeTransitionTime/2);
+            yield return null;
+        }
+        ThemeSound s = Array.Find(Themes, item => item.name == theme);
+        ThemeSource.clip = s.clip;
+        s.source.loop = s.loop;
+        while (ThemeSource.volume > generalVolume)
+        {
+            ThemeSource.volume = Mathf.Lerp(0f, generalVolume, percentage);
+            percentage += Time.deltaTime / (themeTransitionTime/2);
+            yield return null;
+        }
+    }
 
 }

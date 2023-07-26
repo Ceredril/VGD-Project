@@ -51,6 +51,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void playAudio(string sound)
     {
-        audioManager.Play(sound);
+        audioManager.GlobalPlay(sound);
     }
 }

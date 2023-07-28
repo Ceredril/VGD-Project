@@ -24,39 +24,76 @@ public class AudioManager : MonoBehaviour
 		{
 			instance = this;
 			DontDestroyOnLoad(gameObject);
-		}
+        }
+        themeSource = GetComponent<AudioSource>();
 
-		foreach (Sound s in sounds)
+        foreach (Sound s in sounds)
 		{
-			s.source = gameObject.AddComponent<AudioSource>();
-			s.source.clip = s.clip;
-			s.source.loop = s.loop;
-
-			s.source.outputAudioMixerGroup = mixerGroup;
+            switch (s.type)
+            {
+                case SoundType.Theme:
+                    s.source = themeSource;
+                    s.source.loop = s.loop;
+                    s.source.outputAudioMixerGroup = mixerGroup;
+                    break;
+                case SoundType.GlobalSound:
+                    s.source = gameObject.AddComponent<AudioSource>();
+                    s.source.clip = s.clip;
+                    s.source.loop = s.loop;
+                    s.source.outputAudioMixerGroup = mixerGroup;
+                    break;
+                case SoundType.LocalSound:
+                    break;
+                default:
+                    Debug.Log("sound type not recognized");
+                    break;
+            }
 		}
 	}
 
 
     private void Start()
     {
-        Play("MainMenuTheme");
+        PlayGlobal("MainMenuTheme");
         setVolume(startingVolume);
     }
 
-    public void Play(string sound)
-	{
-		Sound s = Array.Find(sounds, item => item.name == sound);
-		if (s == null)
-		{
-			Debug.LogWarning("Sound: " + name + " not found!");
-			return;
-		}
+    public void PlayGlobal(string sound)
+    {
+        Sound s = Array.Find(sounds, item => item.name == sound);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + s.name + " not found!");
+            return;
+        }
+        if(s.type == SoundType.LocalSound)
+        {
+            Debug.LogWarning("Sound: " + s.name + " was tried to be played as a global sound!");
+            return;
+        }
 
-		s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
-		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
-
-		s.source.Play();
-	}
+        s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+        s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+        s.source.Play();
+    }
+    public void PlayLocal(string sound, AudioSource source)
+    {
+        Sound s = Array.Find(sounds, item => item.name == sound);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + s.name + " not found!");
+            return;
+        }
+        source.clip = s.clip;
+        source.loop = s.loop;
+        source.outputAudioMixerGroup = mixerGroup;
+        source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+        source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+        source.spatialBlend = 1.0f; // Fully 3D sound
+        //source.minDistance = 1.0f; // Minimum distance to hear the sound
+        //source.maxDistance = 10.0f; // Maximum distance at which the sound can be heard
+        source.Play();
+    }
 
     public void setVolume(float volume)
     {
@@ -90,8 +127,8 @@ public class AudioManager : MonoBehaviour
         }
 
         // Switch the music clip
-        Debug.Log("Started Theme Transition");
         themeSource.Stop();
+        themeSource.time = 0f;
         themeSource.clip = s.clip;
 
         // Fade in the new music

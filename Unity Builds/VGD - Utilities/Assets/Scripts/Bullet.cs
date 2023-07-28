@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
+        AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+        GameManager.audioManager.PlayLocal("Bullet", audiosource);
         StartCoroutine(vanishingTime());
     }
 

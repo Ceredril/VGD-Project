@@ -19,7 +19,7 @@ public class Objective : MonoBehaviour
     {
         if (!finished) 
         {
-            GameManager.audioManager.Play("ObjectiveFinished");
+            GameManager.audioManager.PlayGlobal("ObjectiveFinished");
             finished = true;
         }
     }

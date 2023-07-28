@@ -26,7 +26,9 @@ public class PlayerMovement : MonoBehaviour
     public static float sprintSpeed = 4f;
     [SerializeField] private float jumpForce = 4f;
     [SerializeField] private float JumpMultiplier = 10;
-    private bool isJumping = false;
+    private bool isJumping;
+    private float _lastJumpTime;
+    private float _jumpCooldown=1.2f;
     private float _speedOffset;
     //Gravity variables
     private readonly float _gravity = 9.81f;
@@ -44,7 +46,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!GameManager.GameIsPaused)Move();   
+        if(characterController.isGrounded)Debug.Log("Cazzo");
+        if(!GameManager.GameIsPaused)Move();
     }
     
     private void Move()
@@ -73,16 +76,17 @@ public class PlayerMovement : MonoBehaviour
             float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + characterCamera.eulerAngles.y;
             movementDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
-
-
+        
         //If user presses Spacebar and the character is grounded, apply jump force. Otherwise let it fall :D
-        if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded && PlayerManager.CurrentStamina >= JumpMultiplier)
+        if (Input.GetKeyDown(KeyCode.Space) && PlayerManager.CurrentStamina >= JumpMultiplier)
         {
+            if(Time.time - _lastJumpTime < _jumpCooldown)return;
             _verticalSpeed = jumpForce;
             animator.SetBool("jump", true);
             isJumping = true;
+            _lastJumpTime = Time.time;
         }
-        else _verticalSpeed -= _gravity * Time.deltaTime;
+        _verticalSpeed -= _gravity * Time.deltaTime;
 
 
         //If the user is holding Shift, assign sprintSpeed to the speedOffset. 

@@ -101,7 +101,7 @@ public class Enemy : MonoBehaviour
                     PlayerManager.AddHealth(Random.Range(-15, -30));
                     animator.SetTrigger("swip");
                     AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-                    GameManager.audioManager.PlayLocal("Hit", audiosource);
+                    GameManager.audioManager.Play("Hit", audiosource);
                     _lastAttackTime = Time.time;
                 }
                 break;

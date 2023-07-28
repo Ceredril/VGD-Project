@@ -1931,7 +1931,7 @@ MonoBehaviour:
   finished: 0
   objectiveType: 2
   connectedCheckpoint: {fileID: 1085999865}
-  objectiveName: manaCollectable  2
+  objectiveName: 
 --- !u!114 &89545197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16224,7 +16224,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 500, y: 100}
+  m_SizeDelta: {x: 550, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &957406188
 MonoBehaviour:
@@ -23099,7 +23099,7 @@ MonoBehaviour:
   finished: 0
   objectiveType: 2
   connectedCheckpoint: {fileID: 1085999865}
-  objectiveName: healthCollectable  2
+  objectiveName: 
 --- !u!114 &1319278113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27595,7 +27595,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 500, y: 350}
+  m_SizeDelta: {x: 550, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1568451349
 MonoBehaviour:
@@ -33846,7 +33846,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -50, y: -50}
-  m_SizeDelta: {x: 600, y: 600}
+  m_SizeDelta: {x: 650, y: 600}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1932310594
 MonoBehaviour:
@@ -37424,7 +37424,7 @@ MonoBehaviour:
   finished: 0
   objectiveType: 2
   connectedCheckpoint: {fileID: 1085999865}
-  objectiveName: healthCollectable  1
+  objectiveName: 
 --- !u!114 &33384639055279426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48067,7 +48067,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302132388071567}
-  m_LocalRotation: {x: -0.056546256, y: -0.000000017178854, z: -9.729567e-10, w: 0.99840003}
+  m_LocalRotation: {x: -0.056546256, y: 1e-45, z: -0, w: 0.99840003}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48315,7 +48315,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133082211058}
-  m_LocalRotation: {x: -0.07464938, y: -0.000000017158376, z: -0.0000000012844458, w: 0.99720985}
+  m_LocalRotation: {x: -0.074649386, y: -1e-45, z: -0, w: 0.99720985}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48455,7 +48455,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133116236145}
-  m_LocalRotation: {x: -0.03837649, y: -0.00000002978127, z: -0.0000000011437432, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: -0.0000000021492135, z: -8.2540134e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48702,7 +48702,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026302133376305314}
-  m_LocalRotation: {x: -0.056546256, y: -0.0000000343577, z: -0.0000000019459132, w: 0.9984}
+  m_LocalRotation: {x: -0.056546263, y: 0.000000030670375, z: 0.0000000017370746, w: 0.9984}
   m_LocalPosition: {x: -2.3979015, y: -3.35, z: -0.5886135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -50801,7 +50801,7 @@ MonoBehaviour:
   finished: 0
   objectiveType: 0
   connectedCheckpoint: {fileID: 1085999865}
-  objectiveName: Interact with me
+  objectiveName: 
 --- !u!4 &4747904711149576999
 Transform:
   m_ObjectHideFlags: 0
@@ -51695,7 +51695,7 @@ MonoBehaviour:
   finished: 0
   objectiveType: 2
   connectedCheckpoint: {fileID: 1085999865}
-  objectiveName: manaCollectable  1
+  objectiveName: 
 --- !u!4 &5070979026263111671
 Transform:
   m_ObjectHideFlags: 0
@@ -53078,7 +53078,7 @@ MonoBehaviour:
   finished: 0
   objectiveType: 0
   connectedCheckpoint: {fileID: 1085999865}
-  objectiveName: Interact with me
+  objectiveName: 
 --- !u!114 &5554600808643697930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53094,8 +53094,10 @@ MonoBehaviour:
   animator: {fileID: 0}
   interactableType: 0
   dialogue:
-    name: 
-    sentences: []
+    name: NPC 1
+    sentences:
+    - I dont have much to say
+    - Goodbye!
   typingSpeed: 0.02
   radius: 3
   interactableKey: 101
@@ -55843,8 +55845,16 @@ MonoBehaviour:
   animator: {fileID: 0}
   interactableType: 0
   dialogue:
-    name: 
-    sentences: []
+    name: NPC 2
+    sentences:
+    - Who deleted my words? You will burn in hell for this.
+    - ...
+    - ...
+    - ...
+    - ...
+    - ...
+    - ...
+    - ...bye
   typingSpeed: 0.02
   radius: 3
   interactableKey: 101
@@ -55864,7 +55874,7 @@ MonoBehaviour:
   finished: 0
   objectiveType: 0
   connectedCheckpoint: {fileID: 1085999865}
-  objectiveName: Interact with me
+  objectiveName: 
 --- !u!65 &6438928499160115322
 BoxCollider:
   m_ObjectHideFlags: 0

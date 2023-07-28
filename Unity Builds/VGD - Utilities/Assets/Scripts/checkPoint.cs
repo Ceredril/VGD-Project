@@ -15,7 +15,7 @@ public class checkPoint : MonoBehaviour
     {
         if (other.CompareTag("PlayerBody") && objectivesManager.objectivesCompleted)
         {
-            GameManager.audioManager.PlayGlobal("Checkpoint");
+            GameManager.audioManager.Play("Checkpoint");
             //This modifies the spawnPoint.
             GameManager.CheckpointReached(transform);
             GameManager.GameSave();

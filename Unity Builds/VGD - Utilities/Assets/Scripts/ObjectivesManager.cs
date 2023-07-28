@@ -47,8 +47,9 @@ public class ObjectivesManager : MonoBehaviour
 
     public void showCurrentObjectives(Transform checkpoint) // looks through all objectives and displays the ones that are not finished and from the current checkpoint (or displays nothing if there are none)
     {
+        _objectivesText.text = "";
         objectives = FindObjectsOfType<Objective>();
-        _objectivesTitle.text = "Objectives (T)";
+        _objectivesTitle.text = "Objectives";
         string objectivesText = "";
         int counter = 1;
         for (int i = 0; i < objectives.Length; i++)

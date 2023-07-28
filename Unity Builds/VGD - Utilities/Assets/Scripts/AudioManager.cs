@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
+using static Unity.VisualScripting.Member;
 
 public class AudioManager : MonoBehaviour
 {
@@ -54,11 +55,11 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayGlobal("MainMenuTheme");
+        Play("MainMenuTheme");
         setVolume(startingVolume);
     }
 
-    public void PlayGlobal(string sound)
+    public void Play(string sound, AudioSource source = null)
     {
         Sound s = Array.Find(sounds, item => item.name == sound);
         if (s == null)
@@ -66,15 +67,31 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + s.name + " not found!");
             return;
         }
-        if(s.type == SoundType.LocalSound)
+        switch (s.type)
         {
-            Debug.LogWarning("Sound: " + s.name + " was tried to be played as a global sound!");
-            return;
+            case SoundType.Theme:
+                s.source.clip = s.clip;
+                s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+                s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+                s.source.Play();
+                break;
+            case SoundType.GlobalSound:
+                s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+                s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+                s.source.Play();
+                break;
+            case SoundType.LocalSound:
+                source.clip = s.clip;
+                source.loop = s.loop;
+                source.outputAudioMixerGroup = mixerGroup;
+                source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+                source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+                source.spatialBlend = 1.0f; // Fully 3D sound
+                //source.minDistance = 1.0f; // Minimum distance to hear the sound
+                //source.maxDistance = 10.0f; // Maximum distance at which the sound can be heard
+                source.Play();
+                break;
         }
-
-        s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
-        s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
-        s.source.Play();
     }
     public void PlayLocal(string sound, AudioSource source)
     {

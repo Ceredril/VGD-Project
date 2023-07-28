@@ -9,9 +9,10 @@ public class Objective : MonoBehaviour
     public bool finished = false;
     public ObjectiveType objectiveType;
     public Transform connectedCheckpoint;
+    [HideInInspector]
     public string objectiveName;
 
-    public void Start()
+    public void Awake()
     {
         objectiveName = objectiveType + " " + gameObject.name;
     }
@@ -26,7 +27,7 @@ public class Objective : MonoBehaviour
     {
         if (!finished) 
         {
-            GameManager.audioManager.PlayGlobal("ObjectiveFinished");
+            GameManager.audioManager.Play("ObjectiveFinished");
             finished = true;
         }
     }

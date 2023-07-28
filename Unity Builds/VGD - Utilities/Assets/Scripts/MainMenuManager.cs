@@ -38,7 +38,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void playAudio(string sound)
     {
-        audioManager.PlayGlobal(sound);
+        audioManager.Play(sound);
     }
 
     public void setVolume(float volume)

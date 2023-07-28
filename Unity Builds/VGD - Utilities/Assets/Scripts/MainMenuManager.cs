@@ -11,25 +11,12 @@ public class MainMenuManager : MonoBehaviour
     {
         audioManager = FindObjectOfType<AudioManager>();
     }
-
-    public static int GameDifficulty = 0;
-    public void SetDifficulty(int difficulty)
-    {
-        GameDifficulty = difficulty;
-    }
     public void NewGame()
     {
-        if (GameDifficulty > 0)
-        {
-            PlayerPrefs.SetInt("SaveExists", 0);
-            PlayerPrefs.Save();
-            SceneManager.LoadScene("GameView", LoadSceneMode.Single);
-            Debug.Log("Started a new Game with difficulty: " + GameDifficulty);
-        }
-        else
-        {
-            Debug.Log("Tried starting the game without selecting a difficulty.");
-        }
+        PlayerPrefs.SetInt("SaveExists", 0);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("GameView", LoadSceneMode.Single);
+        Debug.Log("Started a new Game");
     }
     public void LoadGame()
     {

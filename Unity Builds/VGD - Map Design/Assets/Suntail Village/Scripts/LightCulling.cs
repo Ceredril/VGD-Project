@@ -8,7 +8,7 @@ namespace Suntail
 {
     public class LightCulling : MonoBehaviour
     {
-        [SerializeField] private GameObject playerCamera;
+        [SerializeField] private Camera playerCamera;
         [SerializeField] private float shadowCullingDistance = 15f;
         [SerializeField] private float lightCullingDistance = 30f;
         private Light _light;
@@ -17,6 +17,7 @@ namespace Suntail
         private void Awake()
         {
             _light = GetComponent<Light>();
+            playerCamera = FindObjectOfType<Camera>();
         }
 
         private void Update()

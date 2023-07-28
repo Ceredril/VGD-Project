@@ -15,6 +15,13 @@ public class Objective : MonoBehaviour
     {
         objectiveName = objectiveType + " " + gameObject.name;
     }
+
+    public void Update()
+    {
+        if (objectiveType == ObjectiveType.Collecting)
+            transform.localRotation = Quaternion.Euler(0f, Time.time * 100f, 0);
+    }
+
     public void objectiveFinished()
     {
         if (!finished) 

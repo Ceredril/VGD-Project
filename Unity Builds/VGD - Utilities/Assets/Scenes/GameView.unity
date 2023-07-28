@@ -20454,6 +20454,8 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  themeSource: {fileID: 0}
+  startingVolume: 0.7
 --- !u!4 &1624417927
 Transform:
   m_ObjectHideFlags: 0

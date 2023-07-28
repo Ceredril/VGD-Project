@@ -53,4 +53,9 @@ public class MainMenuManager : MonoBehaviour
     {
         audioManager.Play(sound);
     }
+
+    public void setVolume(float volume)
+    {
+        audioManager.setVolume(volume);
+    }
 }

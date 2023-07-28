@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         Resume();
         OnGameStart?.Invoke();
         Debug.Log("Game started");
+        audioManager.ThemeTransition("FirstLevelTheme", 2);
     }
     
     private void Update()

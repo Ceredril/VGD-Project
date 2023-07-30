@@ -737,7 +737,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Walking
     type: 2
-    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    clip: {fileID: 8300000, guid: 244726df686d0824e92bbe7c620b37f1, type: 3}
     volume: 0.1
     volumeVariance: 0.2
     pitch: 1
@@ -747,7 +747,7 @@ MonoBehaviour:
     source: {fileID: 446604030}
   - name: Sprinting
     type: 2
-    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    clip: {fileID: 8300000, guid: 75519e3ddc9e081499617b0c64b27512, type: 3}
     volume: 0.1
     volumeVariance: 0.2
     pitch: 1
@@ -757,7 +757,7 @@ MonoBehaviour:
     source: {fileID: 446604030}
   - name: Jumping
     type: 2
-    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    clip: {fileID: 8300000, guid: 1ff1ebcf4c0f92f47adbd2bcd638d92e, type: 3}
     volume: 0.1
     volumeVariance: 0.2
     pitch: 1
@@ -767,11 +767,11 @@ MonoBehaviour:
     source: {fileID: 446604030}
   - name: meleeAttack
     type: 2
-    clip: {fileID: 8300000, guid: 94778e72b6ff9734fb3e0025dd91984b, type: 3}
-    volume: 0.15
-    volumeVariance: 0.067
-    pitch: 1
-    pitchVariance: 0.154
+    clip: {fileID: 8300000, guid: 7449933d93f334b4580adaf7e904021c, type: 3}
+    volume: 0.463
+    volumeVariance: 0.131
+    pitch: 0.73
+    pitchVariance: 0.226
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
@@ -797,8 +797,8 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PlayerDamage
     type: 2
-    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
-    volume: 0.1
+    clip: {fileID: 8300000, guid: bf634a30d90fd8f408264210e9007642, type: 3}
+    volume: 0.162
     volumeVariance: 0.2
     pitch: 1
     pitchVariance: 0
@@ -807,7 +807,7 @@ MonoBehaviour:
     source: {fileID: 446604030}
   - name: PlayerDeath
     type: 2
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: aecfe9e4db0dfca41b21ef6af47f3267, type: 3}
     volume: 0.294
     volumeVariance: 0
     pitch: 1
@@ -817,19 +817,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: EnemyDamage
     type: 2
-    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
-    volume: 0.1
+    clip: {fileID: 8300000, guid: 0e01eab9abe271c49a2b4af7555cdafa, type: 3}
+    volume: 0.3
     volumeVariance: 0.2
-    pitch: 1
-    pitchVariance: 0
+    pitch: 0.7
+    pitchVariance: 0.2
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 446604030}
   - name: EnemyDeath
     type: 2
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: d9639f7bee0d97b45a6c5f9fe8cf648f, type: 3}
     volume: 0.294
-    volumeVariance: 0
+    volumeVariance: 0.064
     pitch: 1
     pitchVariance: 0
     loop: 0

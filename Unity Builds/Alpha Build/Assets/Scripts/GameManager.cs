@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
     public static void PlayerDeath()
     {
         Debug.Log("Player died");
-        audioManager.PlayGlobal("PlayerDeath");
+        audioManager.Play("PlayerDeath");
         GameIsRunning = false;
         PlayerIsAlive = false;
         Cursor.visible = true;
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     public void playButtonPress()
     {
-        audioManager.PlayGlobal("ButtonPress");
+        audioManager.Play("ButtonPress");
     }
 
 }

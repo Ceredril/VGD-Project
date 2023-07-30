@@ -664,7 +664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5441e9c511d0fad4dafb0abf97d733b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixerGroup: {fileID: 24300002, guid: e4bf851d466195847ac0ecb69749054f, type: 2}
+  mixerGroup: {fileID: 24300002, guid: 73c2b8ef81d1b854ca1805174e57f970, type: 2}
   sounds:
   - name: Hit
     type: 2

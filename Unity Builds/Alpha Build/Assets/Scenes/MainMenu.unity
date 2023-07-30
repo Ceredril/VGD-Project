@@ -665,66 +665,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixerGroup: {fileID: 24300002, guid: 73c2b8ef81d1b854ca1805174e57f970, type: 2}
   sounds:
-  - name: Hit
-    type: 2
-    clip: {fileID: 8300000, guid: 94778e72b6ff9734fb3e0025dd91984b, type: 3}
-    volume: 0.15
-    volumeVariance: 0.067
-    pitch: 1
-    pitchVariance: 0.154
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Fireball
-    type: 2
-    clip: {fileID: 8300000, guid: 635c25a8a7ab2cb42b2fb41c55b42638, type: 3}
-    volume: 0.294
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Checkpoint
-    type: 1
-    clip: {fileID: 8300000, guid: 61784c4e341f32948a9d6321cf43b807, type: 3}
-    volume: 0.474
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: PlayerDeath
-    type: 2
-    clip: {fileID: 0}
-    volume: 0.294
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: EnemyDeath
-    type: 2
-    clip: {fileID: 0}
-    volume: 0.294
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: ObjectiveFinished
-    type: 1
-    clip: {fileID: 8300000, guid: 61784c4e341f32948a9d6321cf43b807, type: 3}
-    volume: 0.294
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
   - name: ButtonPress
     type: 1
     clip: {fileID: 8300000, guid: 03475a4f0a20cd047b053526365b9d18, type: 3}
@@ -775,6 +715,126 @@ MonoBehaviour:
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 446604030}
+  - name: Checkpoint
+    type: 1
+    clip: {fileID: 8300000, guid: 61784c4e341f32948a9d6321cf43b807, type: 3}
+    volume: 0.474
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: ObjectiveFinished
+    type: 1
+    clip: {fileID: 8300000, guid: 61784c4e341f32948a9d6321cf43b807, type: 3}
+    volume: 0.294
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Walking
+    type: 2
+    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    volume: 0.1
+    volumeVariance: 0.2
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 446604030}
+  - name: Sprinting
+    type: 2
+    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    volume: 0.1
+    volumeVariance: 0.2
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 446604030}
+  - name: Jumping
+    type: 2
+    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    volume: 0.1
+    volumeVariance: 0.2
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 446604030}
+  - name: meleeAttack
+    type: 2
+    clip: {fileID: 8300000, guid: 94778e72b6ff9734fb3e0025dd91984b, type: 3}
+    volume: 0.15
+    volumeVariance: 0.067
+    pitch: 1
+    pitchVariance: 0.154
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Fireball
+    type: 2
+    clip: {fileID: 8300000, guid: 635c25a8a7ab2cb42b2fb41c55b42638, type: 3}
+    volume: 0.294
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: meleeHit
+    type: 2
+    clip: {fileID: 0}
+    volume: 0.294
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: PlayerDamage
+    type: 2
+    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    volume: 0.1
+    volumeVariance: 0.2
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 446604030}
+  - name: PlayerDeath
+    type: 2
+    clip: {fileID: 0}
+    volume: 0.294
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: EnemyDamage
+    type: 2
+    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    volume: 0.1
+    volumeVariance: 0.2
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 446604030}
+  - name: EnemyDeath
+    type: 2
+    clip: {fileID: 0}
+    volume: 0.294
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
   themeSource: {fileID: 446604030}
   startingVolume: 0.7
 --- !u!4 &446604032

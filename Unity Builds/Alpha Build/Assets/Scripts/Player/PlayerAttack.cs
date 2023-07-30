@@ -85,13 +85,13 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Time.time - _lastFistTime >= _fistCooldown)
         {
+            AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+            GameManager.audioManager.PlayLocal("meleeAttack", audiosource);
             animator.SetTrigger("hook");
             if (_nearEnemy != null)
             {
                 int damage = Random.Range(_minFistDamage, _maxFistDamage);
                 enemy.ReduceHealth(damage,enemy);
-                AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-                GameManager.audioManager.PlayLocal("Hit", audiosource);
             }
             _lastFistTime = Time.time;
         }

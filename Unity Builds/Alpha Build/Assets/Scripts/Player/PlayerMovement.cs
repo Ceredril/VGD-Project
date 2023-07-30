@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+public enum MovementStatus {Standing, Walking, Running}
 public class PlayerMovement : MonoBehaviour
 {
     
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public static float sprintSpeed = 4f;
     [SerializeField] private float jumpForce = 4f;
     [SerializeField] private float JumpMultiplier = 10;
+    private MovementStatus movementStatus;
     private bool isJumping;
     private float _lastJumpTime;
     private float _jumpCooldown=1.2f;
@@ -33,7 +35,11 @@ public class PlayerMovement : MonoBehaviour
     //Gravity variables
     private readonly float _gravity = 9.81f;
     private float _verticalSpeed;
-    
+
+    // Movement sound variables
+    private MovementStatus LastMovementStatus;
+    private AudioSource movementAudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         characterCamera = GameObject.Find("Main Camera").transform;
+        movementAudioSource = gameObject.AddComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -75,12 +82,26 @@ public class PlayerMovement : MonoBehaviour
         {   // If the character is moving, apply the movement to the character controller
             float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + characterCamera.eulerAngles.y;
             movementDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+            //If the user is holding Shift, assign sprintSpeed to the speedOffset. 
+            if (Input.GetKey(KeyCode.LeftShift) && canSprint)
+            {
+                movementStatus = MovementStatus.Running;
+                _speedOffset = sprintSpeed;
+            }
+            else _speedOffset = walkingSpeed;
+        }
+        else
+        {
+            movementStatus = MovementStatus.Standing;
         }
         
         //If user presses Spacebar and the character is grounded, apply jump force. Otherwise let it fall :D
         if (Input.GetKeyDown(KeyCode.Space) && PlayerManager.CurrentStamina >= JumpMultiplier)
         {
-            if(Time.time - _lastJumpTime < _jumpCooldown)return;
+            AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+            GameManager.audioManager.PlayLocal("Jumping", audiosource);
+            if (Time.time - _lastJumpTime < _jumpCooldown)return;
             _verticalSpeed = jumpForce;
             animator.SetBool("jump", true);
             isJumping = true;
@@ -89,9 +110,7 @@ public class PlayerMovement : MonoBehaviour
         _verticalSpeed -= _gravity * Time.deltaTime;
 
 
-        //If the user is holding Shift, assign sprintSpeed to the speedOffset. 
-        if (Input.GetKey(KeyCode.LeftShift) && canSprint) _speedOffset = sprintSpeed;
-        else _speedOffset = walkingSpeed;
+        
 
 
         //Update the movement vector with the new values
@@ -107,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space)) { animator.SetBool("jump", false); isJumping = false; }
         // Switch between states based on whether you are running or walking and managing stamina level
         // first if, manage the stamina when the character is running or is running and jumping at the same time
-        if (_speedOffset == sprintSpeed && movementDirection.magnitude >= 0.1f)
+        if (movementStatus == MovementStatus.Running)
         {
             animator.SetBool("running", true);
             if (regeneratingStamina != null)
@@ -148,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("running", false);
             regeneratingStamina = StartCoroutine(RegenerateStamina());
         }
+        movementSounds(movementStatus);
     }
     
     //Sprint and stamina function
@@ -170,4 +190,25 @@ public class PlayerMovement : MonoBehaviour
         }
         regeneratingStamina = null;
     }
+
+    private void movementSounds(MovementStatus movementStatus)
+    {
+        if(LastMovementStatus != movementStatus)
+        {
+            LastMovementStatus = movementStatus;
+            switch (movementStatus)
+            {
+                case MovementStatus.Standing:
+                    movementAudioSource.Stop();
+                    break;
+                case MovementStatus.Walking:
+                    GameManager.audioManager.PlayLocal("Walking", movementAudioSource);
+                    break;
+                case MovementStatus.Running:
+                    GameManager.audioManager.PlayLocal("Running", movementAudioSource);
+                    break;
+            }
+        }
+    }
+
 }

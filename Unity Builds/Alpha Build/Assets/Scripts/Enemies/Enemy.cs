@@ -101,7 +101,7 @@ public class Enemy : MonoBehaviour
                     PlayerManager.AddHealth(Random.Range(-15, -30));
                     animator.SetTrigger("swip");
                     AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-                    GameManager.audioManager.PlayLocal("Hit", audiosource);
+                    GameManager.audioManager.PlayLocal("meleeAttack", audiosource);
                     _lastAttackTime = Time.time;
                 }
                 break;
@@ -124,6 +124,8 @@ public class Enemy : MonoBehaviour
         if (enemy == this)
         {
             currentHealth -= amount;
+            AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+            GameManager.audioManager.PlayLocal("EnemyDamage", audiosource);
         }
         healthBar.UpdateHealthBar();
     }

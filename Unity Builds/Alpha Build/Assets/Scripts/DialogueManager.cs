@@ -82,12 +82,13 @@ public class DialogueManager : MonoBehaviour
                 break;
             case 1:
                 PlayerManager.AddLives(1);
+                PlayerAttack._hasFist = true;
                 break;
             case 2:
-                PlayerManager.AddHealth(20);
+                PlayerAttack._hasFireball = true;
                 break;
             case 3:
-                // enable Fist attack
+                PlayerAttack._hasShield = true;
                 break;
         }
         animator.SetBool("IsOpen", false);

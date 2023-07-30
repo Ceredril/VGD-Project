@@ -107,8 +107,8 @@ public class AudioManager : MonoBehaviour
         source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
         source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
         source.spatialBlend = 1.0f; // Fully 3D sound
-        //source.minDistance = 1.0f; // Minimum distance to hear the sound
-        //source.maxDistance = 10.0f; // Maximum distance at which the sound can be heard
+        source.minDistance = 5.0f; // Minimal distance to hear the sound on full volume
+        source.maxDistance = 100.0f; // Maximum distance at which the sound can be heard
         source.Play();
     }
 

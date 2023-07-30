@@ -90,6 +90,8 @@ public class PlayerAttack : MonoBehaviour
             {
                 int damage = Random.Range(_minFistDamage, _maxFistDamage);
                 enemy.ReduceHealth(damage,enemy);
+                AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+                GameManager.audioManager.PlayLocal("Hit", audiosource);
             }
             _lastFistTime = Time.time;
         }

@@ -22,6 +22,8 @@ public class PlayerBullet : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(VanishingTime());
+        AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+        GameManager.audioManager.PlayLocal("Fireball", audiosource);
     }
 
     private IEnumerator VanishingTime()

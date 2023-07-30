@@ -33,9 +33,20 @@ public class DialogueManager : MonoBehaviour
 
         sentences.Clear();
 
-        foreach (string sentence in dialogue.sentences)
+        if (!dialogue.interacted)
         {
-            sentences.Enqueue(sentence);
+            foreach (string sentence in dialogue.sentences)
+            {
+                sentences.Enqueue(sentence);
+            }
+            dialogue.interacted = true;
+        }
+        else
+        {
+            foreach (string sentence in dialogue.repeatedSentences)
+            {
+                sentences.Enqueue(sentence);
+            }
         }
     }
 

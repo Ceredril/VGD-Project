@@ -6701,7 +6701,9 @@ MonoBehaviour:
   interactableType: 0
   dialogue:
     name: Mirabel the Healer
+    interacted: 0
     sentences: []
+    repeatedSentences: []
   typingSpeed: 0.02
   radius: 3
   interactableKey: 101
@@ -28881,7 +28883,9 @@ MonoBehaviour:
   interactableType: 0
   dialogue:
     name: Ardyn
+    interacted: 0
     sentences: []
+    repeatedSentences: []
   typingSpeed: 0.02
   radius: 3
   interactableKey: 101
@@ -32115,7 +32119,9 @@ MonoBehaviour:
   interactableType: 0
   dialogue:
     name: Alistair the Lunatic
+    interacted: 0
     sentences: []
+    repeatedSentences: []
   typingSpeed: 0.02
   radius: 3
   interactableKey: 101
@@ -84094,6 +84100,7 @@ MonoBehaviour:
   interactableType: 0
   dialogue:
     name: Elara the Elder
+    interacted: 0
     sentences:
     - You seem weirdly familiar, but maybe my eyes are deceiving me. You are not
       from around here though, are you?
@@ -84108,6 +84115,8 @@ MonoBehaviour:
     - What I need you to do? Go and hunt some shadows for me. They took the amulet
       and if we dont get it back to this village soon we will become like them. Twisted,
       distorted abominations.
+    - Go on!
+    repeatedSentences:
     - Go on!
   typingSpeed: 0.02
   radius: 3
@@ -99835,6 +99844,7 @@ MonoBehaviour:
   interactableType: 0
   dialogue:
     name: Gwyneth the Wanderer
+    interacted: 0
     sentences:
     - Hello there, Stranger...
     - It's not often that I see someone out here, much less someone that I dont know...
@@ -99843,6 +99853,8 @@ MonoBehaviour:
       follow this path until you reach the village and talk to Elara. She will surely
       tell you how.
     - Goodbye!
+    repeatedSentences:
+    - I already talked with you, go away!
   typingSpeed: 0.02
   radius: 3
   interactableKey: 101
@@ -103623,9 +103635,11 @@ MonoBehaviour:
   interactableType: 0
   dialogue:
     name: Traumatized child
+    interacted: 0
     sentences:
     - '*looks at you with panic in its eyes, recognizes you and goes back to staring
       off into the void*'
+    repeatedSentences: []
   typingSpeed: 0.02
   radius: 3
   interactableKey: 101

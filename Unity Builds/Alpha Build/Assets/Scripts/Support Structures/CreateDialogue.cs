@@ -6,7 +6,10 @@ using UnityEngine;
 public class CreateDialogue
 {
     public string name;
-
+    [HideInInspector]
+    public bool interacted = false;
     [TextArea(3, 10)]
     public string[] sentences;
+    [TextArea(3, 10)]
+    public string[] repeatedSentences;
 }

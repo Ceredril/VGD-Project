@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator animator;
     private Enemy _nearEnemy;
     public static GameObject wand;
+    public static GameObject fireFist;
     [SerializeField] private Transform characterCamera;
     [SerializeField] private Rigidbody playerBullet;
     //Skill parameters
@@ -20,6 +21,7 @@ public class PlayerAttack : MonoBehaviour
     private float _bulletSpeed=1800;
     //Skill variables
     public static bool _hasFist = true;
+    public static bool _hasFireFist = false;
     public static bool _hasFireball = true;
     public static bool _hasShield = false;
     public static Skill _currentSkill;
@@ -30,7 +32,9 @@ public class PlayerAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         characterCamera = GameObject.Find("Main Camera").transform;
         wand = GameObject.Find("Wand");
+        fireFist = GameObject.Find("fireFist");
         wand.SetActive(false);
+        fireFist.SetActive(false);
     }
 
     void Update()
@@ -43,12 +47,17 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && _hasFist && _currentSkill!=Skill.Fist)
         {
+            if(_hasFireFist)
+                fireFist.SetActive(true);
+            else
+                fireFist.SetActive(false);
             wand.SetActive(false);
             _currentSkill = Skill.Fist;
             Debug.Log("Melee attack selected");
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && _hasFireball && _currentSkill!=Skill.Fireball)
         {
+            fireFist.SetActive(false);
             wand.SetActive(true);
             _currentSkill = Skill.Fireball;
             Debug.Log("Ranged attack selected");
@@ -56,6 +65,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha3) && _hasShield && _currentSkill != Skill.Shield)
         {
+            fireFist.SetActive(false);
             wand.SetActive(false);
             _currentSkill = Skill.Shield;
             Debug.Log("Shield attack selected");

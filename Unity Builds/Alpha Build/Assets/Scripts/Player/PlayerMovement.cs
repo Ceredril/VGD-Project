@@ -97,21 +97,16 @@ public class PlayerMovement : MonoBehaviour
         }
         
         //If user presses Spacebar and the character is grounded, apply jump force. Otherwise let it fall :D
-        if (Input.GetKeyDown(KeyCode.Space) && PlayerManager.CurrentStamina >= JumpMultiplier)
+        if (Input.GetKeyDown(KeyCode.Space) && PlayerManager.CurrentStamina >= JumpMultiplier && (Time.time - _lastJumpTime >= _jumpCooldown))
         {
             AudioSource audiosource = gameObject.AddComponent<AudioSource>();
             GameManager.audioManager.PlayLocal("Jumping", audiosource);
-            if (Time.time - _lastJumpTime < _jumpCooldown)return;
             _verticalSpeed = jumpForce;
             animator.SetBool("jump", true);
             isJumping = true;
             _lastJumpTime = Time.time;
         }
         _verticalSpeed -= _gravity * Time.deltaTime;
-
-
-        
-
 
         //Update the movement vector with the new values
         movementDirection.y = _verticalSpeed;

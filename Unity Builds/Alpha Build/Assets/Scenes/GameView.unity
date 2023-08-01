@@ -20308,7 +20308,7 @@ AudioSource:
   m_Volume: 0.161
   m_Pitch: 1
   Loop: 0
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -84932,7 +84932,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2757967749326233944}
-  m_LocalRotation: {x: -0.038376518, y: 0.0000000021492135, z: 8.2540134e-11, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: -0.000000002149213, z: -8.254012e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -115227,9 +115227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74c612ed124f534bb62937ff9939cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 0}
-  dialogueText: {fileID: 0}
-  animator: {fileID: 0}
+  nameText: {fileID: 6675192392791317026}
+  dialogueText: {fileID: 6675192392760967147}
+  animator: {fileID: 6675192391743078098}
 --- !u!114 &7749360894610619247
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -57,6 +57,8 @@ public class InteractableObjects : MonoBehaviour
                 Interact();
                 animator.SetBool("isTalking", true);
             }
+            if(!isInteracting)
+                animator.SetBool("isTalking", false);
         }
     }
 

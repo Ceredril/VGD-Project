@@ -7512,6 +7512,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 134152095}
     m_Modifications:
+    - target: {fileID: 8554323860994202191, guid: 72e5e899d8d63524a9b2259bda6de944, type: 3}
+      propertyPath: connectedCheckpoint
+      value: 
+      objectReference: {fileID: 1582470354957453103}
     - target: {fileID: 8558507443623253290, guid: 72e5e899d8d63524a9b2259bda6de944, type: 3}
       propertyPath: m_Name
       value: healthCollectable
@@ -16446,16 +16450,6 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 884681842}
-  - name: meleeAttack
-    type: 2
-    clip: {fileID: 8300000, guid: 7449933d93f334b4580adaf7e904021c, type: 3}
-    volume: 0.463
-    volumeVariance: 0.131
-    pitch: 0.73
-    pitchVariance: 0.226
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
   - name: Fireball
     type: 2
     clip: {fileID: 8300000, guid: 635c25a8a7ab2cb42b2fb41c55b42638, type: 3}
@@ -16466,7 +16460,17 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: meleeHit
+  - name: meleeAttack
+    type: 2
+    clip: {fileID: 8300000, guid: 7449933d93f334b4580adaf7e904021c, type: 3}
+    volume: 0.463
+    volumeVariance: 0.131
+    pitch: 0.73
+    pitchVariance: 0.226
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: rangeAttack
     type: 2
     clip: {fileID: 0}
     volume: 0.294
@@ -17813,6 +17817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: manaCollectable (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7376512865651966857, guid: 00748d3cad66f7748aec86e28d833188, type: 3}
+      propertyPath: connectedCheckpoint
+      value: 
+      objectReference: {fileID: 1887866828848731824}
     - target: {fileID: 7376512865651966860, guid: 00748d3cad66f7748aec86e28d833188, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -26492,6 +26500,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: manaCollectable
       objectReference: {fileID: 0}
+    - target: {fileID: 7376512865651966857, guid: 00748d3cad66f7748aec86e28d833188, type: 3}
+      propertyPath: connectedCheckpoint
+      value: 
+      objectReference: {fileID: 1582470354957453103}
     - target: {fileID: 7376512865651966860, guid: 00748d3cad66f7748aec86e28d833188, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -76517,7 +76529,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2757967749326233944}
-  m_LocalRotation: {x: -0.038376518, y: -0.000000002149213, z: -8.254012e-11, w: 0.99926335}
+  m_LocalRotation: {x: -0.038376518, y: 0.0000000021492135, z: 8.2540134e-11, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -89876,7 +89888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finished: 0
   objectiveType: 0
-  connectedCheckpoint: {fileID: 0}
+  connectedCheckpoint: {fileID: 1887866828848731824}
   objectiveName: Interact with me
 --- !u!114 &5494447071657718509
 MonoBehaviour:
@@ -109472,7 +109484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finished: 0
   objectiveType: 0
-  connectedCheckpoint: {fileID: 0}
+  connectedCheckpoint: {fileID: 600972815}
   objectiveName: Interact with me
 --- !u!4 &8589820373007377203
 Transform:

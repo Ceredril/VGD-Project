@@ -1,6 +1,8 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.VirtualTexturing;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
@@ -100,9 +102,9 @@ public class Enemy : MonoBehaviour
             case EnemyType.Melee:
                 PlayerManager.AddHealth(Random.Range(-15, -30));
                 animator.SetTrigger("swip");
-                //AudioSource audiosource = gameObject.AddComponent<AudioSource>(); - DISABLED: They are bugging the cooldown
-                //GameManager.audioManager.Play("Hit", audiosource);
                 _lastAttackTime = Time.time;
+                AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+                GameManager.audioManager.Play("meleeAttack", audiosource);
                 break;
             case EnemyType.Ranged:
                 Transform thisTransform = transform;
@@ -110,6 +112,8 @@ public class Enemy : MonoBehaviour
                 Vector3 bulletDirection = _player.position - transform.position;
                 bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
                 _lastAttackTime = Time.time;
+                AudioSource audiosource2 = gameObject.AddComponent<AudioSource>();
+                GameManager.audioManager.Play("rangeAttack", audiosource2);
                 break;
         }
     }

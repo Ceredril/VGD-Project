@@ -8,8 +8,8 @@ using Debug = UnityEngine.Debug;
 public class GameManager : MonoBehaviour
 {
     //GAME EVENTS
-    public static event Action OnGameStart,OnGameRestart,OnGameOver,OnGameEnd,OnGamePause,OnGameResume;
-    public static event Action OnGameNew, OnGameLoad, OnGameSave;
+    public static event Action OnGameStart,OnGameOver,OnGameEnd,OnGamePause,OnGameResume;
+    public static event Action OnGameSave;
     public static event Action OnPlayerDeath;
     public static event Action<GameObject> OnInteraction;
     public static event Action<GameObject> OnEnemyKill;
@@ -18,11 +18,7 @@ public class GameManager : MonoBehaviour
     //CHECKPOINT EVENTS
     public static event Action<Transform> OnCheckpointReached;
 
-    public static bool GameIsRunning;
-    public static bool GameIsPaused;
-    public static bool GameIsOver;
-
-    public static bool PlayerIsAlive;
+    public static bool GameIsRunning, GameIsPaused, GameIsOver;
 
     public static Camera MainCamera;
     public static CinemachineBrain cameraBrain;
@@ -30,70 +26,61 @@ public class GameManager : MonoBehaviour
     
     
     //DEFAULT FUNCTIONS
-    private void Start()
+    private void Awake()
     {
-        if(PlayerPrefs.GetInt("SaveExists")==1)OnGameLoad?.Invoke();
-        else OnGameNew?.Invoke();
-        
         MainCamera = Camera.main;
         cameraBrain = MainCamera.GetComponent<CinemachineBrain>();
         audioManager = FindObjectOfType<AudioManager>();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        GameIsOver = false;
-        GameIsRunning = true;
-        GameIsPaused = false;
-        PlayerIsAlive = true;
-        Resume();
-        OnGameStart?.Invoke();
-        Debug.Log("Game started");
-        audioManager.ThemeTransition("FirstLevelTheme", 2);
+        GameStart();
     }
     
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver && !GameIsPaused && GameIsRunning) Pause();
     }
-    
-    
-    public static void GameRestart()
+
+    public static void GameStart()
     {
-        OnGameRestart?.Invoke();
-        GameIsRunning = true;
-        PlayerIsAlive = true;
-        Debug.Log("Game restarted");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+        GameIsOver = false;
+        GameIsRunning = true;
+        GameIsPaused = false;
+        cameraBrain.enabled = true;
+        audioManager.ThemeTransition("FirstLevelTheme", 2);
+        OnGameStart?.Invoke();
+        Debug.Log("Game started");
     }
-    
+
     public static void GameOver()
     {
-        Debug.Log("Game lost");
         GameIsOver = true;
         GameIsRunning = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         OnGameOver?.Invoke();
+        Debug.Log("Game lost");
     }
     
     public static void GameEnd()
     {
         GameIsRunning = false;
-        Debug.Log("Game ended");
-        OnGameEnd?.Invoke();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        OnGameEnd?.Invoke();
+        Debug.Log("Game ended");
     }
     
     public static void Pause()
     {
-        OnGamePause?.Invoke();
         GameIsPaused = true;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         cameraBrain.enabled = false;
+        OnGamePause?.Invoke();
         Debug.Log("Game paused");
     }
     
@@ -105,6 +92,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         cameraBrain.enabled = true;
+        Debug.Log("Game resumed");
     }
 
     public static void GameSave()
@@ -117,13 +105,13 @@ public class GameManager : MonoBehaviour
 
     public static void PlayerDeath()
     {
-        Debug.Log("Player died");
-        audioManager.Play("PlayerDeath");
+        //audioManager.Play("PlayerDeath"); - DISABLED: It bugs the PlayerDeath
+        cameraBrain.enabled = false;
         GameIsRunning = false;
-        PlayerIsAlive = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         OnPlayerDeath?.Invoke();
+        Debug.Log("Player died");
     }
 
     public static void PlayerInteracted(GameObject Object)

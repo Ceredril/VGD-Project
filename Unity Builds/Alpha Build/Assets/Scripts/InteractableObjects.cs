@@ -25,16 +25,15 @@ public class InteractableObjects : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.OnGameNew += SaveNew;
+        GameManager.OnGameStart += LoadProgress;
         GameManager.OnGameSave += SaveProgress;
-        GameManager.OnGameLoad += LoadProgress;
     }
 
     private void OnDestroy()
     {
-        GameManager.OnGameNew -= SaveNew;
+        GameManager.OnGameStart -= LoadProgress;
         GameManager.OnGameSave -= SaveProgress;
-        GameManager.OnGameLoad -= LoadProgress;
+
     }
 
     private void Start()
@@ -94,12 +93,7 @@ public class InteractableObjects : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(this.transform.position, radius);
     }
-
-    private void SaveNew()
-    {
-        interactionStatus = 0;
-        SaveProgress();
-    }
+    
     private void SaveProgress()
     {
         PlayerPrefs.SetFloat(dialogue.name, interactionStatus);
@@ -107,6 +101,11 @@ public class InteractableObjects : MonoBehaviour
     }
     private void LoadProgress()
     {
-        interactionStatus = PlayerPrefs.GetFloat(dialogue.name);
+        if (PlayerPrefs.GetInt("SaveExists") == 1) interactionStatus = PlayerPrefs.GetFloat(dialogue.name);
+        else
+        {
+            interactionStatus = 0;
+            SaveProgress();
+        }
     }
 }

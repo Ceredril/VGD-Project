@@ -10,8 +10,7 @@ public class collectibleObjects : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.OnGameNew += SaveNew;
-        GameManager.OnGameLoad += LoadProgress;
+        GameManager.OnGameStart += LoadProgress;
         GameManager.OnGameSave += SaveProgress;
     }
 
@@ -23,8 +22,7 @@ public class collectibleObjects : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.OnGameNew -= SaveNew;
-        GameManager.OnGameLoad -= LoadProgress;
+        GameManager.OnGameStart -= LoadProgress;
         GameManager.OnGameSave -= SaveProgress;
     }
 
@@ -46,16 +44,15 @@ public class collectibleObjects : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
-    private void SaveNew()
-    {
-        _wasCollected = false;
-        SaveProgress();
-    }
-
+    
     private void LoadProgress()
     {
-        _wasCollected = Convert.ToBoolean(PlayerPrefs.GetInt(name));
+        if (PlayerPrefs.GetInt("SaveExists") == 1)_wasCollected = Convert.ToBoolean(PlayerPrefs.GetInt(name));
+        else
+        {
+            _wasCollected = false;
+            SaveProgress();
+        }
     }
 
     private void SaveProgress()

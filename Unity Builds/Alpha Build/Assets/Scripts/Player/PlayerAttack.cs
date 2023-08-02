@@ -39,6 +39,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        if(!PlayerManager.IsAlive || GameManager.GameIsPaused)return;
         SkillSelection();
         InputManagement();
     }

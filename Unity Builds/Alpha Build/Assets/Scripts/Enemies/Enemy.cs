@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -30,20 +31,20 @@ public class Enemy : MonoBehaviour
 
     private Vector3 _walkPoint;
     private bool _walkPointSet;
-
-    private void Awake()
-    {
-        SetStats();
-    }
     
+
     private void OnDestroy()
     {
         EnemyManager.Instance.UnregisterEnemy(this);
-
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
+    {
+        SetStats();
+    }
+
+    private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -52,21 +53,21 @@ public class Enemy : MonoBehaviour
         _agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
-        EnemyManager.Instance.RegisterEnemy(this);
+        EnemyManager.Instance.RegisterEnemy(this);  
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && GameManager.PlayerIsAlive) AttackPlayer(enemyType);
-        if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && GameManager.PlayerIsAlive) ChasePlayer();
+        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && PlayerManager.IsAlive) AttackPlayer(enemyType);
+        if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && PlayerManager.IsAlive) ChasePlayer();
         else Patrolling();
         Vector3 distanceToWalkPoint = transform.position - _walkPoint;
         if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
         if (currentHealth < 0) isAlive = false;
         if (!isAlive)
         {
-            GameManager.EnemyKilled(this.gameObject);
+            GameManager.EnemyKilled(gameObject);
             gameObject.SetActive(false);
         }
     }
@@ -93,28 +94,22 @@ public class Enemy : MonoBehaviour
 
     private void AttackPlayer(EnemyType enemyType)
     {
+        if(Time.time - _lastAttackTime <= _attackCooldown)return;
         switch (enemyType)
         {
             case EnemyType.Melee:
-                if (Time.time >= _lastAttackTime + _attackCooldown)
-                {
-                    PlayerManager.AddHealth(Random.Range(-15, -30));
-                    animator.SetTrigger("swip");
-                    AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-                    GameManager.audioManager.Play("Hit", audiosource);
-                    _lastAttackTime = Time.time;
-                }
+                PlayerManager.AddHealth(Random.Range(-15, -30));
+                animator.SetTrigger("swip");
+                //AudioSource audiosource = gameObject.AddComponent<AudioSource>(); - DISABLED: They are bugging the cooldown
+                //GameManager.audioManager.Play("Hit", audiosource);
+                _lastAttackTime = Time.time;
                 break;
             case EnemyType.Ranged:
-                if (Time.time >= _lastAttackTime + _attackCooldown)
-                {
-                    Transform thisTransform = transform;
-                    Rigidbody bulletClone = Instantiate(enemyBullet, thisTransform.position + new Vector3(0, 1f, 0),
-                        thisTransform.rotation);
-                    Vector3 bulletDirection = _player.position - transform.position;
-                    bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
-                    _lastAttackTime = Time.time;
-                }
+                Transform thisTransform = transform;
+                Rigidbody bulletClone = Instantiate(enemyBullet, thisTransform.position + new Vector3(0, 1f, 0), thisTransform.rotation); 
+                Vector3 bulletDirection = _player.position - transform.position;
+                bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
+                _lastAttackTime = Time.time;
                 break;
         }
     }
@@ -137,23 +132,21 @@ public class Enemy : MonoBehaviour
                 _walkPointRange = 6f;
                 _attackRange = 2f;
                 _attackCooldown = 4f;
-                maxHealth = 60;
-                currentHealth = maxHealth;
+                currentHealth=maxHealth = 60;
                 break;
             case EnemyType.Ranged:
                 _sightRange = 18f;
                 _walkPointRange = 6f;
                 _attackRange = 12f;
                 _attackCooldown = 3f;
-                maxHealth = 90;
-                currentHealth = maxHealth;
+                currentHealth=maxHealth = 90;
                 break;
             case EnemyType.Boss:
                 _sightRange = 18f;
                 _walkPointRange = 6f;
                 _attackRange = 12f;
                 _attackCooldown = 3f;
-                maxHealth = 500;
+                currentHealth=maxHealth = 500;
                 break;
         }
     }

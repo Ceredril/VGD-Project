@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class DeathMenu : MonoBehaviour
 {
-    public void OnGameRestart() => GameManager.GameRestart();   //?
+    public void OnGameStart()
+    {
+        PlayerManager.AddLives(-1);
+        PlayerPrefs.SetInt("Lives",PlayerManager.CurrentLives);
+        PlayerPrefs.Save();
+        GameManager.GameStart();
+    }
+
     private void Start()
     {
         gameObject.SetActive(false);
         GameManager.OnPlayerDeath += EnableDeathMenuUI;
-        GameManager.OnGameRestart += DisableDeathMenuUI;
+        GameManager.OnGameStart += DisableDeathMenuUI;
         GameManager.OnGameOver += DisableDeathMenuUI;
         GameManager.OnGameEnd += DisableDeathMenuUI;
     }
@@ -15,7 +22,7 @@ public class DeathMenu : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.OnPlayerDeath -= EnableDeathMenuUI;
-        GameManager.OnGameRestart -= DisableDeathMenuUI;
+        GameManager.OnGameStart -= DisableDeathMenuUI;
         GameManager.OnGameOver -= DisableDeathMenuUI;
         GameManager.OnGameEnd -= DisableDeathMenuUI;
     }

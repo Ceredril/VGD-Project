@@ -53,13 +53,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(characterController.isGrounded)Debug.Log("Cazzo");
-        if(!GameManager.GameIsPaused)Move();
-    }
-    
-    private void Move()
-    {
-        if (GameManager.GameIsOver || !GameManager.GameIsRunning || !GameManager.PlayerIsAlive) return;
+        if (GameManager.GameIsOver || !GameManager.GameIsRunning || !PlayerManager.IsAlive || GameManager.GameIsPaused) return;
         //Get keyboard inputs
         float keyboardInputHorizontal = Input.GetAxis("Horizontal");
         float keyboardInputVertical = Input.GetAxis("Vertical");
@@ -164,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
         }
         movementSounds(movementStatus);
     }
-    
+
     //Sprint and stamina function
     private IEnumerator RegenerateStamina()
     {

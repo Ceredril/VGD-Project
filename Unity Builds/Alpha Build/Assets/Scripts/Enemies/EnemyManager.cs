@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,16 +15,14 @@ public class EnemyManager : MonoBehaviour
         else
             Destroy(gameObject);
 
+        GameManager.OnGameStart += LoadEnemies;
         GameManager.OnGameSave += SaveEnemies;
-        GameManager.OnGameLoad += LoadEnemies;
-        GameManager.OnGameNew += NewEnemies;
     }
 
     private void OnDestroy()
     {
+        GameManager.OnGameStart -= LoadEnemies;
         GameManager.OnGameSave -= SaveEnemies;
-        GameManager.OnGameLoad -= LoadEnemies;
-        GameManager.OnGameNew -= NewEnemies;
     }
 
     public void RegisterEnemy(Enemy enemy)
@@ -35,14 +34,7 @@ public class EnemyManager : MonoBehaviour
     {
         enemies.Remove(enemy);
     }
-
-    public static void NewEnemies()
-    {
-        foreach (Enemy enemy in enemies)
-        {
-            enemy.currentHealth = enemy.maxHealth;
-        }
-    }
+    
     public static void SaveEnemies()
     {
         foreach (Enemy enemy in enemies)
@@ -55,15 +47,27 @@ public class EnemyManager : MonoBehaviour
 
     public static void LoadEnemies()
     {
-        foreach (Enemy enemy in enemies)
+        
+        if (PlayerPrefs.GetInt("SaveExists") == 1)
         {
-            if (enemy != null){
-                int currentHealth = PlayerPrefs.GetInt(enemy.name + "_currentHealth");
-                bool isAlive = PlayerPrefs.GetInt(enemy.name + "_isAlive") == 1;
-                enemy.currentHealth = currentHealth;
-                enemy.isAlive = isAlive;
-                if (!isAlive) enemy.gameObject.SetActive(false);
-                else enemy.gameObject.SetActive(true);
+            Debug.Log("Loading saved enemies");
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy != null){
+                    enemy.currentHealth = PlayerPrefs.GetInt(enemy.name + "_currentHealth");
+                    enemy.isAlive = PlayerPrefs.GetInt(enemy.name + "_isAlive") == 1;
+                    enemy.gameObject.SetActive(enemy.isAlive);
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Loading new enemies");
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.currentHealth = enemy.maxHealth;
+                enemy.isAlive = true;
+                enemy.gameObject.SetActive(true);
             }
         }
     }

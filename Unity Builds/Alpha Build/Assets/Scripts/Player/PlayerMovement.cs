@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space)) { animator.SetBool("jump", false); isJumping = false; }
         // Switch between states based on whether you are running or walking and managing stamina level
         // first if, manage the stamina when the character is running or is running and jumping at the same time
-        if (movementStatus == MovementStatus.Running)
+        if (_speedOffset == sprintSpeed && movementDirection.magnitude >= 0.1f)
         {
             animator.SetBool("running", true);
             if (regeneratingStamina != null)

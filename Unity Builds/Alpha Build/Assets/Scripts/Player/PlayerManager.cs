@@ -65,7 +65,7 @@ public class PlayerManager : MonoBehaviour
     private void Spawn()
     {
         GameObject.Find("Player Body").transform.position = SpawnPoint.transform.position;
-        animator.SetTrigger("alive");
+        //animator.SetTrigger("alive");
         Physics.SyncTransforms();
         Debug.Log("Player life =" + CurrentHealth);
     }

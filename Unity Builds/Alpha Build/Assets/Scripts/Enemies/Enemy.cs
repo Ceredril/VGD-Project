@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Rigidbody enemyBullet;
     private LayerMask _groundLayer, _playerLayer;
     
-    public bool isAlive=true;
+    public bool isAlive;
     public int currentHealth;
     
     public int maxHealth;
@@ -61,16 +61,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && PlayerManager.IsAlive) AttackPlayer(enemyType);
-        if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && PlayerManager.IsAlive) ChasePlayer();
-        else Patrolling();
-        Vector3 distanceToWalkPoint = transform.position - _walkPoint;
-        if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
-        if (currentHealth < 0) isAlive = false;
-        if (!isAlive)
+        if(isAlive)
         {
-            GameManager.EnemyKilled(gameObject);
-            gameObject.SetActive(false);
+            if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && PlayerManager.IsAlive) AttackPlayer(enemyType);
+            if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && PlayerManager.IsAlive) ChasePlayer();
+            else Patrolling();
+            Vector3 distanceToWalkPoint = transform.position - _walkPoint;
+            if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
         }
     }
     
@@ -120,11 +117,21 @@ public class Enemy : MonoBehaviour
 
     public void ReduceHealth(int amount, Enemy enemy)
     {
-        if (enemy == this)
+        if (enemy == this && enemy.isAlive)
         {
             currentHealth -= amount;
+            //healthBar.UpdateHealthBar(); - Disabled, it fucks things up after killing the first enemy
+            if (currentHealth < 0)
+            {
+                isAlive = false;
+                GameManager.EnemyKilled(gameObject);
+                //ANIMATOR - DEATH
+            }
         }
-        healthBar.UpdateHealthBar();
+        
+        
+
+        
     }
 
     private void SetStats()

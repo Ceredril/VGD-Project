@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
                 if (enemy != null){
                     enemy.currentHealth = PlayerPrefs.GetInt(enemy.name + "_currentHealth");
                     enemy.isAlive = PlayerPrefs.GetInt(enemy.name + "_isAlive") == 1;
-                    enemy.gameObject.SetActive(enemy.isAlive);
+                    //if(!enemy.isAlive) ANIMATOR - DEATH   
                 }
             }
         }
@@ -67,7 +67,6 @@ public class EnemyManager : MonoBehaviour
             {
                 enemy.currentHealth = enemy.maxHealth;
                 enemy.isAlive = true;
-                enemy.gameObject.SetActive(true);
             }
         }
     }

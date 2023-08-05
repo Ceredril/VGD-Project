@@ -67,7 +67,7 @@ public class PlayerManager : MonoBehaviour
         animator.Play("Walking Tree");
         GameObject.Find("Player Body").transform.position = SpawnPoint.transform.position;
         Physics.SyncTransforms();
-        Debug.Log("Player life =" + CurrentHealth);
+        Debug.Log("Player spawned at " + SpawnPoint);
     }
 
     private void SetSpawnPoint(Transform checkpoint)

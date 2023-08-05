@@ -58,13 +58,6 @@ public class Enemy : MonoBehaviour
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
         EnemyManager.Instance.RegisterEnemy(this);
-        if (isAlive) {
-            animator.SetTrigger("alive");
-            miniMapIcon.enabled = true;
-        }else {
-            animator.SetTrigger("death");
-            miniMapIcon.enabled = false;
-        }
     }
 
     // Update is called once per frame
@@ -141,10 +134,6 @@ public class Enemy : MonoBehaviour
                 miniMapIcon.enabled = false;
             }
         }
-        
-        
-
-        
     }
 
     private void SetStats()
@@ -174,7 +163,4 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
-
-
-
 }

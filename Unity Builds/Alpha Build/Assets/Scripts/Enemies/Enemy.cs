@@ -13,7 +13,8 @@ public class Enemy : MonoBehaviour
     }
     
     [SerializeField] public EnemyType enemyType;
-    Animator animator;
+    SpriteRenderer miniMapIcon;
+    public Animator animator;
     EnemyHealthBar healthBar;
     private NavMeshAgent _agent;
     private Transform _player;
@@ -51,11 +52,14 @@ public class Enemy : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         healthBar = GetComponentInChildren<EnemyHealthBar>();
+        miniMapIcon = GetComponentInChildren<SpriteRenderer>();
         _player = GameObject.Find("Player Body").transform;
         _agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
-        EnemyManager.Instance.RegisterEnemy(this);  
+        EnemyManager.Instance.RegisterEnemy(this);
+        //animator.SetTrigger("alive");
+        //miniMapIcon.enabled = true;
     }
 
     // Update is called once per frame
@@ -68,6 +72,8 @@ public class Enemy : MonoBehaviour
             else Patrolling();
             Vector3 distanceToWalkPoint = transform.position - _walkPoint;
             if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
+            //animator.SetTrigger("alive");
+            //miniMapIcon.enabled = true;
         }
     }
     
@@ -126,6 +132,8 @@ public class Enemy : MonoBehaviour
                 isAlive = false;
                 GameManager.EnemyKilled(gameObject);
                 //ANIMATOR - DEATH
+                animator.SetTrigger("death");
+                miniMapIcon.enabled = false;
             }
         }
         

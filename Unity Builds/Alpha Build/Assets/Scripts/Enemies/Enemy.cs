@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     }
     
     [SerializeField] public EnemyType enemyType;
-    SpriteRenderer miniMapIcon;
+    public SpriteRenderer miniMapIcon;
     public Animator animator;
     EnemyHealthBar healthBar;
     private NavMeshAgent _agent;
@@ -58,8 +58,13 @@ public class Enemy : MonoBehaviour
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
         EnemyManager.Instance.RegisterEnemy(this);
-        //animator.SetTrigger("alive");
-        //miniMapIcon.enabled = true;
+        if (isAlive) {
+            animator.SetTrigger("alive");
+            miniMapIcon.enabled = true;
+        }else {
+            animator.SetTrigger("death");
+            miniMapIcon.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -75,8 +80,6 @@ public class Enemy : MonoBehaviour
             else Patrolling();
             Vector3 distanceToWalkPoint = transform.position - _walkPoint;
             if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
-            //animator.SetTrigger("alive");
-            //miniMapIcon.enabled = true;
         }
     }
     
@@ -118,15 +121,15 @@ public class Enemy : MonoBehaviour
                 Vector3 bulletDirection = _player.position - transform.position;
                 bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
                 _lastAttackTime = Time.time;
-                AudioSource audiosource2 = gameObject.AddComponent<AudioSource>();
-                GameManager.audioManager.Play("rangeAttack", audiosource2);
+                //AudioSource audiosource2 = gameObject.AddComponent<AudioSource>(); - Unwanted behaviours
+                //GameManager.audioManager.Play("rangeAttack", audiosource2); - Unwanted behaviours
                 break;
         }
     }
 
     public void ReduceHealth(int amount, Enemy enemy)
     {
-        if (enemy == this && enemy.isAlive)
+        if (enemy == this && isAlive)
         {
             currentHealth -= amount;
             //healthBar.UpdateHealthBar(); - Disabled, it fucks things up after killing the first enemy
@@ -134,7 +137,6 @@ public class Enemy : MonoBehaviour
             {
                 isAlive = false;
                 GameManager.EnemyKilled(gameObject);
-                //ANIMATOR - DEATH
                 animator.SetTrigger("death");
                 miniMapIcon.enabled = false;
             }

@@ -56,8 +56,16 @@ public class EnemyManager : MonoBehaviour
                 if (enemy != null){
                     enemy.currentHealth = PlayerPrefs.GetInt(enemy.name + "_currentHealth");
                     enemy.isAlive = PlayerPrefs.GetInt(enemy.name + "_isAlive") == 1;
-                    if (!enemy.isAlive) enemy.animator.SetTrigger("death");
-                    
+                    if (!enemy.isAlive)
+                    {
+                        enemy.animator.SetTrigger("death");
+                        enemy.miniMapIcon.enabled = false;
+                    }
+                    else
+                    {
+                        enemy.animator.SetTrigger("alive");
+                        enemy.miniMapIcon.enabled = true;
+                    }
                 }
             }
         }
@@ -69,7 +77,7 @@ public class EnemyManager : MonoBehaviour
                 enemy.currentHealth = enemy.maxHealth;
                 enemy.isAlive = true;
                 enemy.animator.SetTrigger("alive");
-                Debug.Log(enemy.isAlive);
+                enemy.miniMapIcon.enabled = true;
             }
         }
     }

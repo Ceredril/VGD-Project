@@ -134,10 +134,6 @@ public class Enemy : MonoBehaviour
                 miniMapIcon.enabled = false;
             }
         }
-        
-        
-
-        
     }
 
     private void SetStats()
@@ -167,7 +163,4 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
-
-
-
 }

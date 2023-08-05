@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 using Random = UnityEngine.Random;
 
 public class PlayerAttack : MonoBehaviour
@@ -113,11 +114,7 @@ public class PlayerAttack : MonoBehaviour
         if (Time.time - _lastFireballTime >= _fireballCooldown)
         {
             animator.SetTrigger("magicAttack");
-            Transform thisTransform = transform;
-            Rigidbody bulletClone = Instantiate(playerBullet, thisTransform.position + new Vector3(0, 2f, 0) + Vector3.forward,
-                thisTransform.rotation);
-            Vector3 bulletDirection = characterCamera.forward;
-            bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
+            StartCoroutine(WaitFire());
             _lastFireballTime = Time.time;
         }
     }
@@ -156,4 +153,16 @@ public class PlayerAttack : MonoBehaviour
     {
         if (other.CompareTag("Enemy")) _nearEnemy = null;
     }
+
+
+    private IEnumerator WaitFire()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Transform thisTransform = transform;
+        Rigidbody bulletClone = Instantiate(playerBullet, thisTransform.position + new Vector3(0, 2f, 0) + Vector3.forward,
+            thisTransform.rotation);
+        Vector3 bulletDirection = characterCamera.forward;
+        bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
+    }
+
 }

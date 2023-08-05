@@ -757,7 +757,7 @@ MonoBehaviour:
     source: {fileID: 446604030}
   - name: Jumping
     type: 2
-    clip: {fileID: 8300000, guid: 1ff1ebcf4c0f92f47adbd2bcd638d92e, type: 3}
+    clip: {fileID: 8300000, guid: 39760dbc9ee38ef47b1e7f894da84eb5, type: 3}
     volume: 0.1
     volumeVariance: 0.2
     pitch: 1

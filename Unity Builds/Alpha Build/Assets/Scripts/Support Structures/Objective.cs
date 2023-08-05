@@ -14,7 +14,18 @@ public class Objective : MonoBehaviour
 
     public void Awake()
     {
-        objectiveName = objectiveType + " " + gameObject.name;
+        switch (objectiveType)
+        {
+            case ObjectiveType.Interacting:
+                objectiveName = "Interact with " + gameObject.name;
+                break;
+            case ObjectiveType.Killing:
+                objectiveName = "Kill " + gameObject.name;
+                break;
+            case ObjectiveType.Collecting:
+                objectiveName = "Collect " + gameObject.name;
+                break;
+        }
     }
 
     public void Update()

@@ -121,8 +121,8 @@ public class Enemy : MonoBehaviour
                 Vector3 bulletDirection = _player.position - transform.position;
                 bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
                 _lastAttackTime = Time.time;
-                //AudioSource audiosource2 = gameObject.AddComponent<AudioSource>(); - Unwanted behaviours
-                //GameManager.audioManager.Play("rangeAttack", audiosource2); - Unwanted behaviours
+                AudioSource audiosource2 = gameObject.AddComponent<AudioSource>(); // should be fixed now
+                GameManager.audioManager.Play("rangeAttack", audiosource2); // should be fixed now
                 break;
         }
     }
@@ -132,7 +132,7 @@ public class Enemy : MonoBehaviour
         if (enemy == this && isAlive)
         {
             currentHealth -= amount;
-            //healthBar.UpdateHealthBar(); - Disabled, it fucks things up after killing the first enemy
+            healthBar.UpdateHealthBar(); //- Disabled, it fucks things up after killing the first enemy
             if (currentHealth < 0)
             {
                 isAlive = false;

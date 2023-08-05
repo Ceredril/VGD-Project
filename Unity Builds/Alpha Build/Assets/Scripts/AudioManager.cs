@@ -67,6 +67,11 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + s.name + " not found!");
             return;
         }
+        if (s.clip == null)
+        {
+            Debug.LogWarning("Clip: " + s.name + " not found!");
+            return;
+        }
         switch (s.type)
         {
             case SoundType.Theme:
@@ -99,6 +104,11 @@ public class AudioManager : MonoBehaviour
         if (s == null)
         {
             Debug.LogWarning("Sound: " + s.name + " not found!");
+            return;
+        }
+        if (s.clip == null)
+        {
+            Debug.LogWarning("Clip: " + s.name + " not found!");
             return;
         }
         source.clip = s.clip;

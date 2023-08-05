@@ -47,7 +47,7 @@ public class PlayerManager : MonoBehaviour
         {
             IsAlive = false;
             animator.SetTrigger("death");
-            if(CurrentLives>0)GameManager.PlayerDeath();
+            if (CurrentLives>0)GameManager.PlayerDeath();
             else if(CurrentLives<1)GameManager.GameOver();
         }
     }
@@ -64,8 +64,8 @@ public class PlayerManager : MonoBehaviour
     //Spawn Functions
     private void Spawn()
     {
+        animator.Play("Walking Tree");
         GameObject.Find("Player Body").transform.position = SpawnPoint.transform.position;
-        animator.SetTrigger("alive");
         Physics.SyncTransforms();
         Debug.Log("Player life =" + CurrentHealth);
     }

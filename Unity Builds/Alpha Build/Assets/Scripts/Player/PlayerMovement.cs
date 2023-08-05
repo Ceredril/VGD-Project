@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     
     //Movement variables
     public static float walkingSpeed = 2f;
-    public static float sprintSpeed = 25f;
+    public static float sprintSpeed = 4f;
     [SerializeField] private float jumpForce = 4f;
     [SerializeField] private float JumpMultiplier = 10;
     private MovementStatus movementStatus;

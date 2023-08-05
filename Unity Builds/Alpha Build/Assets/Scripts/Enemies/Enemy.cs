@@ -67,6 +67,9 @@ public class Enemy : MonoBehaviour
     {
         if(isAlive)
         {
+            Vector3 v = _agent.velocity;
+            animator.SetFloat("hInput", v.x);
+            animator.SetFloat("vInput", v.y);
             if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && PlayerManager.IsAlive) AttackPlayer(enemyType);
             if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && PlayerManager.IsAlive) ChasePlayer();
             else Patrolling();

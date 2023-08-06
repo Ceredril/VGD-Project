@@ -11,7 +11,8 @@ public class Enemy : MonoBehaviour
     {
         Melee,Ranged,Boss
     }
-    
+
+    private ItemDrop getItem;
     [SerializeField] public EnemyType enemyType;
     public SpriteRenderer miniMapIcon;
     public Animator animator;
@@ -58,6 +59,7 @@ public class Enemy : MonoBehaviour
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
         EnemyManager.Instance.RegisterEnemy(this);
+        getItem = GetComponent<ItemDrop>();
     }
 
     // Update is called once per frame
@@ -132,6 +134,11 @@ public class Enemy : MonoBehaviour
                 GameManager.EnemyKilled(gameObject);
                 animator.SetTrigger("death");
                 miniMapIcon.enabled = false;
+                if (getItem != null)
+                {
+                    getItem.DropItem();
+                    Debug.Log("Dropped an Item " + getItem);
+                }
             }
         }
     }

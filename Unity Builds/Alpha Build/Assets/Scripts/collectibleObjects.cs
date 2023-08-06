@@ -39,6 +39,21 @@ public class collectibleObjects : MonoBehaviour
                 PlayerManager.AddHealth(_amount);
                 Debug.Log("User has collected " + _amount + " health");
             }
+            if (CompareTag("godModeCollectible"))
+            {
+                //activate godMode
+                Debug.Log("User has collected godMode");
+            }
+            if (CompareTag("speedHackCollectible"))
+            {
+                //activate speedHak
+                Debug.Log("User has collected  speedHack");
+            }
+            if (CompareTag("fireFistCollectible"))
+            {
+                //activate firefist
+                Debug.Log("User has collected fireFist");
+            }
             _wasCollected = true;
             GameManager.Collected(this.gameObject);
             gameObject.SetActive(false);

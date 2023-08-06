@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -47267,7 +47267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 639404385358982908}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -47297,7 +47296,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 639404385584930393}
 --- !u!224 &639404385358982910
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49261,7 +49259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!224 &639404386209970179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -50682,6 +50679,7 @@ GameObject:
   - component: {fileID: 5869507313260432094}
   - component: {fileID: 5869507313260432095}
   - component: {fileID: 5869507313260432088}
+  - component: {fileID: 5869507313260432096}
   m_Layer: 8
   m_Name: Melee Enemy _Sempronius_
   m_TagString: Enemy
@@ -52685,7 +52683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 960549547161559333}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -52715,7 +52712,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 960549546209792522}
 --- !u!224 &960549547161559331
 RectTransform:
   m_ObjectHideFlags: 0
@@ -52981,6 +52977,7 @@ GameObject:
   - component: {fileID: 960549547300717945}
   - component: {fileID: 960549547300717190}
   - component: {fileID: 960549547300717191}
+  - component: {fileID: 960549547300717948}
   m_Layer: 8
   m_Name: Melee Enemy _Caius_
   m_TagString: Enemy
@@ -53079,6 +53076,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &960549547300717948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960549547300717189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05af813f2d2734781baf50de618e66ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList:
+  - {fileID: 1511809135839894, guid: 57a71bf32c90b4e60aa5ce4d272649da, type: 3}
+  - {fileID: 1374755803494742, guid: d140f9eb05ea94257b69f89ebd73843e, type: 3}
+  - {fileID: 1764534612257982, guid: 4a78bcc5393754ab19edda25103b536a, type: 3}
 --- !u!1 &960549547304587376
 GameObject:
   m_ObjectHideFlags: 0
@@ -53637,7 +53650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!1 &960549547579356738
 GameObject:
   m_ObjectHideFlags: 0
@@ -57099,7 +57111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1265348504419006267}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -57129,7 +57140,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 1265348503518611358}
 --- !u!114 &1265348504419006267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58195,7 +58205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!114 &1265348505175482822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78454,7 +78463,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2757967749049374859}
-  m_LocalRotation: {x: -0.056546263, y: 0.000000030670375, z: 0.0000000017370746, w: 0.9984}
+  m_LocalRotation: {x: -0.056546256, y: -0.0000000343577, z: -0.0000000019459132, w: 0.9984}
   m_LocalPosition: {x: 316.88, y: 23.5, z: 56.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -78566,7 +78575,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2757967749326233944}
-  m_LocalRotation: {x: -0.038376518, y: -0.0000000021492135, z: -8.2540134e-11, w: 0.99926335}
+  m_LocalRotation: {x: -0.03837649, y: 0.000000029781267, z: 0.0000000011437431, w: 0.99926335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -78754,7 +78763,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2757967749360374491}
-  m_LocalRotation: {x: -0.074649386, y: -0, z: -0, w: 0.99720985}
+  m_LocalRotation: {x: -0.074649386, y: 0.000000017158376, z: 0.0000000012844459, w: 0.99720985}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -78957,7 +78966,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2757967750209673382}
-  m_LocalRotation: {x: -0.056546256, y: 1e-45, z: -0, w: 0.99840003}
+  m_LocalRotation: {x: -0.056546256, y: -0.000000017178854, z: -9.729567e-10, w: 0.99840003}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -80284,7 +80293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 3073780024498522975}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -80314,7 +80322,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 3073780025542107168}
 --- !u!224 &3073780024498522969
 RectTransform:
   m_ObjectHideFlags: 0
@@ -80418,7 +80425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!224 &3073780024654018181
 RectTransform:
   m_ObjectHideFlags: 0
@@ -83156,7 +83162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!224 &3833704651244007986
 RectTransform:
   m_ObjectHideFlags: 0
@@ -83483,7 +83488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 3833704651633889837}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -83513,7 +83517,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 3833704651833694212}
 --- !u!224 &3833704651633889839
 RectTransform:
   m_ObjectHideFlags: 0
@@ -84877,6 +84880,7 @@ GameObject:
   - component: {fileID: 4007662253644054841}
   - component: {fileID: 4007662253644054840}
   - component: {fileID: 4007662253644054843}
+  - component: {fileID: 4007662253644054848}
   m_Layer: 8
   m_Name: Melee Enemy _Bubulcus_
   m_TagString: Enemy
@@ -84994,6 +84998,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4007662253644054848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007662253644054789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05af813f2d2734781baf50de618e66ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList:
+  - {fileID: 1511809135839894, guid: 57a71bf32c90b4e60aa5ce4d272649da, type: 3}
+  - {fileID: 1374755803494742, guid: d140f9eb05ea94257b69f89ebd73843e, type: 3}
+  - {fileID: 1764534612257982, guid: 4a78bcc5393754ab19edda25103b536a, type: 3}
 --- !u!1 &4007662253645361093
 GameObject:
   m_ObjectHideFlags: 0
@@ -85975,7 +85995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 4007662254272474685}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -86005,7 +86024,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 4007662253542022808}
 --- !u!114 &4007662254272474685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87090,7 +87108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!223 &4007662255106685126
 Canvas:
   m_ObjectHideFlags: 0
@@ -92470,7 +92487,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 5708599402526224555}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -92500,7 +92516,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 5708599403401247362}
 --- !u!224 &5708599402526224553
 RectTransform:
   m_ObjectHideFlags: 0
@@ -92866,7 +92881,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!1 &5708599403401247360
 GameObject:
   m_ObjectHideFlags: 0
@@ -93434,6 +93448,22 @@ MonoBehaviour:
   isAlive: 1
   currentHealth: 0
   maxHealth: 0
+--- !u!114 &5869507313260432096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927549889091439129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05af813f2d2734781baf50de618e66ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList:
+  - {fileID: 1511809135839894, guid: 57a71bf32c90b4e60aa5ce4d272649da, type: 3}
+  - {fileID: 1374755803494742, guid: d140f9eb05ea94257b69f89ebd73843e, type: 3}
+  - {fileID: 1764534612257982, guid: 4a78bcc5393754ab19edda25103b536a, type: 3}
 --- !u!1 &5872623472570201324
 GameObject:
   m_ObjectHideFlags: 0
@@ -96044,7 +96074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!223 &6522324713255695390
 Canvas:
   m_ObjectHideFlags: 0
@@ -96977,7 +97006,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 6522324714032095973}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -97007,7 +97035,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 6522324714778104384}
 --- !u!114 &6522324714032095973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98040,6 +98067,7 @@ GameObject:
   - component: {fileID: 6522324714612231649}
   - component: {fileID: 6522324714612231648}
   - component: {fileID: 6522324714612231651}
+  - component: {fileID: 6522324714612231656}
   m_Layer: 8
   m_Name: Melee Enemy _Brutus_
   m_TagString: Enemy
@@ -98157,6 +98185,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6522324714612231656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6522324714612231645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05af813f2d2734781baf50de618e66ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList:
+  - {fileID: 1511809135839894, guid: 57a71bf32c90b4e60aa5ce4d272649da, type: 3}
+  - {fileID: 1374755803494742, guid: d140f9eb05ea94257b69f89ebd73843e, type: 3}
+  - {fileID: 1764534612257982, guid: 4a78bcc5393754ab19edda25103b536a, type: 3}
 --- !u!1 &6522324714612941597
 GameObject:
   m_ObjectHideFlags: 0
@@ -103146,7 +103190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!224 &6908071737387201849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -104762,7 +104805,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 6908071738749756358}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -104792,7 +104834,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 6908071739044123491}
 --- !u!1 &6908071738751686370
 GameObject:
   m_ObjectHideFlags: 0
@@ -112514,7 +112555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!224 &8844468760570906590
 RectTransform:
   m_ObjectHideFlags: 0
@@ -112619,7 +112659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 8844468760716879809}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -112649,7 +112688,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 8844468760920747496}
 --- !u!224 &8844468760716879811
 RectTransform:
   m_ObjectHideFlags: 0
@@ -113002,7 +113040,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0b52f5cbae2244a911d65d139e1fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 8883447795769409195}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -113032,7 +113069,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 8883447795435320450}
 --- !u!224 &8883447795769409193
 RectTransform:
   m_ObjectHideFlags: 0
@@ -113398,7 +113434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fef3c30a1fd83142a9e0b05143ce058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!4 &8884886478471467072
 Transform:
   m_ObjectHideFlags: 0

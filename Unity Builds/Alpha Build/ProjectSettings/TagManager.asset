@@ -10,6 +10,11 @@ TagManager:
   - Item
   - Door
   - Ground
+  - healthCollectible
+  - manaCollectible
+  - godModeCollectible
+  - fireFistCollectible
+  - speedHackCollectible
   layers:
   - Default
   - TransparentFX

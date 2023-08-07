@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = movementDirection.x * characterCamera.right + movementDirection.z * cameraForward;
         movement.Normalize();
         
-        if (movementDirection.magnitude >= 0.1f)
+        if (movementDirection.magnitude >= 0.1f )
         {   // If the character is moving, apply the movement to the character controller
             float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + characterCamera.eulerAngles.y;
             movementDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -83,7 +83,9 @@ public class PlayerMovement : MonoBehaviour
                 movementStatus = MovementStatus.Running;
                 _speedOffset = sprintSpeed;
             }
-            else _speedOffset = walkingSpeed;
+            else {
+                movementStatus = MovementStatus.Walking;
+                _speedOffset = walkingSpeed; }
         }
         else
         {
@@ -106,8 +108,12 @@ public class PlayerMovement : MonoBehaviour
         movementDirection.y = _verticalSpeed;
         movementDirection.x *= _speedOffset;
         movementDirection.z *= _speedOffset;
-        //Apply the movement to the character
-        characterController.Move(movementDirection * Time.deltaTime);
+        //Apply the movement to the character, only when the player is not attacking
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Magic Attack") && !animator.GetCurrentAnimatorStateInfo(0).IsName("hook"))
+        {
+            characterController.Move(movementDirection * Time.deltaTime);
+        }
+        
         //Passing the horizontal and vertical value to the animator
         animator.SetFloat("hInput", keyboardInputHorizontal);
         animator.SetFloat("vInput", keyboardInputVertical);

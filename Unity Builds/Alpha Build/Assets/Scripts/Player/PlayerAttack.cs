@@ -28,6 +28,8 @@ public class PlayerAttack : MonoBehaviour
     public static Skill _currentSkill;
     private readonly int _minFistDamage = 20, _maxFistDamage=30;
 
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -57,6 +59,7 @@ public class PlayerAttack : MonoBehaviour
             _currentSkill = Skill.Fist;
             Debug.Log("Melee attack selected");
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha2) && _hasFireball && _currentSkill!=Skill.Fireball)
         {
             fireFist.SetActive(false);
@@ -64,6 +67,7 @@ public class PlayerAttack : MonoBehaviour
             _currentSkill = Skill.Fireball;
             Debug.Log("Ranged attack selected");
         }
+
 
         if (Input.GetKeyDown(KeyCode.Alpha3) && _hasShield && _currentSkill != Skill.Shield)
         {
@@ -115,8 +119,7 @@ public class PlayerAttack : MonoBehaviour
         {
             animator.SetTrigger("magicAttack");
             StartCoroutine(WaitFire());
-            _lastFireballTime = Time.time;
-        }
+            _lastFireballTime = Time.time;        }
     }
 
     private void Shield()
@@ -164,5 +167,4 @@ public class PlayerAttack : MonoBehaviour
         Vector3 bulletDirection = characterCamera.forward;
         bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
     }
-
 }

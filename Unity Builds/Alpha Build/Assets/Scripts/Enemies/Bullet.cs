@@ -9,15 +9,17 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("PlayerBody"))
         {
+            PlayerManager playerManager  = other.GetComponent<PlayerManager>();
             PlayerManager.AddHealth(Random.Range(-10,-20));
             Destroy(gameObject);
         }
-    }
+        
+        }
 
     private void OnEnable()
     {
         AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-        GameManager.audioManager.PlayLocal("Bullet", audiosource);
+        GameManager.audioManager.PlayLocal("Fireball", audiosource);
         StartCoroutine(vanishingTime());
     }
 

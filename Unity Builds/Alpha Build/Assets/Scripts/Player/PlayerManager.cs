@@ -92,7 +92,7 @@ public class PlayerManager : MonoBehaviour
 
     public static void AddMana(int amount)
     {
-        if (amount < 0) return;
+        //if (amount < 0) return;
         if (CurrentMana + amount > MaxMana) CurrentMana = MaxMana;
         else if (CurrentMana + amount < 0) CurrentMana = 0;
         else CurrentMana += amount;

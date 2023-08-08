@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
     private int _fireballCooldown=2;
     private float _lastFistTime;
     private float _lastFireballTime;
+    private int fireBallManaUse = 20;
     private float _bulletSpeed=1800;
     //Skill variables
     public static bool _hasFist = true;
@@ -115,10 +116,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void Fireball()
     {
-        if (Time.time - _lastFireballTime >= _fireballCooldown)
+        if (Time.time - _lastFireballTime >= _fireballCooldown  &&  PlayerManager.CurrentMana >= fireBallManaUse)
         {
             animator.SetTrigger("magicAttack");
             StartCoroutine(WaitFire());
+            PlayerManager.AddMana(-fireBallManaUse);
             _lastFireballTime = Time.time;        }
     }
 

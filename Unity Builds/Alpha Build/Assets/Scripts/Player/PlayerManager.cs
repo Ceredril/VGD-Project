@@ -1,10 +1,14 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
     //Object references
     public static Animator animator;
+    //gameobject for effects
+    public static GameObject healthEffect;
+    public static GameObject manaEffect;
     //Stats parameters
     public static readonly int MaxLives = 5;
     public static readonly int MaxHealth = 100;
@@ -26,11 +30,17 @@ public class PlayerManager : MonoBehaviour
     public static int CurrentMana;
     public static float CurrentStamina;
     public static bool IsAlive;
+
     // Start is called before the first frame update
     private void Awake()
     {
         animator = GetComponent<Animator>();
         SpawnPoint = GameObject.Find("Spawn").transform;
+        healthEffect = GameObject.Find("Health Effect");
+        manaEffect = GameObject.Find("Mana Effect");
+        healthEffect.SetActive(false);
+        manaEffect.SetActive(false);
+        
 
         //Events
         GameManager.OnGameStart += Spawn;
@@ -42,13 +52,18 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(!IsAlive)return;
+        if (!IsAlive) return;
         if (CurrentHealth < 1)
         {
             IsAlive = false;
             animator.SetTrigger("death");
-            if (CurrentLives>0)GameManager.PlayerDeath();
-            else if(CurrentLives<1)GameManager.GameOver();
+            if (CurrentLives > 0) GameManager.PlayerDeath();
+            else if (CurrentLives < 1) GameManager.GameOver();
+        }
+
+        if (healthEffect.active || manaEffect.active) { 
+            Debug.Log("Attivo");
+            StartCoroutine(Wait());
         }
     }
 
@@ -140,5 +155,12 @@ public class PlayerManager : MonoBehaviour
             LastCheckpoint = GameObject.Find("Spawn").transform;
             Debug.Log("Default stats set.");
         }
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1.3f);
+        healthEffect.SetActive(false);
+        manaEffect.SetActive(false);
     }
 }

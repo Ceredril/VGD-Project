@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,6 +19,7 @@ public class collectibleObjects : MonoBehaviour
     {
         if(_wasCollected)gameObject.SetActive(false);
         else gameObject.SetActive(true);
+        
     }
 
     private void OnDestroy()
@@ -32,10 +34,12 @@ public class collectibleObjects : MonoBehaviour
         if (other.CompareTag("PlayerBody"))
         {
             if (CompareTag("manaCollectible")) {
+                PlayerManager.manaEffect.SetActive(true);
                 PlayerManager.AddMana(_amount);
                 Debug.Log("User has collected " + _amount + " mana");
             }
             if (CompareTag("healthCollectible")){
+                PlayerManager.healthEffect.SetActive(true);
                 PlayerManager.AddHealth(_amount);
                 Debug.Log("User has collected " + _amount + " health");
             }
@@ -59,7 +63,7 @@ public class collectibleObjects : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    
+
     private void LoadProgress()
     {
         if (PlayerPrefs.GetInt("SaveExists") == 1)_wasCollected = Convert.ToBoolean(PlayerPrefs.GetInt(name));

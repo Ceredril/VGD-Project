@@ -27,9 +27,12 @@ public class PlayerManager : MonoBehaviour
     //Stats variables
     public static int CurrentLives;
     public static int CurrentHealth;
-    public static int CurrentMana;
+    public static float CurrentMana;
     public static float CurrentStamina;
     public static bool IsAlive;
+
+    public int ShieldSManaUse = 2;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -62,9 +65,11 @@ public class PlayerManager : MonoBehaviour
             else if (CurrentLives < 1) GameManager.GameOver();
         }
 
-        if (healthEffect.active || manaEffect.active)
+        if (healthEffect.active || manaEffect.active) //mana and health collectible effect duration
             StartCoroutine(Wait());
-        
+
+        if(PlayerAttack._currentSkill == PlayerAttack.Skill.Shield) 
+            CurrentMana -= ShieldSManaUse * Time.deltaTime;
     }
 
     private void OnDestroy()
@@ -131,7 +136,7 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.SetInt("SaveExists", 1);
         PlayerPrefs.SetInt("Lives", CurrentLives);
         PlayerPrefs.SetInt("Health", CurrentHealth);
-        PlayerPrefs.SetInt("Mana", CurrentMana);
+        PlayerPrefs.SetFloat("Mana", CurrentMana);
         PlayerPrefs.SetFloat("Stamina", CurrentStamina);
         PlayerPrefs.SetString("SpawnPoint", SpawnPoint.name);
         PlayerPrefs.Save();

@@ -46,13 +46,10 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if(!PlayerManager.IsAlive || GameManager.GameIsPaused)return;
+        if (!PlayerManager.IsAlive || GameManager.GameIsPaused) return;
         SkillSelection();
         InputManagement();
-        if(_currentSkill == Skill.Fist && _hasFireFist)
-            fireFist.SetActive(true);
-        else
-            fireFist.SetActive(false);
+        FireFistEffect();
     }
 
     private void SkillSelection()
@@ -165,6 +162,13 @@ public class PlayerAttack : MonoBehaviour
         if (other.CompareTag("Enemy")) _nearEnemy = null;
     }
 
+    private void FireFistEffect()
+    {
+        if (_currentSkill == Skill.Fist && _hasFireFist)
+            fireFist.SetActive(true);
+        else
+            fireFist.SetActive(false);
+    }
 
     private IEnumerator WaitFire()
     {

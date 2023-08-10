@@ -5,7 +5,7 @@ public class PlayerBullet : MonoBehaviour
 {
     public GameObject explosion;
     private readonly float _vanishingTime = 1;
-    private readonly int _minDamage = 30, _maxDamage=40;
+    public static int _minDamage = 30, _maxDamage=40;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
@@ -17,6 +17,7 @@ public class PlayerBullet : MonoBehaviour
             var noob = Instantiate(explosion, enemy.transform.position, enemy.transform.rotation);
             Destroy(noob, 1);
         }
+
     }
 
     private void OnEnable()

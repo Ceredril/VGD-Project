@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 public class Bullet : MonoBehaviour
 {
+    public GameObject explosion;
     private readonly float _vanishingTime = 1;
     private void OnTriggerEnter(Collider other)
     {
@@ -12,6 +13,8 @@ public class Bullet : MonoBehaviour
             PlayerManager playerManager  = other.GetComponent<PlayerManager>();
             PlayerManager.AddHealth(Random.Range(-10,-20));
             Destroy(gameObject);
+            var noob = Instantiate(explosion, other.transform.position, other.transform.rotation);
+            Destroy(noob, 1);
         }
         
         }

@@ -57,14 +57,14 @@ public class PlayerManager : MonoBehaviour
         {
             IsAlive = false;
             animator.SetTrigger("death");
+            PlayerAttack.shield.SetActive(false);
             if (CurrentLives > 0) GameManager.PlayerDeath();
             else if (CurrentLives < 1) GameManager.GameOver();
         }
 
-        if (healthEffect.active || manaEffect.active) { 
-            Debug.Log("Attivo");
+        if (healthEffect.active || manaEffect.active)
             StartCoroutine(Wait());
-        }
+        
     }
 
     private void OnDestroy()
@@ -79,6 +79,7 @@ public class PlayerManager : MonoBehaviour
     //Spawn Functions
     private void Spawn()
     {
+        PlayerAttack._currentSkill = PlayerAttack.Skill.Fist;
         animator.Play("Walking Tree");
         GameObject.Find("Player Body").transform.position = SpawnPoint.transform.position;
         Physics.SyncTransforms();
@@ -100,7 +101,11 @@ public class PlayerManager : MonoBehaviour
     public static void AddHealth(int amount)
     {
         if (PlayerPowerUps.GodModeEnabled && amount < 0) return;
-        if (CurrentHealth + amount > MaxHealth) CurrentHealth = MaxHealth;
+        if (PlayerAttack._currentSkill == PlayerAttack.Skill.Shield && amount < 0) { 
+            float newAmount = amount - (amount * 0.6f);
+            CurrentHealth += (int)newAmount;
+        }
+        else if (CurrentHealth + amount > MaxHealth) CurrentHealth = MaxHealth;
         else CurrentHealth += amount;
         Debug.Log("Health set to " + CurrentHealth);
     }

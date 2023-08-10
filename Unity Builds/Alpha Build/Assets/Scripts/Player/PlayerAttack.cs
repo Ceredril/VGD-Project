@@ -12,22 +12,23 @@ public class PlayerAttack : MonoBehaviour
     private Enemy _nearEnemy;
     public static GameObject wand;
     public static GameObject fireFist;
+    public static GameObject shield;
     [SerializeField] private Transform characterCamera;
     [SerializeField] private Rigidbody playerBullet;
     //Skill parameters
-    private float _fistCooldown=2;
-    private int _fireballCooldown=2;
+    public static float _fistCooldown=2;
+    public static int _fireballCooldown=2;
     private float _lastFistTime;
     private float _lastFireballTime;
-    private int fireBallManaUse = 20;
-    private float _bulletSpeed=1800;
+    public static int fireBallManaUse = 20;
+    public static float _bulletSpeed=1800;
     //Skill variables
     public static bool _hasFist = true;
     public static bool _hasFireFist = false;
     public static bool _hasFireball = true;
-    public static bool _hasShield = false;
+    public static bool _hasShield = true;
     public static Skill _currentSkill;
-    private readonly int _minFistDamage = 20, _maxFistDamage=30;
+    public static int _minFistDamage = 20, _maxFistDamage=30;
 
 
 
@@ -37,8 +38,10 @@ public class PlayerAttack : MonoBehaviour
         characterCamera = GameObject.Find("Main Camera").transform;
         wand = GameObject.Find("Wand");
         fireFist = GameObject.Find("fireFist");
+        shield = GameObject.Find("Shield");
         wand.SetActive(false);
         fireFist.SetActive(false);
+        shield.SetActive(false);
     }
 
     void Update()
@@ -46,18 +49,19 @@ public class PlayerAttack : MonoBehaviour
         if(!PlayerManager.IsAlive || GameManager.GameIsPaused)return;
         SkillSelection();
         InputManagement();
+        if(_currentSkill == Skill.Fist && _hasFireFist)
+            fireFist.SetActive(true);
+        else
+            fireFist.SetActive(false);
     }
 
     private void SkillSelection()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && _hasFist && _currentSkill!=Skill.Fist)
         {
-            if(_hasFireFist)
-                fireFist.SetActive(true);
-            else
-                fireFist.SetActive(false);
             wand.SetActive(false);
             _currentSkill = Skill.Fist;
+            shield.SetActive(false);
             Debug.Log("Melee attack selected");
         }
 
@@ -65,6 +69,7 @@ public class PlayerAttack : MonoBehaviour
         {
             fireFist.SetActive(false);
             wand.SetActive(true);
+            shield.SetActive(false);
             _currentSkill = Skill.Fireball;
             Debug.Log("Ranged attack selected");
         }
@@ -74,6 +79,7 @@ public class PlayerAttack : MonoBehaviour
         {
             fireFist.SetActive(false);
             wand.SetActive(false);
+            shield.SetActive(true);
             _currentSkill = Skill.Shield;
             Debug.Log("Shield attack selected");
         }

@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour
     public static float CurrentStamina;
     public static bool IsAlive;
 
-    public int ShieldSManaUse = 2;
+    public static int ShieldSManaUse = 2;
 
 
     // Start is called before the first frame update

@@ -50,6 +50,7 @@ public class PlayerAttack : MonoBehaviour
         SkillSelection();
         InputManagement();
         FireFistEffect();
+        ShieldEffect();
     }
 
     private void SkillSelection()
@@ -72,7 +73,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Alpha3) && _hasShield && _currentSkill != Skill.Shield)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && _hasShield && _currentSkill != Skill.Shield && PlayerManager.CurrentMana >= PlayerManager.ShieldSManaUse)
         {
             fireFist.SetActive(false);
             wand.SetActive(false);
@@ -168,6 +169,14 @@ public class PlayerAttack : MonoBehaviour
             fireFist.SetActive(true);
         else
             fireFist.SetActive(false);
+    }
+
+    private void ShieldEffect()
+    {
+        if (_currentSkill == Skill.Shield && PlayerManager.CurrentMana >= PlayerManager.ShieldSManaUse)
+            shield.SetActive(true);
+        else
+            shield.SetActive(false);
     }
 
     private IEnumerator WaitFire()

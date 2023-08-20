@@ -65,7 +65,7 @@ public class PlayerManager : MonoBehaviour
             else if (CurrentLives < 1) GameManager.GameOver();
         }
 
-        if (healthEffect.active || manaEffect.active) //mana and health collectible effect duration
+        if (healthEffect.activeInHierarchy || manaEffect.activeInHierarchy) //mana and health collectible effect duration
             StartCoroutine(Wait());
 
         if(PlayerAttack._currentSkill == PlayerAttack.Skill.Shield) 

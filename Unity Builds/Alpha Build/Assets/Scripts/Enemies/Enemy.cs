@@ -194,7 +194,7 @@ public class Enemy : MonoBehaviour
                 _walkPointRange = 0f;
                 _attackRange = 4f;
                 _attackCooldown = 6f;
-                currentHealth = 120;
+                currentHealth=maxHealth = 120;
                 break;
             case EnemyType.Boss:
                 _sightRange = 18f;

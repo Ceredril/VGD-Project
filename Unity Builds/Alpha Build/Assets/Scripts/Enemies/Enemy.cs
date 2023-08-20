@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         healthBar = GetComponentInChildren<EnemyHealthBar>();
         miniMapIcon = GetComponentInChildren<SpriteRenderer>();
         _player = GameObject.Find("Player Body").transform;
-        if(enemyType!=EnemyType.Guard && enemyType!=EnemyType.Boss)_agent.SetDestination(_player.position);
+        //_agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
         EnemyManager.Instance.RegisterEnemy(this);
@@ -69,15 +69,13 @@ public class Enemy : MonoBehaviour
             animator.SetFloat("hInput", v.x);
             animator.SetFloat("vInput", v.y);
             
+            if (Physics.CheckSphere(transform.position,_sightRange/2,_playerLayer) && PlayerManager.IsAlive) transform.LookAt(_player);
             if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && PlayerManager.IsAlive) AttackPlayer(enemyType);
-            if (enemyType != EnemyType.Guard)
-            {
-                if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && PlayerManager.IsAlive) ChasePlayer();
-                else Patrolling();
-                Vector3 distanceToWalkPoint = transform.position - _walkPoint;
-                if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
-            }
-            transform.LookAt(_player);
+            if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && PlayerManager.IsAlive) ChasePlayer();
+            else if (enemyType!=EnemyType.Boss)Patrolling();
+            Vector3 distanceToWalkPoint = transform.position - _walkPoint;
+            if (distanceToWalkPoint.magnitude < 3.5f) _walkPointSet = false;
+            
         }
     }
     
@@ -114,14 +112,10 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyType.Guard:
                 meleeAttack();
-                break;
+                break;  
             case EnemyType.Boss:
-                if(!bossSecondPhase)meleeAttack();
-                else
-                {
-                    if (Physics.CheckSphere(transform.position, _attackRange / 3, _playerLayer)) meleeAttack();
-                    else rangedAttack();
-                }
+                if(Physics.CheckSphere(transform.position, _attackRange / 5, _playerLayer))meleeAttack();
+                else if (bossSecondPhase && !Physics.CheckSphere(transform.position, _attackRange / 1.3f, _playerLayer)) rangedAttack();
                 break;
         }
     }
@@ -155,8 +149,8 @@ public class Enemy : MonoBehaviour
             if (enemy.enemyType == EnemyType.Boss && enemy.currentHealth < enemy.maxHealth / 2)
             {
                 enemy.bossSecondPhase = true;
-                enemy._agent.speed *= 1.3f;
-                enemy._attackCooldown *= 0.7f;
+                enemy._agent.speed = 3;
+                enemy._attackCooldown = 1.5f;
             }
             if (currentHealth < 0)
             {
@@ -194,13 +188,13 @@ public class Enemy : MonoBehaviour
             case EnemyType.Guard:
                 _sightRange = 20f;
                 _walkPointRange = 0f;
-                _attackRange = 4f;
+                _attackRange = 2.5f;
                 _attackCooldown = 6f;
                 currentHealth=maxHealth = 120;
                 break;
             case EnemyType.Boss:
                 _sightRange = 18f;
-                _walkPointRange = 3f;
+                _walkPointRange = 12f;
                 _attackRange = 12f;
                 _attackCooldown = 3f;
                 currentHealth=maxHealth = 400;

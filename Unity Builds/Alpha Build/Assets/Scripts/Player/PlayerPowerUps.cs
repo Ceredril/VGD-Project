@@ -14,6 +14,7 @@ public class PlayerPowerUps : MonoBehaviour
     private readonly int _fireBallMana = PlayerAttack.fireBallManaUse;
 
     public static bool GodModeEnabled = false;
+    public static bool InfiniteMana;
 
     private IEnumerator Wait(float time)
     {
@@ -29,6 +30,7 @@ public class PlayerPowerUps : MonoBehaviour
     {
         PlayerMovement.walkingSpeed *= _speedHackOffset;
         PlayerMovement.sprintSpeed *= _speedHackOffset;
+        PlayerManager.CurrentStamina = 100;
         //Stop consuming stamina
         PlayerMovement.normalMode = false;
         StartCoroutine(WaitForSpeedHAck(_speedHackDuration));

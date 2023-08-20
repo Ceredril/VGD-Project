@@ -137,5 +137,21 @@ public class GameManager : MonoBehaviour
     {
         audioManager.Play("ButtonPress");
     }
+    public void cheatMode(bool check)
+    {
+        if (check)
+        {
+            PlayerMovement.normalMode = false;
+            //PlayerManager.GodModeEnable = true;
+            PlayerPowerUps.InfiniteMana = true;
+        }
+        else
+        {
+            PlayerMovement.normalMode = true;
+            //PlayerManager.GodModeEnable = false;
+            PlayerPowerUps.InfiniteMana = false;
+
+        }
+    }
 
 }

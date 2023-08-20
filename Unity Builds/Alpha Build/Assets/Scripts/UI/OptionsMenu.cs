@@ -41,6 +41,7 @@ public class OptionsMenu : MonoBehaviour
         GameManager.audioManager.setVolume(volume);
     }
 
+
     private void EnableOptionsMenuUI() => gameObject.SetActive(true);
     private void DisableOptionsMenuUI() => gameObject.SetActive(false);
 }

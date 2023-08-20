@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     AudioManager audioManager;
+    int _level;
 
     private void Start()
     {
@@ -30,6 +31,22 @@ public class MainMenuManager : MonoBehaviour
             Debug.Log("Save does not exist");
         }
     }
+
+    public void SetMouseSensitivity(float sensitivity)
+    {
+        // set sensitivity
+    }
+
+    public void SetLevel(int level)
+    {
+        _level = level;
+    }
+
+    public void LoadLevel ()
+    {
+        // Load Level _level
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quit");

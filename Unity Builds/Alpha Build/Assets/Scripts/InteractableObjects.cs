@@ -41,13 +41,12 @@ public class InteractableObjects : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         playerTransform = GameObject.Find("Player Body").GetComponent<Transform>();
-
     }
 
     void Update()
     {
         float distance = Vector3.Distance(playerTransform.position, this.transform.position);
-
+        transform.LookAt(playerTransform);
         // If the player is close enough
         if (Input.GetKeyDown(interactableKey))
         {

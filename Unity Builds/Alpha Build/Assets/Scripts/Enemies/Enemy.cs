@@ -1,15 +1,12 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering.VirtualTexturing;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
     public enum EnemyType
     {
-        Melee,Ranged,Boss
+        Melee,Ranged,Guard,Boss
     }
 
     private ItemDrop getItem;
@@ -32,6 +29,7 @@ public class Enemy : MonoBehaviour
     private float _attackCooldown;
     private readonly float _bulletSpeed=1200f;
     private float _lastAttackTime;
+    public bool bossSecondPhase;
 
     private Vector3 _walkPoint;
     private bool _walkPointSet;
@@ -55,7 +53,7 @@ public class Enemy : MonoBehaviour
         healthBar = GetComponentInChildren<EnemyHealthBar>();
         miniMapIcon = GetComponentInChildren<SpriteRenderer>();
         _player = GameObject.Find("Player Body").transform;
-        _agent.SetDestination(_player.position);
+        if(enemyType!=EnemyType.Guard && enemyType!=EnemyType.Boss)_agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
         EnemyManager.Instance.RegisterEnemy(this);
@@ -71,10 +69,13 @@ public class Enemy : MonoBehaviour
             animator.SetFloat("hInput", v.x);
             animator.SetFloat("vInput", v.y);
             if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && PlayerManager.IsAlive) AttackPlayer(enemyType);
-            if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && PlayerManager.IsAlive) ChasePlayer();
-            else Patrolling();
-            Vector3 distanceToWalkPoint = transform.position - _walkPoint;
-            if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
+            if (enemyType != EnemyType.Guard)
+            {
+                if (Physics.CheckSphere(transform.position, _sightRange, _playerLayer) && PlayerManager.IsAlive) ChasePlayer();
+                else Patrolling();
+                Vector3 distanceToWalkPoint = transform.position - _walkPoint;
+                if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
+            }else if(Physics.CheckSphere(transform.position, _sightRange, _playerLayer))transform.LookAt(_player);
         }
     }
     
@@ -104,22 +105,43 @@ public class Enemy : MonoBehaviour
         switch (enemyType)
         {
             case EnemyType.Melee:
-                PlayerManager.AddHealth(Random.Range(-15, -30));
-                animator.SetTrigger("swip");
-                _lastAttackTime = Time.time;
-                AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-                GameManager.audioManager.Play("meleeAttack", audiosource);
+                meleeAttack();
                 break;
             case EnemyType.Ranged:
-                Transform thisTransform = transform;
-                Rigidbody bulletClone = Instantiate(enemyBullet, thisTransform.position + new Vector3(0, 1f, 0), thisTransform.rotation); 
-                Vector3 bulletDirection = _player.position - transform.position;
-                bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
-                _lastAttackTime = Time.time;
-                AudioSource audiosource2 = gameObject.AddComponent<AudioSource>(); // should be fixed now
-                GameManager.audioManager.Play("rangeAttack", audiosource2); // should be fixed now
+                rangedAttack();
+                break;
+            case EnemyType.Guard:
+                meleeAttack();
+                break;
+            case EnemyType.Boss:
+                if(!bossSecondPhase)meleeAttack();
+                else
+                {
+                    if (Physics.CheckSphere(transform.position, _attackRange / 3, _playerLayer)) meleeAttack();
+                    else rangedAttack();
+                }
                 break;
         }
+    }
+
+    private void meleeAttack()
+    {
+        PlayerManager.AddHealth(Random.Range(-15, -30));
+        animator.SetTrigger("swip");
+        _lastAttackTime = Time.time;
+        AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+        GameManager.audioManager.Play("meleeAttack", audiosource);
+    }
+
+    private void rangedAttack()
+    {
+        Transform thisTransform = transform;
+        Rigidbody bulletClone = Instantiate(enemyBullet, thisTransform.position + new Vector3(0, 1f, 0), thisTransform.rotation); 
+        Vector3 bulletDirection = _player.position - transform.position;
+        bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
+        _lastAttackTime = Time.time;
+        AudioSource audiosource2 = gameObject.AddComponent<AudioSource>(); // should be fixed now
+        GameManager.audioManager.Play("rangeAttack", audiosource2); // should be fixed now
     }
 
     public void ReduceHealth(int amount, Enemy enemy)
@@ -128,6 +150,12 @@ public class Enemy : MonoBehaviour
         {
             currentHealth -= amount;
             healthBar.UpdateHealthBar(); //- Disabled, it fucks things up after killing the first enemy
+            if (enemy.enemyType == EnemyType.Boss && enemy.currentHealth < enemy.maxHealth / 2)
+            {
+                enemy.bossSecondPhase = true;
+                enemy._agent.speed *= 1.3f;
+                enemy._attackCooldown *= 0.7f;
+            }
             if (currentHealth < 0)
             {
                 isAlive = false;
@@ -160,6 +188,13 @@ public class Enemy : MonoBehaviour
                 _attackRange = 12f;
                 _attackCooldown = 3f;
                 currentHealth=maxHealth = 90;
+                break;
+            case EnemyType.Guard:
+                _sightRange = 20f;
+                _walkPointRange = 0f;
+                _attackRange = 4f;
+                _attackCooldown = 6f;
+                currentHealth = 120;
                 break;
             case EnemyType.Boss:
                 _sightRange = 18f;

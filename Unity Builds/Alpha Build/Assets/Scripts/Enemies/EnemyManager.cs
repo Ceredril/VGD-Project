@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,6 +40,7 @@ public class EnemyManager : MonoBehaviour
         {
             PlayerPrefs.SetInt(enemy.name + "_currentHealth", enemy.currentHealth);
             PlayerPrefs.SetInt(enemy.name + "_isAlive", enemy.isAlive ? 1 : 0);
+            if(enemy.enemyType==Enemy.EnemyType.Boss)PlayerPrefs.SetInt(enemy.name + "bossSecondPhase", enemy.bossSecondPhase ? 1 : 0);
         }
         PlayerPrefs.Save();
     }
@@ -56,6 +56,8 @@ public class EnemyManager : MonoBehaviour
                 if (enemy != null){
                     enemy.currentHealth = PlayerPrefs.GetInt(enemy.name + "_currentHealth");
                     enemy.isAlive = PlayerPrefs.GetInt(enemy.name + "_isAlive") == 1;
+                    if (enemy.enemyType == Enemy.EnemyType.Boss)
+                        enemy.bossSecondPhase = PlayerPrefs.GetInt(enemy.name + "bossSecondPhase") == 1;
                     if (!enemy.isAlive)
                     {
                         enemy.animator.SetTrigger("death");
@@ -78,6 +80,7 @@ public class EnemyManager : MonoBehaviour
                 enemy.isAlive = true;
                 enemy.animator.SetTrigger("alive");
                 enemy.miniMapIcon.enabled = true;
+                if (enemy.enemyType == Enemy.EnemyType.Boss) enemy.bossSecondPhase = false;
             }
         }
     }

@@ -68,6 +68,7 @@ public class Enemy : MonoBehaviour
             Vector3 v = _agent.velocity;
             animator.SetFloat("hInput", v.x);
             animator.SetFloat("vInput", v.y);
+            
             if (Physics.CheckSphere(transform.position, _attackRange, _playerLayer) && PlayerManager.IsAlive) AttackPlayer(enemyType);
             if (enemyType != EnemyType.Guard)
             {
@@ -75,7 +76,8 @@ public class Enemy : MonoBehaviour
                 else Patrolling();
                 Vector3 distanceToWalkPoint = transform.position - _walkPoint;
                 if (distanceToWalkPoint.magnitude < 5f) _walkPointSet = false;
-            }else if(Physics.CheckSphere(transform.position, _sightRange, _playerLayer))transform.LookAt(_player);
+            }
+            transform.LookAt(_player);
         }
     }
     
@@ -126,7 +128,7 @@ public class Enemy : MonoBehaviour
 
     private void meleeAttack()
     {
-        PlayerManager.AddHealth(Random.Range(-15, -30));
+        PlayerManager.AddHealth(Random.Range(-8, -15));
         animator.SetTrigger("swip");
         _lastAttackTime = Time.time;
         AudioSource audiosource = gameObject.AddComponent<AudioSource>();
@@ -183,10 +185,10 @@ public class Enemy : MonoBehaviour
                 currentHealth=maxHealth = 60;
                 break;
             case EnemyType.Ranged:
-                _sightRange = 18f;
+                _sightRange = 14f;
                 _walkPointRange = 6f;
-                _attackRange = 12f;
-                _attackCooldown = 3f;
+                _attackRange = 10f;
+                _attackCooldown = 5f;
                 currentHealth=maxHealth = 90;
                 break;
             case EnemyType.Guard:
@@ -198,10 +200,10 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyType.Boss:
                 _sightRange = 18f;
-                _walkPointRange = 6f;
+                _walkPointRange = 3f;
                 _attackRange = 12f;
                 _attackCooldown = 3f;
-                currentHealth=maxHealth = 500;
+                currentHealth=maxHealth = 400;
                 break;
         }
     }

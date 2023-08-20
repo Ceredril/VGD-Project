@@ -32,11 +32,6 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public void SetMouseSensitivity(float sensitivity)
-    {
-        // set sensitivity
-    }
-
     public void SetLevel(int level)
     {
         _level = level;
@@ -61,5 +56,12 @@ public class MainMenuManager : MonoBehaviour
     public void setVolume(float volume)
     {
         audioManager.setVolume(volume);
+        PlayerPrefs.SetFloat("Volume", volume);
+        PlayerPrefs.Save();
+    }
+    public void SetMouseSensitivity(float sensitivity)
+    {
+        PlayerPrefs.SetFloat("CameraSensitivity", sensitivity);
+        PlayerPrefs.Save();
     }
 }

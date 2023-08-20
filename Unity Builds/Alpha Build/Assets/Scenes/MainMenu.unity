@@ -2619,7 +2619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 647861993}
   m_Layer: 5
-  m_Name: MouseSensitivity
+  m_Name: CameraSensitivity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3891,7 +3891,7 @@ GameObject:
   - component: {fileID: 1020440981}
   - component: {fileID: 1020440980}
   m_Layer: 5
-  m_Name: VolumeText
+  m_Name: CameraText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3945,7 +3945,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MOUSE SENSITIVITY
+  m_text: CAMERA SENSITIVITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -6042,7 +6042,7 @@ GameObject:
   - component: {fileID: 1845373707}
   - component: {fileID: 1845373708}
   m_Layer: 5
-  m_Name: VolumeSlider
+  m_Name: CameraSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6115,10 +6115,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 762286686}
   m_HandleRect: {fileID: 352163057}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: 0.2
+  m_MaxValue: 4
   m_WholeNumbers: 0
-  m_Value: 0.7
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

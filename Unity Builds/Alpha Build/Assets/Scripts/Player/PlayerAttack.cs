@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
     public static int _fireballCooldown=2;
     private float _lastFistTime;
     private float _lastFireballTime;
-    public static int fireBallManaUse = 20;
+    public static int fireBallManaUse = 10;
     public static float _bulletSpeed=1800;
     //Skill variables
     public static bool _hasFist = true;

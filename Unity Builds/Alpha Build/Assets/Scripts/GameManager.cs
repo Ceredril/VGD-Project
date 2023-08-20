@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public static Camera MainCamera;
     public static CinemachineBrain cameraBrain;
     public static AudioManager audioManager;
+
+    public static bool cheat = false;
     
     
     //DEFAULT FUNCTIONS
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver && !GameIsPaused && GameIsRunning) Pause();
+        if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver && !GameIsPaused && GameIsRunning) Pause();   
     }
 
     public static void GameStart()
@@ -141,16 +143,19 @@ public class GameManager : MonoBehaviour
     {
         if (check)
         {
-            PlayerMovement.normalMode = false;
-            //PlayerManager.GodModeEnable = true;
+            cheat = true;
+            PlayerPowerUps.GodModeEnabled = true;
             PlayerPowerUps.InfiniteMana = true;
+            PlayerPowerUps.IncreaseSPeed();
+            PlayerPowerUps.IncreaseAttack();
         }
         else
         {
-            PlayerMovement.normalMode = true;
-            //PlayerManager.GodModeEnable = false;
+            cheat = false;
+            PlayerPowerUps.GodModeEnabled = false;
             PlayerPowerUps.InfiniteMana = false;
-
+            PlayerPowerUps.DecreaseSPeed();
+            PlayerPowerUps.DecreaseAttack();
         }
     }
 

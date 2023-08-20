@@ -68,7 +68,7 @@ public class PlayerManager : MonoBehaviour
         if (healthEffect.activeInHierarchy || manaEffect.activeInHierarchy) //mana and health collectible effect duration
             StartCoroutine(Wait());
 
-        if(PlayerAttack._currentSkill == PlayerAttack.Skill.Shield) 
+        if(PlayerAttack._currentSkill == PlayerAttack.Skill.Shield && !PlayerPowerUps.InfiniteMana) 
             CurrentMana -= ShieldSManaUse * Time.deltaTime;
     }
 

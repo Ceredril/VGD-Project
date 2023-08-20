@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("PlayerBody"))
         {
             PlayerManager playerManager  = other.GetComponent<PlayerManager>();
-            PlayerManager.AddHealth(Random.Range(-10,-20));
+            PlayerManager.AddHealth(Random.Range(-5,-10));
             Destroy(gameObject);
             var noob = Instantiate(explosion, other.transform.position, other.transform.rotation);
             Destroy(noob, 1);

@@ -14,7 +14,7 @@ public class PlayerPowerUps : MonoBehaviour
     private readonly int _fireBallMana = PlayerAttack.fireBallManaUse;
 
     public static bool GodModeEnabled = false;
-    public static bool InfiniteMana;
+    public static bool InfiniteMana = false;
 
     private IEnumerator Wait(float time)
     {

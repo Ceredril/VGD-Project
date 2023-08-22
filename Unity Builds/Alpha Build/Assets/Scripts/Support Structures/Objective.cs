@@ -52,7 +52,7 @@ public class Objective : MonoBehaviour
             finished = true;
         }
     }
-    private void SaveProgress()
+    private void SaveProgress(GameManager.SaveType saveType)
     {
         PlayerPrefs.SetInt(objectiveName, finished ? 1 : 0);
         PlayerPrefs.Save();

@@ -18,7 +18,7 @@ public class checkPoint : MonoBehaviour
             GameManager.audioManager.Play("Checkpoint");
             //This modifies the spawnPoint.
             GameManager.CheckpointReached(transform);
-            GameManager.GameSave();
+            GameManager.GameSave(GameManager.SaveType.Checkpoint);
             //This disables the checkPoint after it's been reached.
             GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<Collider>().enabled = false;

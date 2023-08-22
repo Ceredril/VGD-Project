@@ -1,12 +1,13 @@
 using UnityEngine;
-using Cinemachine;
-
-//REMINDER A ME STESSO (FEDE GIUGNI) --> SISTEMA GAMESAVE E RETURNTOMENU DA INSPECTOR
-
 public class PauseMenu : MonoBehaviour
 {
-    public void OnGameResume() => GameManager.Resume();   //?
-
+    public void OnGameResume() => GameManager.Resume();
+    public void OnGameSave()
+    {
+        PlayerPrefs.SetInt("SaveType", (int)GameManager.SaveType.User);
+        PlayerPrefs.Save();
+        GameManager.GameSave(GameManager.SaveType.User);
+    }
 
     private void Start()
     {

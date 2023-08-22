@@ -7,9 +7,11 @@ using Debug = UnityEngine.Debug;
 
 public class GameManager : MonoBehaviour
 {
+    public enum SaveType { Checkpoint, User }
+
     //GAME EVENTS
     public static event Action OnGameStart,OnGameOver,OnGameEnd,OnGamePause,OnGameResume;
-    public static event Action OnGameSave;
+    public static event Action<SaveType> OnGameSave;
     public static event Action OnPlayerDeath;
     public static event Action<GameObject> OnInteraction;
     public static event Action<GameObject> OnEnemyKill;
@@ -17,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     //CHECKPOINT EVENTS
     public static event Action<Transform> OnCheckpointReached;
-
     public static bool GameIsRunning, GameIsPaused, GameIsOver;
 
     public static Camera MainCamera;
@@ -98,10 +99,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game resumed");
     }
 
-    public static void GameSave()
+    public static void GameSave(SaveType saveType)
     {
         Debug.Log("Game saved");
-        OnGameSave?.Invoke();
+        OnGameSave?.Invoke(saveType);
     }
 
     public static void CheckpointReached(Transform checkpoint) => OnCheckpointReached?.Invoke(checkpoint);

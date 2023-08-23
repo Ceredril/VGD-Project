@@ -43,7 +43,6 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         SetStats();
-        EnemyManager.Instance.RegisterEnemy(this);
     }
 
     private void Start()
@@ -57,6 +56,7 @@ public class Enemy : MonoBehaviour
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
         getItem = GetComponent<ItemDrop>();
+        EnemyManager.Instance.RegisterEnemy(this);
     }
 
     // Update is called once per frame

@@ -46,9 +46,8 @@ public class PlayerManager : MonoBehaviour
         
 
         //Events
+        GameManager.OnGameStart += LoadPlayerPrefs;
         GameManager.OnGameStart += Spawn;
-        GameManager.OnGameStart += LoadProgress;
-        GameManager.OnGameSave += SaveProgress;
         GameManager.OnCheckpointReached += SetSpawnPoint;
         GameManager.OnGameSave += SaveProgress;
     }
@@ -76,7 +75,7 @@ public class PlayerManager : MonoBehaviour
     {
         //Stats events
         GameManager.OnGameStart -= Spawn;
-        GameManager.OnGameStart -= LoadProgress;
+        GameManager.OnGameStart -= LoadPlayerPrefs;
         GameManager.OnCheckpointReached -= SetSpawnPoint;
         GameManager.OnGameSave -= SaveProgress;
     }
@@ -93,7 +92,11 @@ public class PlayerManager : MonoBehaviour
 
     private void SetSpawnPoint(Transform checkpoint)
     {
+        LastCheckpoint = checkpoint;
         SpawnPoint = checkpoint;
+        PlayerPrefs.SetString("LastCheckpoint", LastCheckpoint.name);
+        PlayerPrefs.SetInt("SaveType", (int)GameManager.SaveType.Checkpoint);
+        PlayerPrefs.Save();
         Debug.Log("Spawn point set");
     }
 
@@ -131,18 +134,60 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Stamina set");
     }
 
-    private void SaveProgress()
+
+
+    private void SavePosition()
     {
+        Transform player = GameObject.Find("Player Body").transform;
+        //Save the coordinates of the player in the playerprefs
+        PlayerPrefs.SetFloat("PlayerX", player.position.x);
+        PlayerPrefs.SetFloat("PlayerY", player.position.y);
+        PlayerPrefs.SetFloat("PlayerZ", player.position.z);
+        //Save the rotation of the player in the playerprefs
+        PlayerPrefs.SetFloat("PlayerRotX", player.rotation.x);
+        PlayerPrefs.SetFloat("PlayerRotY", player.rotation.y);
+        PlayerPrefs.SetFloat("PlayerRotZ", player.rotation.z);
+        PlayerPrefs.SetFloat("PlayerRotW", player.rotation.w);
+    }
+
+    private Transform LoadPosition()
+    {
+        Transform spawnPoint = new GameObject("PlayerPosition").transform;
+        //Load the coordinates of the player from the playerprefs
+        float x = PlayerPrefs.GetFloat("PlayerX");
+        float y = PlayerPrefs.GetFloat("PlayerY");
+        float z = PlayerPrefs.GetFloat("PlayerZ");
+        //Load the rotation of the player from the playerprefs
+        float rotX = PlayerPrefs.GetFloat("PlayerRotX");
+        float rotY = PlayerPrefs.GetFloat("PlayerRotY");
+        float rotZ = PlayerPrefs.GetFloat("PlayerRotZ");
+        float rotW = PlayerPrefs.GetFloat("PlayerRotW");
+        //Return the coordinates and the rotation of the player
+        spawnPoint.position = new Vector3(x, y, z);
+        spawnPoint.rotation = new Quaternion(rotX, rotY, rotZ, rotW);
+        return spawnPoint;
+    }
+    private void SaveProgress(GameManager.SaveType saveType)
+    {
+        if (saveType == GameManager.SaveType.Checkpoint) PlayerPrefs.SetString("LastCheckPoint", LastCheckpoint.name);
+        else if (saveType == GameManager.SaveType.User) SavePosition();
+
         PlayerPrefs.SetInt("SaveExists", 1);
         PlayerPrefs.SetInt("Lives", CurrentLives);
         PlayerPrefs.SetInt("Health", CurrentHealth);
         PlayerPrefs.SetFloat("Mana", CurrentMana);
         PlayerPrefs.SetFloat("Stamina", CurrentStamina);
-        PlayerPrefs.SetString("SpawnPoint", SpawnPoint.name);
+        
         PlayerPrefs.Save();
         Debug.Log("Progress saved");
     }
-    private void LoadProgress()
+
+    private void LoadPlayerPrefs()
+    {
+        int saveType = PlayerPrefs.GetInt("SaveType");
+        LoadProgress((GameManager.SaveType)saveType);
+    }
+    private void LoadProgress(GameManager.SaveType saveType)
     {
         if (PlayerPrefs.GetInt("SaveExists") == 1)
         {
@@ -151,8 +196,9 @@ public class PlayerManager : MonoBehaviour
             CurrentHealth = PlayerPrefs.GetInt("Health");
             CurrentMana = PlayerPrefs.GetInt("Mana");
             CurrentStamina = PlayerPrefs.GetInt("Stamina");
-            SpawnPoint = GameObject.Find(PlayerPrefs.GetString("SpawnPoint")).transform;
-            LastCheckpoint = GameObject.Find(PlayerPrefs.GetString("SpawnPoint")).transform;
+            if (saveType == GameManager.SaveType.User) SpawnPoint = LoadPosition();
+            else if(saveType==GameManager.SaveType.Checkpoint)SpawnPoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
+            LastCheckpoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
             Debug.Log("Progress loaded");
         }else
         {
@@ -163,6 +209,9 @@ public class PlayerManager : MonoBehaviour
             CurrentStamina = DefaultStamina;
             SpawnPoint = GameObject.Find("Spawn").transform;
             LastCheckpoint = GameObject.Find("Spawn").transform;
+            PlayerPrefs.SetString("SpawnPoint", SpawnPoint.name);
+            PlayerPrefs.SetString("LastCheckpoint", LastCheckpoint.name);
+            PlayerPrefs.Save();
             Debug.Log("Default stats set.");
         }
     }

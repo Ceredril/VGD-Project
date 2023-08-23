@@ -34,7 +34,7 @@ public class EnemyManager : MonoBehaviour
         enemies.Remove(enemy);
     }
     
-    public static void SaveEnemies()
+    public static void SaveEnemies(GameManager.SaveType saveType)
     {
         foreach (Enemy enemy in enemies)
         {

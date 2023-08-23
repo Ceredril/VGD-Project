@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class PlayerAttack : MonoBehaviour
 {
     
-    public enum Skill {Fist,Fireball,Shield}
+    public enum Skill {None,Fist,Fireball,Shield}
     //Object references
     private Animator animator;
     private Enemy _nearEnemy;
@@ -17,16 +17,16 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Rigidbody playerBullet;
     //Skill parameters
     public static float _fistCooldown=2;
-    public static int _fireballCooldown=2;
+    public static float _fireballCooldown =2;
     private float _lastFistTime;
     private float _lastFireballTime;
     public static int fireBallManaUse = 10;
     public static float _bulletSpeed=1800;
     //Skill variables
-    public static bool _hasFist = true;
+    public static bool _hasFist = false;
     public static bool _hasFireFist = false;
-    public static bool _hasFireball = true;
-    public static bool _hasShield = true;
+    public static bool _hasFireball = false;
+    public static bool _hasShield = false;
     public static Skill _currentSkill;
     public static int _minFistDamage = 20, _maxFistDamage=30;
 
@@ -42,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
         wand.SetActive(false);
         fireFist.SetActive(false);
         shield.SetActive(false);
+        _currentSkill = Skill.None;
     }
 
     void Update()
@@ -55,7 +56,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void SkillSelection()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && _hasFist && _currentSkill!=Skill.Fist)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && _hasFist)
         {
             wand.SetActive(false);
             _currentSkill = Skill.Fist;
@@ -63,7 +64,7 @@ public class PlayerAttack : MonoBehaviour
             Debug.Log("Melee attack selected");
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && _hasFireball && _currentSkill!=Skill.Fireball)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && _hasFireball )
         {
             fireFist.SetActive(false);
             wand.SetActive(true);
@@ -73,7 +74,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Alpha3) && _hasShield && _currentSkill != Skill.Shield && PlayerManager.CurrentMana >= PlayerManager.ShieldSManaUse)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && _hasShield && PlayerManager.CurrentMana >= PlayerManager.ShieldSManaUse)
         {
             fireFist.SetActive(false);
             wand.SetActive(false);
@@ -90,6 +91,7 @@ public class PlayerAttack : MonoBehaviour
             switch (_currentSkill)
             {
                 case Skill.Fist:
+                    Debug.Log("entratoooo");
                     Fist(_nearEnemy);
                     break;
                 case Skill.Fireball:
@@ -97,6 +99,8 @@ public class PlayerAttack : MonoBehaviour
                     break;
                 case Skill.Shield:
                     Shield();
+                    break;
+                case Skill.None:
                     break;
             }
         }

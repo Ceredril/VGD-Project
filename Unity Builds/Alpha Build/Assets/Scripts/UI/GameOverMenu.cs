@@ -1,9 +1,8 @@
 using UnityEngine;
-
 public class GameOverMenu : MonoBehaviour
 {
     
-    public void OnGameEnd() => GameManager.GameEnd();   //?
+    public void OnGameEnd() => GameManager.GameEnd();
     
     private void Start()
     {

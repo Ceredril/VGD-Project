@@ -4,13 +4,12 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-    public enum EnemyType
-    {
-        Melee,Ranged,Guard,Boss
-    }
+    public enum EnemyType { Melee, Ranged, Guard, Boss }
+    public enum GameLevel { FirstLevel, SecondLevel, ThirdLevel, BossFight }
 
     private ItemDrop getItem;
     [SerializeField] public EnemyType enemyType;
+    [SerializeField] public GameLevel gameLevel;
     public SpriteRenderer miniMapIcon;
     public Animator animator;
     EnemyHealthBar healthBar;
@@ -44,6 +43,7 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         SetStats();
+        EnemyManager.Instance.RegisterEnemy(this);
     }
 
     private void Start()
@@ -56,7 +56,6 @@ public class Enemy : MonoBehaviour
         //_agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
-        EnemyManager.Instance.RegisterEnemy(this);
         getItem = GetComponent<ItemDrop>();
     }
 

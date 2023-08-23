@@ -55,11 +55,11 @@ public class collectibleObjects : MonoBehaviour
         else
         {
             _wasCollected = false;
-            SaveProgress();
+            SaveProgress(0);
         }
     }
 
-    private void SaveProgress()
+    private void SaveProgress(GameManager.SaveType saveType)
     {
         PlayerPrefs.SetInt(name,Convert.ToInt32(_wasCollected));
         PlayerPrefs.Save();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,15 @@ public class Objective : MonoBehaviour
                 objectiveName = "Collect " + gameObject.name;
                 break;
         }
+        
+        GameManager.OnGameStart += LoadProgress;
+        GameManager.OnGameSave += SaveProgress;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStart -= LoadProgress;
+        GameManager.OnGameSave -= SaveProgress;
     }
 
     public void Update()
@@ -42,18 +52,14 @@ public class Objective : MonoBehaviour
             finished = true;
         }
     }
-    private void SaveNew()
-    {
-        finished = false;
-        SaveProgress();
-    }
-    private void SaveProgress()
+    private void SaveProgress(GameManager.SaveType saveType)
     {
         PlayerPrefs.SetInt(objectiveName, finished ? 1 : 0);
         PlayerPrefs.Save();
     }
     private void LoadProgress()
     {
-        finished = PlayerPrefs.GetInt(objectiveName) == 1;
+        if (PlayerPrefs.GetInt("SaveExists") == 1) finished = PlayerPrefs.GetInt(objectiveName) == 1;
+        else finished = false;
     }
 }

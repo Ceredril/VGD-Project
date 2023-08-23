@@ -93,7 +93,7 @@ public class InteractableObjects : MonoBehaviour
         Gizmos.DrawWireSphere(this.transform.position, radius);
     }
     
-    private void SaveProgress()
+    private void SaveProgress(GameManager.SaveType saveType)
     {
         PlayerPrefs.SetFloat(dialogue.name, interactionStatus);
         PlayerPrefs.Save();
@@ -104,7 +104,7 @@ public class InteractableObjects : MonoBehaviour
         else
         {
             interactionStatus = 0;
-            SaveProgress();
+            SaveProgress(0);
         }
     }
 }

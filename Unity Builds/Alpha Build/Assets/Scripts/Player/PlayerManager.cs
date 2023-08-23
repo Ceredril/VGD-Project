@@ -48,7 +48,6 @@ public class PlayerManager : MonoBehaviour
         //Events
         GameManager.OnGameStart += LoadPlayerPrefs;
         GameManager.OnGameStart += Spawn;
-        GameManager.OnGameSave += SaveProgress;
         GameManager.OnCheckpointReached += SetSpawnPoint;
         GameManager.OnGameSave += SaveProgress;
     }
@@ -95,6 +94,7 @@ public class PlayerManager : MonoBehaviour
     {
         LastCheckpoint = checkpoint;
         SpawnPoint = checkpoint;
+        PlayerPrefs.SetString("LastCheckpoint", LastCheckpoint.name);
         PlayerPrefs.SetInt("SaveType", (int)GameManager.SaveType.Checkpoint);
         PlayerPrefs.Save();
         Debug.Log("Spawn point set");

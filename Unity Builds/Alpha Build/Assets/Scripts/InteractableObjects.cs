@@ -47,6 +47,10 @@ public class InteractableObjects : MonoBehaviour
     {
         float distance = Vector3.Distance(playerTransform.position, this.transform.position);
         transform.LookAt(playerTransform);
+        // Remove vertical rotation component
+        Vector3 newRotation = transform.eulerAngles;
+        newRotation.x = 0; // Reset X rotation (vertical rotation)
+        transform.eulerAngles = newRotation;
         // If the player is close enough
         if (Input.GetKeyDown(interactableKey))
         {

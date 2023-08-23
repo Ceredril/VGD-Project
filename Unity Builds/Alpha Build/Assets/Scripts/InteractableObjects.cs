@@ -104,19 +104,15 @@ public class InteractableObjects : MonoBehaviour
     }
     private void LoadProgress(GameManager.GameLevel level)
     {
-<<<<<<< Updated upstream
         if (PlayerPrefs.GetInt("SaveExists") == 1) drop = PlayerPrefs.GetInt(dialogue.name);
-=======
-        if (PlayerPrefs.GetInt("SaveExists") == 1) interactionStatus = PlayerPrefs.GetFloat(dialogue.name);
         else
         {
             if (interactableLevel >= level)
             {
-                interactionStatus = 0;
+                drop = 0;
                 SaveProgress(0);
             }
-            else interactionStatus = 1;
+            else drop = 1;
         }
->>>>>>> Stashed changes
     }
 }

@@ -19,7 +19,7 @@ public class InteractableObjects : MonoBehaviour
     public float typingSpeed = 0.02f;
     public float radius = 3f;
     public KeyCode interactableKey = KeyCode.E; // Changeable
-    public float interactionStatus = 0;
+    public int drop = 0;
     bool isInteracting = false;
 
 
@@ -73,8 +73,8 @@ public class InteractableObjects : MonoBehaviour
                 }
                 else
                 {
-                    dialogueManager.StartDialogue(dialogue, typingSpeed, interactionStatus);
-                    interactionStatus = 0;
+                    dialogueManager.StartDialogue(dialogue, typingSpeed, drop);
+                    drop = 0;
                     isInteracting = dialogueManager.DisplayNextSentence();
                 }
                 break;
@@ -95,16 +95,11 @@ public class InteractableObjects : MonoBehaviour
     
     private void SaveProgress(GameManager.SaveType saveType)
     {
-        PlayerPrefs.SetFloat(dialogue.name, interactionStatus);
+        PlayerPrefs.SetFloat(dialogue.name, drop);
         PlayerPrefs.Save();
     }
     private void LoadProgress()
     {
-        if (PlayerPrefs.GetInt("SaveExists") == 1) interactionStatus = PlayerPrefs.GetFloat(dialogue.name);
-        else
-        {
-            interactionStatus = 0;
-            SaveProgress(0);
-        }
+        if (PlayerPrefs.GetInt("SaveExists") == 1) drop = PlayerPrefs.GetInt(dialogue.name);
     }
 }

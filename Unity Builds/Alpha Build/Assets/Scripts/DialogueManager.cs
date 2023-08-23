@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Animator animator;
     float _typingSpeed;
-    float _drop;
+    int _drop;
 
     private Queue<string> sentences;
 
@@ -22,7 +22,7 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
-    public void StartDialogue(CreateDialogue dialogue, float typingspeed, float drop)
+    public void StartDialogue(CreateDialogue dialogue, float typingspeed, int drop)
     {
         _typingSpeed= typingspeed;
         _drop = drop;

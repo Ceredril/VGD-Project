@@ -45,9 +45,8 @@ public class EnemyManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public static void LoadEnemies()
+    public static void LoadEnemies(GameManager.GameLevel level)
     {
-        
         if (PlayerPrefs.GetInt("SaveExists") == 1)
         {
             Debug.Log("Loading saved enemies");
@@ -76,11 +75,22 @@ public class EnemyManager : MonoBehaviour
             Debug.Log("Loading new enemies");
             foreach (Enemy enemy in enemies)
             {
-                enemy.currentHealth = enemy.maxHealth;
-                enemy.isAlive = true;
-                enemy.animator.SetTrigger("alive");
-                enemy.miniMapIcon.enabled = true;
-                if (enemy.enemyType == Enemy.EnemyType.Boss) enemy.bossSecondPhase = false;
+                if (enemy.enemyLevel >= level)
+                {
+                    enemy.currentHealth = enemy.maxHealth;
+                    enemy.isAlive = true;
+                    enemy.animator.SetTrigger("alive");
+                    enemy.miniMapIcon.enabled = true;
+                    if (enemy.enemyType == Enemy.EnemyType.Boss) enemy.bossSecondPhase = false;
+                }
+                else
+                {
+                    enemy.animator.SetTrigger("death");
+                    enemy.miniMapIcon.enabled = false;
+                    enemy.currentHealth = 0;
+                    enemy.isAlive = false;
+                    if (enemy.enemyType == Enemy.EnemyType.Boss) enemy.bossSecondPhase = false;
+                }
             }
         }
     }

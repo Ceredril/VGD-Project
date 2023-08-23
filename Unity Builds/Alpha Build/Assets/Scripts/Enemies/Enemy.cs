@@ -5,11 +5,11 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     public enum EnemyType { Melee, Ranged, Guard, Boss }
-    public enum GameLevel { FirstLevel, SecondLevel, ThirdLevel, BossFight }
+
 
     private ItemDrop getItem;
     [SerializeField] public EnemyType enemyType;
-    [SerializeField] public GameLevel gameLevel;
+    [SerializeField] public GameManager.GameLevel enemyLevel;
     public SpriteRenderer miniMapIcon;
     public Animator animator;
     EnemyHealthBar healthBar;

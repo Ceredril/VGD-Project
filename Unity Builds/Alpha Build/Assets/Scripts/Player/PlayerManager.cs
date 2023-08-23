@@ -47,7 +47,6 @@ public class PlayerManager : MonoBehaviour
 
         //Events
         GameManager.OnGameStart += LoadPlayerPrefs;
-        GameManager.OnGameStart += Spawn;
         GameManager.OnCheckpointReached += SetSpawnPoint;
         GameManager.OnGameSave += SaveProgress;
     }
@@ -74,7 +73,6 @@ public class PlayerManager : MonoBehaviour
     private void OnDestroy()
     {
         //Stats events
-        GameManager.OnGameStart -= Spawn;
         GameManager.OnGameStart -= LoadPlayerPrefs;
         GameManager.OnCheckpointReached -= SetSpawnPoint;
         GameManager.OnGameSave -= SaveProgress;
@@ -182,12 +180,13 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Progress saved");
     }
 
-    private void LoadPlayerPrefs()
+    private void LoadPlayerPrefs(GameManager.GameLevel level)
     {
         int saveType = PlayerPrefs.GetInt("SaveType");
-        LoadProgress((GameManager.SaveType)saveType);
+        LoadProgress((GameManager.SaveType)saveType, level);
+        Spawn();
     }
-    private void LoadProgress(GameManager.SaveType saveType)
+    private void LoadProgress(GameManager.SaveType saveType, GameManager.GameLevel level)
     {
         if (PlayerPrefs.GetInt("SaveExists") == 1)
         {
@@ -207,8 +206,25 @@ public class PlayerManager : MonoBehaviour
             CurrentHealth = DefaultHealth;
             CurrentMana = DefaultMana;
             CurrentStamina = DefaultStamina;
-            SpawnPoint = GameObject.Find("Spawn").transform;
-            LastCheckpoint = GameObject.Find("Spawn").transform;
+            switch (level)
+            {
+                case GameManager.GameLevel.FirstLevel:
+                    SpawnPoint = GameObject.Find("Spawn").transform;
+                    LastCheckpoint = GameObject.Find("Spawn").transform;
+                    break;
+                case GameManager.GameLevel.SecondLevel:
+                    SpawnPoint = GameObject.Find("Second Level").transform;
+                    LastCheckpoint = GameObject.Find("Second Level").transform;
+                    break;
+                case GameManager.GameLevel.ThirdLevel:
+                    SpawnPoint = GameObject.Find("Third Level").transform;
+                    LastCheckpoint = GameObject.Find("Third Level").transform;
+                    break;
+                case GameManager.GameLevel.BossFight:
+                    SpawnPoint = GameObject.Find("Boss Level").transform;
+                    LastCheckpoint = GameObject.Find("Boss Level").transform;
+                    break;
+            }
             PlayerPrefs.SetString("SpawnPoint", SpawnPoint.name);
             PlayerPrefs.SetString("LastCheckpoint", LastCheckpoint.name);
             PlayerPrefs.Save();

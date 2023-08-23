@@ -8,6 +8,7 @@ public enum ObjectiveType { Interacting, Killing, Collecting };
 public class Objective : MonoBehaviour
 {
     public bool finished = false;
+    [SerializeField] private GameManager.GameLevel objectiveLevel;
     public ObjectiveType objectiveType;
     public Transform connectedCheckpoint;
     [HideInInspector]
@@ -57,9 +58,13 @@ public class Objective : MonoBehaviour
         PlayerPrefs.SetInt(objectiveName, finished ? 1 : 0);
         PlayerPrefs.Save();
     }
-    private void LoadProgress()
+    private void LoadProgress(GameManager.GameLevel level)
     {
         if (PlayerPrefs.GetInt("SaveExists") == 1) finished = PlayerPrefs.GetInt(objectiveName) == 1;
-        else finished = false;
+        else
+        {
+            if (objectiveLevel >= level) finished = false;
+            else finished = true;
+        }
     }
 }

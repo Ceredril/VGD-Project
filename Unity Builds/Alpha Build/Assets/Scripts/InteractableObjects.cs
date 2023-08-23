@@ -12,6 +12,7 @@ public enum InteractableType { dialogueType, gameEventType, uselessType };
 public class InteractableObjects : MonoBehaviour
 {
     public Animator animator;
+    [SerializeField] GameManager.GameLevel interactableLevel;
     DialogueManager dialogueManager;
     Transform playerTransform;
     public InteractableType interactableType;
@@ -86,7 +87,6 @@ public class InteractableObjects : MonoBehaviour
                 break;
             case InteractableType.uselessType:
                 break;
-            default: break;
         }
     }
 
@@ -102,8 +102,21 @@ public class InteractableObjects : MonoBehaviour
         PlayerPrefs.SetFloat(dialogue.name, drop);
         PlayerPrefs.Save();
     }
-    private void LoadProgress()
+    private void LoadProgress(GameManager.GameLevel level)
     {
+<<<<<<< Updated upstream
         if (PlayerPrefs.GetInt("SaveExists") == 1) drop = PlayerPrefs.GetInt(dialogue.name);
+=======
+        if (PlayerPrefs.GetInt("SaveExists") == 1) interactionStatus = PlayerPrefs.GetFloat(dialogue.name);
+        else
+        {
+            if (interactableLevel >= level)
+            {
+                interactionStatus = 0;
+                SaveProgress(0);
+            }
+            else interactionStatus = 1;
+        }
+>>>>>>> Stashed changes
     }
 }

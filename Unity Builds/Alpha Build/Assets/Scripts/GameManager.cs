@@ -8,9 +8,11 @@ using Debug = UnityEngine.Debug;
 public class GameManager : MonoBehaviour
 {
     public enum SaveType { Checkpoint, User }
-
+    public enum GameLevel { FirstLevel, SecondLevel, ThirdLevel, BossFight }
+    
     //GAME EVENTS
-    public static event Action OnGameStart,OnGameOver,OnGameEnd,OnGamePause,OnGameResume;
+    public static event Action<GameLevel> OnGameStart;
+    public static event Action OnGameOver,OnGameEnd,OnGamePause,OnGameResume;
     public static event Action<SaveType> OnGameSave;
     public static event Action OnPlayerDeath;
     public static event Action<GameObject> OnInteraction;
@@ -31,10 +33,18 @@ public class GameManager : MonoBehaviour
     //DEFAULT FUNCTIONS
     private void Awake()
     {
+        GameLevel level=PlayerPrefs.GetInt("Level") switch
+        {
+            0 => GameLevel.FirstLevel,
+            1 => GameLevel.SecondLevel,
+            2 => GameLevel.ThirdLevel,
+            3 => GameLevel.BossFight,
+            _ => GameLevel.FirstLevel
+        };
         MainCamera = Camera.main;
         cameraBrain = MainCamera.GetComponent<CinemachineBrain>();
         audioManager = FindObjectOfType<AudioManager>();
-        GameStart();
+        GameStart(level);
     }
     
     private void Update()
@@ -42,7 +52,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !GameIsOver && !GameIsPaused && GameIsRunning) Pause();   
     }
 
-    public static void GameStart()
+    public static void GameStart(GameLevel level)
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -52,7 +62,7 @@ public class GameManager : MonoBehaviour
         GameIsPaused = false;
         cameraBrain.enabled = true;
         audioManager.ThemeTransition("FirstLevelTheme", 2);
-        OnGameStart?.Invoke();
+        OnGameStart?.Invoke(level);
         Debug.Log("Game started");
     }
 

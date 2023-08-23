@@ -8,7 +8,7 @@ public class collectibleObjects : MonoBehaviour
 {
     private int _amount;
     private bool _wasCollected;
-
+    [SerializeField] GameManager.GameLevel collectibleLevel;
     private void Awake()
     {
         GameManager.OnGameStart += LoadProgress;
@@ -49,13 +49,21 @@ public class collectibleObjects : MonoBehaviour
         }
     }
 
-    private void LoadProgress()
+    private void LoadProgress(GameManager.GameLevel level)
     {
         if (PlayerPrefs.GetInt("SaveExists") == 1)_wasCollected = Convert.ToBoolean(PlayerPrefs.GetInt(name));
         else
         {
-            _wasCollected = false;
-            SaveProgress(0);
+            if (collectibleLevel >= level)
+            {
+                _wasCollected = false;
+                SaveProgress(0);
+            }
+            else
+            {
+                _wasCollected = true;
+                SaveProgress(0);
+            }
         }
     }
 

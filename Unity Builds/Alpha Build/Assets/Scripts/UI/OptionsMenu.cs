@@ -20,9 +20,15 @@ public class OptionsMenu : MonoBehaviour
         xSpeed = cam.m_XAxis.m_MaxSpeed;
         ySpeed = cam.m_YAxis.m_MaxSpeed;
         _sensitivity=PlayerPrefs.GetFloat("CameraSensitivity");
-        if(_sensitivity>0) changeSensitivity(_sensitivity);
-        cameraSlider.value = _sensitivity;
-        volumeSlider.value = PlayerPrefs.GetFloat("Volume");
+        if (_sensitivity != 0)
+        {
+            changeSensitivity(_sensitivity);
+            cameraSlider.value = _sensitivity;
+        }
+        if (PlayerPrefs.GetFloat("Volume")!=0)
+        {
+            volumeSlider.value = PlayerPrefs.GetFloat("Volume");
+        }
         DisableOptionsMenuUI();
     }
     private void OnDestroy()

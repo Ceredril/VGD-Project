@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     AudioManager audioManager;
-    int _level;
+    int _level = 0;
 
     private void Start()
     {
@@ -39,6 +39,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadLevel ()
     {
+        if (_level > 0)
+        {
+            PlayerPrefs.SetInt("Level", _level);
+            Debug.Log("Loaded from level "+ _level);
+            NewGame();
+        }
         // Load Level _level
     }
 

@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        PlayerPrefs.SetInt("Level", 0);
     }
     public void NewGame()
     {

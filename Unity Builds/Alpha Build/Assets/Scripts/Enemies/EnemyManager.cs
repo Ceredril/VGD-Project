@@ -73,6 +73,7 @@ public class EnemyManager : MonoBehaviour
         else
         {
             Debug.Log("Loading new enemies");
+            
             foreach (Enemy enemy in enemies)
             {
                 if (enemy.enemyLevel >= level)

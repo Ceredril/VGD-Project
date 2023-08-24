@@ -11,11 +11,11 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
-        PlayerPrefs.SetInt("Level", 0);
     }
     public void NewGame()
     {
         PlayerPrefs.SetInt("SaveExists", 0);
+        PlayerPrefs.SetInt("Level", 0);
         PlayerPrefs.Save();
         SceneManager.LoadScene("GameView", LoadSceneMode.Single);
         Debug.Log("Started a new Game");
@@ -43,8 +43,10 @@ public class MainMenuManager : MonoBehaviour
         if (_level > 0)
         {
             PlayerPrefs.SetInt("Level", _level);
+            PlayerPrefs.SetInt("SaveExists", 0);
+            PlayerPrefs.Save();
             Debug.Log("Loaded from level "+ _level);
-            NewGame();
+            SceneManager.LoadScene("GameView", LoadSceneMode.Single);
         }
         // Load Level _level
     }

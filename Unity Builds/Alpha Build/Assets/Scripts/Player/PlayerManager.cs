@@ -213,16 +213,16 @@ public class PlayerManager : MonoBehaviour
                     LastCheckpoint = GameObject.Find("Spawn").transform;
                     break;
                 case GameManager.GameLevel.SecondLevel:
-                    SpawnPoint = GameObject.Find("Second Level").transform;
-                    LastCheckpoint = GameObject.Find("Second Level").transform;
+                    SpawnPoint = GameObject.Find("Second level").transform;
+                    LastCheckpoint = GameObject.Find("Second level").transform;
                     break;
                 case GameManager.GameLevel.ThirdLevel:
-                    SpawnPoint = GameObject.Find("Third Level").transform;
-                    LastCheckpoint = GameObject.Find("Third Level").transform;
+                    SpawnPoint = GameObject.Find("Third level").transform;
+                    LastCheckpoint = GameObject.Find("Third level").transform;
                     break;
                 case GameManager.GameLevel.BossFight:
-                    SpawnPoint = GameObject.Find("Boss Level").transform;
-                    LastCheckpoint = GameObject.Find("Boss Level").transform;
+                    SpawnPoint = GameObject.Find("Boss level").transform;
+                    LastCheckpoint = GameObject.Find("Boss level").transform;
                     break;
             }
             PlayerPrefs.SetString("SpawnPoint", SpawnPoint.name);

@@ -22,6 +22,11 @@ public class collectibleObjects : MonoBehaviour
         
     }
 
+    public void Update()
+    {
+        transform.localRotation = Quaternion.Euler(0f, Time.time * 100f, 0);
+    }
+
     private void OnDestroy()
     {
         GameManager.OnGameStart -= LoadProgress;

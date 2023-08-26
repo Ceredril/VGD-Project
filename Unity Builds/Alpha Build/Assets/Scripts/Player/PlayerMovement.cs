@@ -53,7 +53,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.GameIsOver || !GameManager.GameIsRunning || !PlayerManager.IsAlive || GameManager.GameIsPaused) return;
+        if (GameManager.GameIsOver || !GameManager.GameIsRunning || !PlayerManager.IsAlive || GameManager.GameIsPaused)
+        {
+            movementAudioSource.Stop();
+            return;
+        }
         //Get keyboard inputs
         float keyboardInputHorizontal = Input.GetAxis("Horizontal");
         float keyboardInputVertical = Input.GetAxis("Vertical");

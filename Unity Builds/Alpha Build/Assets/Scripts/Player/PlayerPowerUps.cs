@@ -11,7 +11,7 @@ public class PlayerPowerUps : MonoBehaviour
 
     public static float _speedHackOffset = 2;
     public static int _fireFistOffset = 2;
-    public static int _fireBallMana = PlayerAttack.fireBallManaUse;
+    public static int _fireBallMana = PlayerAttack.FireBallManaUse;
 
     public static bool GodModeEnabled = false;
     public static bool InfiniteMana = false;
@@ -83,28 +83,28 @@ public class PlayerPowerUps : MonoBehaviour
 
     public static void IncreaseAttack()
     {
-        PlayerAttack._minFistDamage *= _fireFistOffset;
-        PlayerAttack._maxFistDamage *= _fireFistOffset;
-        PlayerAttack._fistCooldown /= 2;
-        PlayerAttack._fireballCooldown /= 2;
-        PlayerAttack._hasFireFist = true;
-        PlayerAttack.fireBallManaUse -= _fireBallMana;
+        PlayerAttack.MinFistDamage *= _fireFistOffset;
+        PlayerAttack.MaxFistDamage *= _fireFistOffset;
+        PlayerAttack.FistCooldown /= 2;
+        PlayerAttack.FireballCooldown /= 2;
+        PlayerAttack.HasFireFist = true;
+        PlayerAttack.FireBallManaUse -= _fireBallMana;
         PlayerBullet._minDamage *= 2;
         PlayerBullet._maxDamage *= 2;
-        PlayerAttack._bulletSpeed *= 2;
+        PlayerAttack.BulletSpeed *= 2;
     }
 
     public static void DecreaseAttack()
     {
-        PlayerAttack._hasFireFist = false;
-        PlayerAttack._fistCooldown *= 2;
-        PlayerAttack._minFistDamage /= _fireFistOffset;
-        PlayerAttack._maxFistDamage /= _fireFistOffset;
-        PlayerAttack._fireballCooldown *= 2;
-        PlayerAttack.fireBallManaUse += _fireBallMana;
+        PlayerAttack.HasFireFist = false;
+        PlayerAttack.FistCooldown *= 2;
+        PlayerAttack.MinFistDamage /= _fireFistOffset;
+        PlayerAttack.MaxFistDamage /= _fireFistOffset;
+        PlayerAttack.FireballCooldown *= 2;
+        PlayerAttack.FireBallManaUse += _fireBallMana;
         PlayerBullet._minDamage /= 2;
         PlayerBullet._maxDamage /= 2;
-        PlayerAttack._bulletSpeed /= 2;
+        PlayerAttack.BulletSpeed /= 2;
     }
 
 

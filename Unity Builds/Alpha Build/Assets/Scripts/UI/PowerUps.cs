@@ -29,7 +29,7 @@ public class PowerUps : MonoBehaviour
         else
             speedHack.GetComponent<Image>().color = new Color32(75, 75, 75, 250);
 
-        if (PlayerAttack._hasFireFist)
+        if (PlayerAttack.HasFireFist)
             fireFist.GetComponent<Image>().color = new Color32(255, 255, 225, 250);
         else
             fireFist.GetComponent<Image>().color = new Color32(75, 75, 75, 250);

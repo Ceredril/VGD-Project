@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -82,15 +81,15 @@ public class DialogueManager : MonoBehaviour
                 break;
             case 1:
                 PlayerManager.AddLives(1);
-                PlayerAttack._hasFist = true;
+                PlayerAttack.HasFist = true;
                 Debug.Log("Fist Unlocked");
                 break;
             case 2:
-                PlayerAttack._hasFireball = true;
+                PlayerAttack.HasFireball = true;
                 Debug.Log("FireBall Unlocked");
                 break;
             case 3:
-                PlayerAttack._hasShield = true;
+                PlayerAttack.HasShield = true;
                 Debug.Log("Shield Unlocked");
                 break;
         }

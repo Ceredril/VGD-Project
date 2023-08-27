@@ -8,41 +8,49 @@ public class PlayerAttack : MonoBehaviour
     
     public enum Skill {None,Fist,Fireball,Shield}
     //Object references
-    private Animator animator;
+    private Animator _animator;
     private Enemy _nearEnemy;
-    public static GameObject wand;
-    public static GameObject fireFist;
-    public static GameObject shield;
+    public static GameObject Wand;
+    public static GameObject FireFist;
+    public static GameObject Shield;
     [SerializeField] private Transform characterCamera;
     [SerializeField] private Rigidbody playerBullet;
     //Skill parameters
-    public static float _fistCooldown=2;
-    public static float _fireballCooldown =2;
+    public static  float FistCooldown=2;
+    public static  float FireballCooldown =2;
     private float _lastFistTime;
     private float _lastFireballTime;
-    public static int fireBallManaUse = 10;
-    public static float _bulletSpeed=1800;
+    public static int FireBallManaUse = 10;
+    public static float BulletSpeed=1800;
     //Skill variables
-    public static bool _hasFist = false;
-    public static bool _hasFireFist = false;
-    public static bool _hasFireball = false;
-    public static bool _hasShield = false;
-    public static Skill _currentSkill;
-    public static int _minFistDamage = 20, _maxFistDamage=30;
+    public static bool HasFist = false;
+    public static bool HasFireFist = false;
+    public static bool HasFireball = false;
+    public static bool HasShield = false;
+    public static Skill CurrentSkill;
+    public static int MinFistDamage = 20, MaxFistDamage=30;
 
 
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         characterCamera = GameObject.Find("Main Camera").transform;
-        wand = GameObject.Find("Wand");
-        fireFist = GameObject.Find("fireFist");
-        shield = GameObject.Find("Shield");
-        wand.SetActive(false);
-        fireFist.SetActive(false);
-        shield.SetActive(false);
-        _currentSkill = Skill.None;
+        Wand = GameObject.Find("Wand");
+        FireFist = GameObject.Find("fireFist");
+        Shield = GameObject.Find("Shield");
+        Wand.SetActive(false);
+        FireFist.SetActive(false);
+        Shield.SetActive(false);
+        CurrentSkill = Skill.None;
+        GameManager.OnGameStart+= LoadProgress;
+        GameManager.OnGameSave += SaveProgress;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStart-= LoadProgress;
+        GameManager.OnGameSave-= SaveProgress;
     }
 
     void Update()
@@ -56,30 +64,30 @@ public class PlayerAttack : MonoBehaviour
 
     private void SkillSelection()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && _hasFist)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && HasFist)
         {
-            wand.SetActive(false);
-            _currentSkill = Skill.Fist;
-            shield.SetActive(false);
+            Wand.SetActive(false);
+            CurrentSkill = Skill.Fist;
+            Shield.SetActive(false);
             Debug.Log("Melee attack selected");
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && _hasFireball )
+        if (Input.GetKeyDown(KeyCode.Alpha2) && HasFireball )
         {
-            fireFist.SetActive(false);
-            wand.SetActive(true);
-            shield.SetActive(false);
-            _currentSkill = Skill.Fireball;
+            FireFist.SetActive(false);
+            Wand.SetActive(true);
+            Shield.SetActive(false);
+            CurrentSkill = Skill.Fireball;
             Debug.Log("Ranged attack selected");
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Alpha3) && _hasShield && PlayerManager.CurrentMana >= PlayerManager.ShieldSManaUse)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && HasShield && PlayerManager.CurrentMana >= PlayerManager.ShieldSManaUse)
         {
-            fireFist.SetActive(false);
-            wand.SetActive(false);
-            shield.SetActive(true);
-            _currentSkill = Skill.Shield;
+            FireFist.SetActive(false);
+            Wand.SetActive(false);
+            Shield.SetActive(true);
+            CurrentSkill = Skill.Shield;
             Debug.Log("Shield attack selected");
         }
     }
@@ -88,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            switch (_currentSkill)
+            switch (CurrentSkill)
             {
                 case Skill.Fist:
                     Debug.Log("entratoooo");
@@ -98,7 +106,6 @@ public class PlayerAttack : MonoBehaviour
                     Fireball();
                     break;
                 case Skill.Shield:
-                    Shield();
                     break;
                 case Skill.None:
                     break;
@@ -108,14 +115,14 @@ public class PlayerAttack : MonoBehaviour
 
     private void Fist(Enemy enemy)
     {
-        if (Time.time - _lastFistTime >= _fistCooldown)
+        if (Time.time - _lastFistTime >= FistCooldown)
         {
             AudioSource audiosource = gameObject.AddComponent<AudioSource>();
             GameManager.audioManager.PlayLocal("meleeAttack", audiosource);
-            animator.SetTrigger("hook");
+            _animator.SetTrigger("hook");
             if (_nearEnemy != null)
             {
-                int damage = Random.Range(_minFistDamage, _maxFistDamage);
+                int damage = Random.Range(MinFistDamage, MaxFistDamage);
                 enemy.ReduceHealth(damage,enemy);
             }
             _lastFistTime = Time.time;
@@ -124,37 +131,60 @@ public class PlayerAttack : MonoBehaviour
 
     private void Fireball()
     {
-        if (Time.time - _lastFireballTime >= _fireballCooldown  &&  PlayerManager.CurrentMana >= fireBallManaUse)
+        if (Time.time - _lastFireballTime >= FireballCooldown  &&  PlayerManager.CurrentMana >= FireBallManaUse)
         {
-            animator.SetTrigger("magicAttack");
+            _animator.SetTrigger("magicAttack");
             StartCoroutine(WaitFire());
-            PlayerManager.AddMana(-fireBallManaUse);
+            PlayerManager.AddMana(-FireBallManaUse);
             _lastFireballTime = Time.time;        }
     }
 
-    private void Shield()
+    private void SaveProgress(GameManager.SaveType saveType)
     {
-        //TBD
-    }
-
-    private void SaveProgress()
-    {
-        PlayerPrefs.SetInt("HasMeleeAttack", Convert.ToInt32(_hasFist));
-        PlayerPrefs.SetInt("HasRangedAttack", Convert.ToInt32(_hasFireball));
-        PlayerPrefs.SetInt("HasShield", Convert.ToInt32(_hasShield));
-        PlayerPrefs.SetInt("CurrentAttack", (int)_currentSkill);
+        PlayerPrefs.SetInt("HasMeleeAttack", Convert.ToInt32(HasFist));
+        PlayerPrefs.SetInt("HasRangedAttack", Convert.ToInt32(HasFireball));
+        PlayerPrefs.SetInt("HasShield", Convert.ToInt32(HasShield));
+        PlayerPrefs.SetInt("CurrentAttack", (int)CurrentSkill);
         PlayerPrefs.Save();
     }
 
-    private void LoadProgress()
+    private void LoadProgress(GameManager.GameLevel level)
     {
         if (PlayerPrefs.GetInt("SaveExists") == 1)
         {
-            _hasFist = Convert.ToBoolean(PlayerPrefs.GetInt("HasMeleeAttack"));
-            _hasFireball = Convert.ToBoolean(PlayerPrefs.GetInt("hasRangedAttack"));
-            _hasShield = Convert.ToBoolean(PlayerPrefs.GetInt("HasShield"));
-            _currentSkill = (Skill)PlayerPrefs.GetInt("CurrentAttack");
-        }
+            HasFist = Convert.ToBoolean(PlayerPrefs.GetInt("HasMeleeAttack"));
+            HasFireball = Convert.ToBoolean(PlayerPrefs.GetInt("hasRangedAttack"));
+            HasShield = Convert.ToBoolean(PlayerPrefs.GetInt("HasShield"));
+            CurrentSkill = (Skill)PlayerPrefs.GetInt("CurrentAttack");
+        }else
+            switch (level)
+            {
+                case GameManager.GameLevel.FirstLevel:
+                    HasFist = false; 
+                    HasFireball = false;
+                    HasShield = false;
+                    CurrentSkill = Skill.None;
+                    break;
+                case GameManager.GameLevel.SecondLevel:
+                    HasFist = true;
+                    HasFireball = false;
+                    HasShield = false;
+                    CurrentSkill = Skill.Fist;
+                    break;
+                case GameManager.GameLevel.ThirdLevel:
+                    HasFist = true;
+                    HasFireball = true;
+                    HasShield = false;
+                    CurrentSkill = Skill.Fist;
+                    break;
+                case GameManager.GameLevel.BossFight:
+                    HasFist = true;
+                    HasFireball = true;
+                    HasShield = true;
+                    CurrentSkill = Skill.Fist;
+                    break;
+                
+            }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -169,18 +199,18 @@ public class PlayerAttack : MonoBehaviour
 
     private void FireFistEffect()
     {
-        if (_currentSkill == Skill.Fist && _hasFireFist)
-            fireFist.SetActive(true);
+        if (CurrentSkill == Skill.Fist && HasFireFist)
+            FireFist.SetActive(true);
         else
-            fireFist.SetActive(false);
+            FireFist.SetActive(false);
     }
 
     private void ShieldEffect()
     {
-        if (_currentSkill == Skill.Shield && PlayerManager.CurrentMana >= PlayerManager.ShieldSManaUse)
-            shield.SetActive(true);
+        if (CurrentSkill == Skill.Shield && PlayerManager.CurrentMana >= PlayerManager.ShieldSManaUse)
+            Shield.SetActive(true);
         else
-            shield.SetActive(false);
+            Shield.SetActive(false);
     }
 
     private IEnumerator WaitFire()
@@ -190,6 +220,6 @@ public class PlayerAttack : MonoBehaviour
         Rigidbody bulletClone = Instantiate(playerBullet, thisTransform.position + new Vector3(0, 2f, 0) + Vector3.forward,
             thisTransform.rotation);
         Vector3 bulletDirection = characterCamera.forward;
-        bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
+        bulletClone.AddForce(bulletDirection.normalized * BulletSpeed);
     }
 }

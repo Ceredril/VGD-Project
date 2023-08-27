@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         {
             IsAlive = false;
             animator.SetTrigger("death");
-            PlayerAttack.shield.SetActive(false);
+            PlayerAttack.Shield.SetActive(false);
             if (CurrentLives > 0) GameManager.PlayerDeath();
             else if (CurrentLives < 1) GameManager.GameOver();
         }
@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
         if (healthEffect.activeInHierarchy || manaEffect.activeInHierarchy) //mana and health collectible effect duration
             StartCoroutine(Wait());
 
-        if(PlayerAttack._currentSkill == PlayerAttack.Skill.Shield && !PlayerPowerUps.InfiniteMana) 
+        if(PlayerAttack.CurrentSkill == PlayerAttack.Skill.Shield && !PlayerPowerUps.InfiniteMana) 
             CurrentMana -= ShieldSManaUse * Time.deltaTime;
     }
 
@@ -81,7 +81,7 @@ public class PlayerManager : MonoBehaviour
     //Spawn Functions
     private void Spawn()
     {
-        PlayerAttack._currentSkill = PlayerAttack.Skill.Fist;
+        PlayerAttack.CurrentSkill = PlayerAttack.Skill.Fist;
         animator.Play("Walking Tree");
         GameObject.Find("Player Body").transform.position = SpawnPoint.transform.position;
         Physics.SyncTransforms();
@@ -107,7 +107,7 @@ public class PlayerManager : MonoBehaviour
     public static void AddHealth(int amount)
     {
         if (PlayerPowerUps.GodModeEnabled && amount < 0) return;
-        if (PlayerAttack._currentSkill == PlayerAttack.Skill.Shield && amount < 0) { 
+        if (PlayerAttack.CurrentSkill == PlayerAttack.Skill.Shield && amount < 0) { 
             float newAmount = amount - (amount * 0.6f);
             CurrentHealth += (int)newAmount;
         }
@@ -116,7 +116,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Health set to " + CurrentHealth);
     }
 
-    public static void AddMana(int amount)
+    public static void AddMana(float amount)
     {
         if (PlayerPowerUps.InfiniteMana && amount < 0) return;
         if (CurrentMana + amount > MaxMana) CurrentMana = MaxMana;
@@ -193,8 +193,8 @@ public class PlayerManager : MonoBehaviour
             IsAlive = true;
             CurrentLives = PlayerPrefs.GetInt("Lives");
             CurrentHealth = PlayerPrefs.GetInt("Health");
-            CurrentMana = PlayerPrefs.GetInt("Mana");
-            CurrentStamina = PlayerPrefs.GetInt("Stamina");
+            CurrentMana = PlayerPrefs.GetFloat("Mana");
+            CurrentStamina = PlayerPrefs.GetFloat("Stamina");
             if (saveType == GameManager.SaveType.User) SpawnPoint = LoadPosition();
             else if(saveType==GameManager.SaveType.Checkpoint)SpawnPoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;
             LastCheckpoint = GameObject.Find(PlayerPrefs.GetString("LastCheckpoint")).transform;

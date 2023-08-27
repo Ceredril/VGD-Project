@@ -7,19 +7,10 @@ public class Live : MonoBehaviour
 
     [SerializeField] public Image[] hearts;
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
         UpdateLive();
-
     }
 
     public void UpdateLive()
@@ -30,7 +21,6 @@ public class Live : MonoBehaviour
         {
             if (i >= lives)
                 hearts[i].color = Color.black;
-
         }
 
 

@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     public static GameObject healthEffect;
     public static GameObject manaEffect;
     //Stats parameters
-    public static readonly int MaxLives = 5;
+    public static readonly int MaxLives = 3;
     public static readonly int MaxHealth = 100;
     public static readonly int MaxMana = 100;
     public static readonly float MaxStamina = 100;

@@ -159,7 +159,6 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-            Debug.Log("Loading " + level + "weapons");
             switch (level)
             {
                 case GameManager.GameLevel.FirstLevel:

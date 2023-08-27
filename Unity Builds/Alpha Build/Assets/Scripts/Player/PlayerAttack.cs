@@ -34,6 +34,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.OnGameStart += LoadProgress;
+        GameManager.OnGameSave += SaveProgress;
         _animator = GetComponent<Animator>();
         characterCamera = GameObject.Find("Main Camera").transform;
         Wand = GameObject.Find("Wand");
@@ -43,8 +45,6 @@ public class PlayerAttack : MonoBehaviour
         FireFist.SetActive(false);
         Shield.SetActive(false);
         CurrentSkill = Skill.None;
-        GameManager.OnGameStart+= LoadProgress;
-        GameManager.OnGameSave += SaveProgress;
     }
 
     private void OnDestroy()
@@ -99,7 +99,6 @@ public class PlayerAttack : MonoBehaviour
             switch (CurrentSkill)
             {
                 case Skill.Fist:
-                    Debug.Log("entratoooo");
                     Fist(_nearEnemy);
                     break;
                 case Skill.Fireball:
@@ -152,39 +151,47 @@ public class PlayerAttack : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("SaveExists") == 1)
         {
+            Debug.Log("Loading saved weapons");
             HasFist = Convert.ToBoolean(PlayerPrefs.GetInt("HasMeleeAttack"));
             HasFireball = Convert.ToBoolean(PlayerPrefs.GetInt("hasRangedAttack"));
             HasShield = Convert.ToBoolean(PlayerPrefs.GetInt("HasShield"));
             CurrentSkill = (Skill)PlayerPrefs.GetInt("CurrentAttack");
-        }else
+        }
+        else
+        {
+            Debug.Log("Loading " + level + "weapons");
             switch (level)
             {
                 case GameManager.GameLevel.FirstLevel:
-                    HasFist = false; 
+                    Debug.Log("Loading first level weapons");
+                    HasFist = false;
                     HasFireball = false;
                     HasShield = false;
                     CurrentSkill = Skill.None;
                     break;
                 case GameManager.GameLevel.SecondLevel:
+                    Debug.Log("Loading second level weapons");
                     HasFist = true;
                     HasFireball = false;
                     HasShield = false;
                     CurrentSkill = Skill.Fist;
                     break;
                 case GameManager.GameLevel.ThirdLevel:
+                    Debug.Log("Loading third level weapons");
                     HasFist = true;
                     HasFireball = true;
                     HasShield = false;
                     CurrentSkill = Skill.Fist;
                     break;
                 case GameManager.GameLevel.BossFight:
+                    Debug.Log("Loading boss level weapons");
                     HasFist = true;
                     HasFireball = true;
                     HasShield = true;
                     CurrentSkill = Skill.Fist;
                     break;
-                
             }
+        }
     }
 
     private void OnTriggerEnter(Collider other)

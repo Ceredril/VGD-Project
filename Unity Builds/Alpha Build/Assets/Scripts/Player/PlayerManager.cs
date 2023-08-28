@@ -81,7 +81,7 @@ public class PlayerManager : MonoBehaviour
     //Spawn Functions
     private void Spawn()
     {
-        PlayerAttack.CurrentSkill = PlayerAttack.Skill.Fist;
+        PlayerAttack.CurrentSkill = PlayerAttack.Skill.None;
         animator.Play("Walking Tree");
         GameObject.Find("Player Body").transform.position = SpawnPoint.transform.position;
         Physics.SyncTransforms();

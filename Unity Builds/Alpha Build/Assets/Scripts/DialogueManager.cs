@@ -78,6 +78,7 @@ public class DialogueManager : MonoBehaviour
         switch (_drop)
         {
             case 0:
+                Debug.Log("No weapon unlocked");
                 break;
             case 1:
                 PlayerAttack.HasFist = true;

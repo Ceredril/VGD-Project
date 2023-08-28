@@ -153,7 +153,7 @@ public class PlayerAttack : MonoBehaviour
         {
             Debug.Log("Loading saved weapons");
             HasFist = Convert.ToBoolean(PlayerPrefs.GetInt("HasMeleeAttack"));
-            HasFireball = Convert.ToBoolean(PlayerPrefs.GetInt("hasRangedAttack"));
+            HasFireball = Convert.ToBoolean(PlayerPrefs.GetInt("HasRangedAttack"));
             HasShield = Convert.ToBoolean(PlayerPrefs.GetInt("HasShield"));
             CurrentSkill = (Skill)PlayerPrefs.GetInt("CurrentAttack");
         }

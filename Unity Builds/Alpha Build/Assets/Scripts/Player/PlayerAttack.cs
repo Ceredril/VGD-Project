@@ -189,7 +189,15 @@ public class PlayerAttack : MonoBehaviour
                     HasShield = true;
                     CurrentSkill = Skill.Fist;
                     break;
+                default:
+                    Debug.Log("Error. Loading first level weapons");
+                    HasFist = false;
+                    HasFireball = false;
+                    HasShield = false;
+                    CurrentSkill = Skill.None;
+                    break;
             }
+            SaveProgress(GameManager.SaveType.User);
         }
     }
 

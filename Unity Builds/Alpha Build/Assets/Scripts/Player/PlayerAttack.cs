@@ -45,6 +45,13 @@ public class PlayerAttack : MonoBehaviour
         FireFist.SetActive(false);
         Shield.SetActive(false);
         CurrentSkill = Skill.None;
+        
+        FistCooldown=2;
+        FireballCooldown =2;
+        FireBallManaUse = 10; 
+        BulletSpeed=1800;
+        MinFistDamage = 20;
+        MaxFistDamage=30;
     }
 
     private void OnDestroy()

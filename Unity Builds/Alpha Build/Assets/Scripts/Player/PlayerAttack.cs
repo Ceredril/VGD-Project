@@ -52,6 +52,11 @@ public class PlayerAttack : MonoBehaviour
         BulletSpeed=1800;
         MinFistDamage = 20;
         MaxFistDamage=30;
+        HasFireFist = false;
+        PlayerPowerUps.GodModeEnabled = false;
+        PlayerPowerUps.InfiniteMana = false;
+        PlayerBullet._minDamage = 30;
+        PlayerBullet._maxDamage = 40;
     }
 
     private void OnDestroy()

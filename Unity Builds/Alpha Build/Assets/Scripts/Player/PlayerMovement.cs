@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         characterCamera = GameObject.Find("Main Camera").transform;
         movementAudioSource = gameObject.AddComponent<AudioSource>();
+        normalMode = true;
         walkingSpeed = 2f;
         sprintSpeed = 4f;
         StaminaUseMultiplier = 4;

@@ -1,0 +1,4 @@
+Music with ecrett music?
+
+We might need to set up a naming scheme for variables (when to use _, camelCase etc)
+https://en.wikipedia.org/wiki/Naming_convention_(programming)

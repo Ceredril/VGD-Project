@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     
     //GAME EVENTS
     public static event Action<GameLevel> OnGameStart;
-    public static event Action OnGameOver,OnGameEnd,OnGamePause,OnGameResume;
+    public static event Action OnGameOver,OnGameEnd,OnGameWon,OnGamePause,OnGameResume;
     public static event Action<SaveType> OnGameSave;
     public static event Action OnPlayerDeath;
     public static event Action<GameObject> OnInteraction;
@@ -170,4 +170,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    internal static void GameWon()
+    {
+        GameIsPaused = true;
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        cameraBrain.enabled = false;
+        Debug.Log("Game is won");
+        OnGameWon?.Invoke();
+    }
 }

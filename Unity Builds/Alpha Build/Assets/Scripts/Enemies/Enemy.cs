@@ -162,6 +162,10 @@ public class Enemy : MonoBehaviour
                     getItem.DropItem();
                     Debug.Log("Dropped an Item " + getItem);
                 }
+                if(enemy.enemyType==EnemyType.Boss)
+                {
+                    GameManager.GameWon();
+                }
             }
         }
     }

@@ -17,10 +17,18 @@ public class PlayerPowerUps : MonoBehaviour
     public static bool InfiniteMana = false;
 
 
+
     private IEnumerator Wait(float time)
     {
         yield return new WaitForSeconds(time);
     }
+
+    public void Update()
+    {
+        if (GameManager.cheat)
+            StopAllCoroutines();
+    }
+
     private void GodMode()
     {
         GodModeEnabled = true;

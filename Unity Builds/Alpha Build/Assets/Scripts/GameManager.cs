@@ -155,10 +155,11 @@ public class GameManager : MonoBehaviour
         if (check)
         {
             cheat = true;
+            if (PlayerMovement.normalMode) PlayerPowerUps.IncreaseSPeed();
+            if (!PlayerAttack.HasFireFist) PlayerPowerUps.IncreaseAttack();
             PlayerPowerUps.GodModeEnabled = true;
             PlayerPowerUps.InfiniteMana = true;
-            PlayerPowerUps.IncreaseSPeed();
-            PlayerPowerUps.IncreaseAttack();
+
         }
         else
         {

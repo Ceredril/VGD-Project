@@ -131,6 +131,7 @@ public class PlayerAttack : MonoBehaviour
             AudioSource audiosource = gameObject.AddComponent<AudioSource>();
             GameManager.audioManager.PlayLocal("meleeAttack", audiosource);
             _animator.SetTrigger("hook");
+            Debug.Log("Fist damage = " + MinFistDamage + " " + MaxFistDamage);
             if (_nearEnemy != null)
             {
                 int damage = Random.Range(MinFistDamage, MaxFistDamage);
@@ -145,6 +146,7 @@ public class PlayerAttack : MonoBehaviour
         if (Time.time - _lastFireballTime >= FireballCooldown  &&  PlayerManager.CurrentMana >= FireBallManaUse)
         {
             _animator.SetTrigger("magicAttack");
+            Debug.Log("Fireball damage = " + " " + PlayerBullet._minDamage + PlayerBullet._maxDamage);
             StartCoroutine(WaitFire());
             PlayerManager.AddMana(-FireBallManaUse);
             _lastFireballTime = Time.time;        }

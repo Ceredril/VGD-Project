@@ -1912,8 +1912,8 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: FirstLevelTheme
     type: 0
-    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
-    volume: 0.1
+    clip: {fileID: 8300000, guid: 33d46706085d0cc47abb42dc57042dc1, type: 3}
+    volume: 0.15
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -1922,22 +1922,22 @@ MonoBehaviour:
     source: {fileID: 446604030}
   - name: BossTheme
     type: 0
-    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
-    volume: 0.1
+    clip: {fileID: 8300000, guid: 40cb38f171b2cfc499944ba1beb36062, type: 3}
+    volume: 0.4
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 446604030}
-  - name: BossPhaseTwoTheme
+  - name: GameWonTheme
     type: 0
-    clip: {fileID: 8300000, guid: b0400e84bb0b8c2429a6c52ad2ad88e2, type: 3}
+    clip: {fileID: 8300000, guid: f4c9d5c78959ec24ca017cf0edce6a42, type: 3}
     volume: 0.1
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
-    loop: 1
+    loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 446604030}
   - name: Checkpoint

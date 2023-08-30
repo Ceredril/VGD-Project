@@ -178,6 +178,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         cameraBrain.enabled = false;
         Debug.Log("Game is won");
+        audioManager.Play("GameWonTheme");
         OnGameWon?.Invoke();
     }
 }

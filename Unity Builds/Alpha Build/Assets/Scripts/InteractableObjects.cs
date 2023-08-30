@@ -104,8 +104,7 @@ public class InteractableObjects : MonoBehaviour
     }
     private void LoadProgress(GameManager.GameLevel level)
     {
-        if (PlayerPrefs.GetInt("SaveExists") == 1) drop = PlayerPrefs.GetInt(dialogue.name);
-        else if (level > interactableLevel)
+        if (level > interactableLevel)
         {
             drop = 0;
             SaveProgress(0);

@@ -11,12 +11,11 @@ public class Objective : MonoBehaviour
     [SerializeField] private GameManager.GameLevel objectiveLevel;
     public ObjectiveType objectiveType;
     public Transform connectedCheckpoint;
-    [HideInInspector]
     public string objectiveName;
 
     public void Awake()
     {
-        switch (objectiveType)
+        /*switch (objectiveType)
         {
             case ObjectiveType.Interacting:
                 objectiveName = "Interact with " + gameObject.name;
@@ -27,7 +26,7 @@ public class Objective : MonoBehaviour
             case ObjectiveType.Collecting:
                 objectiveName = "Collect " + gameObject.name;
                 break;
-        }
+        }*/
         
         GameManager.OnGameStart += LoadProgress;
         GameManager.OnGameSave += SaveProgress;

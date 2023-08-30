@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
 
     private Vector3 _walkPoint;
     private bool _walkPointSet;
+
+    private bool once=true;
     
 
     private void OnDestroy()
@@ -95,6 +97,11 @@ public class Enemy : MonoBehaviour
 
     void ChasePlayer()
     {
+        if (once && enemyType==EnemyType.Boss)
+        {
+            once = false;
+            GameManager.audioManager.Play("BossTheme");
+        }
         _agent.SetDestination(_player.position);
     }
 

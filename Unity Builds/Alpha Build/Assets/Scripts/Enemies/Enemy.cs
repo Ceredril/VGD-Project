@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -28,44 +29,45 @@ public class Enemy : MonoBehaviour
     private float _attackCooldown;
     private readonly float _bulletSpeed=1200f;
     private float _lastAttackTime;
+    private bool _lastAlive;
     public bool bossSecondPhase;
 
     private Vector3 _walkPoint;
     private bool _walkPointSet;
-
-    private bool once=true;
+    
     
 
-    private void OnDestroy()
-    {
-        EnemyManager.Instance.UnregisterEnemy(this);
-    }
+    private bool once=true;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
+        GameManager.OnGameStart += LoadEnemies;
+        GameManager.OnGameSave += SaveEnemies;
         SetStats();
-    }
-
-    private void Start()
-    {
         _agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         healthBar = GetComponentInChildren<EnemyHealthBar>();
         miniMapIcon = GetComponentInChildren<SpriteRenderer>();
         _player = GameObject.Find("Player Body").transform;
-        //_agent.SetDestination(_player.position);
         _groundLayer = LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.GetMask("Player");
         getItem = GetComponent<ItemDrop>();
-        EnemyManager.Instance.RegisterEnemy(this);
     }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStart -= LoadEnemies;
+        GameManager.OnGameSave -= SaveEnemies;
+    }
+
+
 
     // Update is called once per frame
     void Update()
     {
         if(isAlive)
         {
+            if (currentHealth <= 0) Death();
             Vector3 v = _agent.velocity;
             animator.SetFloat("hInput", v.x);
             animator.SetFloat("vInput", v.y);
@@ -76,7 +78,6 @@ public class Enemy : MonoBehaviour
             else if (enemyType!=EnemyType.Boss)Patrolling();
             Vector3 distanceToWalkPoint = transform.position - _walkPoint;
             if (distanceToWalkPoint.magnitude < 3.5f) _walkPointSet = false;
-            
         }
     }
     
@@ -135,15 +136,38 @@ public class Enemy : MonoBehaviour
         GameManager.audioManager.Play("meleeAttack", audiosource);
     }
 
-    private void rangedAttack()
+    private IEnumerator WaitFire()
     {
+        yield return new WaitForSeconds(1.25f);
         Transform thisTransform = transform;
-        Rigidbody bulletClone = Instantiate(enemyBullet, thisTransform.position + new Vector3(0, 1f, 0), thisTransform.rotation); 
+        Rigidbody bulletClone = Instantiate(enemyBullet, thisTransform.position + new Vector3(0, 1f, 0), thisTransform.rotation);
         Vector3 bulletDirection = _player.position - transform.position;
         bulletClone.AddForce(bulletDirection.normalized * _bulletSpeed);
-        _lastAttackTime = Time.time;
+    }
+    private void rangedAttack()
+    {
+        animator.SetTrigger("swip");
+        StartCoroutine(WaitFire());
         AudioSource audiosource2 = gameObject.AddComponent<AudioSource>(); // should be fixed now
         GameManager.audioManager.Play("rangeAttack", audiosource2); // should be fixed now
+        _lastAttackTime = Time.time;
+    }
+
+    private void Death()
+    {
+        isAlive = false;
+        animator.SetTrigger("death");
+        miniMapIcon.enabled = false;
+        GameManager.EnemyKilled(gameObject);
+        if (getItem != null)
+        {
+            getItem.DropItem();
+            Debug.Log("Dropped an Item " + getItem);
+        }
+        if(enemyType==EnemyType.Boss)
+        {
+            GameManager.GameWon();
+        }
     }
 
     public void ReduceHealth(int amount, Enemy enemy)
@@ -152,27 +176,11 @@ public class Enemy : MonoBehaviour
         {
             currentHealth -= amount;
             healthBar.UpdateHealthBar(); //- Disabled, it fucks things up after killing the first enemy
-            if (enemy.enemyType == EnemyType.Boss && enemy.currentHealth < enemy.maxHealth / 2)
+            if (enemyType == EnemyType.Boss && currentHealth < maxHealth / 2)
             {
-                enemy.bossSecondPhase = true;
-                enemy._agent.speed = 3;
-                enemy._attackCooldown = 1.5f;
-            }
-            if (currentHealth < 0)
-            {
-                isAlive = false;
-                GameManager.EnemyKilled(gameObject);
-                animator.SetTrigger("death");
-                miniMapIcon.enabled = false;
-                if (getItem != null)
-                {
-                    getItem.DropItem();
-                    Debug.Log("Dropped an Item " + getItem);
-                }
-                if(enemy.enemyType==EnemyType.Boss)
-                {
-                    GameManager.GameWon();
-                }
+                bossSecondPhase = true;
+                _agent.speed = 3;
+                _attackCooldown = 1.5f;
             }
         }
     }
@@ -203,12 +211,61 @@ public class Enemy : MonoBehaviour
                 currentHealth=maxHealth = 120;
                 break;
             case EnemyType.Boss:
-                _sightRange = 18f;
+                _sightRange = 24f;
                 _walkPointRange = 12f;
-                _attackRange = 12f;
+                _attackRange = 14f;
                 _attackCooldown = 3f;
                 currentHealth=maxHealth = 400;
                 break;
+        }
+    }
+    private void SaveEnemies(GameManager.SaveType saveType)
+    {
+        PlayerPrefs.SetInt(name + "_currentHealth", currentHealth);
+        PlayerPrefs.SetInt(name + "_isAlive", isAlive ? 1 : 0);
+        if(enemyType==EnemyType.Boss)PlayerPrefs.SetInt(name + "bossSecondPhase", bossSecondPhase ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+    
+    private void LoadEnemies(GameManager.GameLevel level)
+    {
+        if (PlayerPrefs.GetInt("SaveExists") == 1)
+        {
+            Debug.Log("Loading saved enemies");
+            currentHealth = PlayerPrefs.GetInt(name + "_currentHealth");
+            isAlive = PlayerPrefs.GetInt(name + "_isAlive") == 1; 
+            if (enemyType == EnemyType.Boss)bossSecondPhase = PlayerPrefs.GetInt(name + "bossSecondPhase") == 1;
+            if (!isAlive) 
+            { 
+                animator.SetTrigger("death"); 
+                miniMapIcon.enabled = false;
+            }
+            else 
+            { 
+                animator.SetTrigger("alive"); 
+                miniMapIcon.enabled = true;
+            }
+        }
+        else
+        {
+            Debug.Log("Loading new enemies");
+            if (enemyLevel >= level) 
+            { 
+                currentHealth = maxHealth; 
+                isAlive = true; 
+                animator.Play("Walking tree");
+                animator.SetTrigger("alive"); 
+                miniMapIcon.enabled = true; 
+                if (enemyType == EnemyType.Boss) bossSecondPhase = false;
+            }
+            else 
+            { 
+                animator.SetTrigger("death"); 
+                miniMapIcon.enabled = false; 
+                currentHealth = 0; 
+                isAlive = false; 
+                if (enemyType == EnemyType.Boss) bossSecondPhase = false;
+            }
         }
     }
 }
